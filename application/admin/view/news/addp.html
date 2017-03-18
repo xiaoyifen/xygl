@@ -1,0 +1,42 @@
+{layout name="layout" /}
+<form role="form" method="post" action="{:url('news/add')}" enctype="multipart/form-data">
+  <ul>
+    <li>
+      <label>类别<b>*</b>：</label>
+      <select class="form-control" name="categoryid" style="width:318px;">
+        <option value="1">新闻</option>
+        <option value="2">招聘</option>
+        <option value="3">资料</option>
+      </select>
+    </li>
+    <li>
+      <label>标题<b>*</b>：</label>
+      <input name="title" type="text"  class="form-control" value=""  style="width:318px;"/>
+    </li>
+    <li>
+      <label>内容：<b></b></label>
+      <textarea name="content" class="form-control"  value="" style="height:100px; width:318px"></textarea>
+    </li>
+    
+    <li>
+      <label>图片：<b></b></label>
+      <input type="file" name="image">
+    </li>
+    <li>
+      <label>选择文件：<b></b></label>
+      <input type="file" name="file">
+    </li>
+    <li style="display:none">
+      <label>发布时间<b>*</b></label>
+      <input name="createtime" type="text" value=""  style="width:118px;"/>
+    </li>
+    <li style="display:none">
+      <label>修改时间<b>*</b></label>
+      <input name="updatetime" type="text" value=""  style="width:118px;"/>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <input name="submit" type="submit" class="btn" value="添加"/>
+    </li>
+  </ul>
+</form>

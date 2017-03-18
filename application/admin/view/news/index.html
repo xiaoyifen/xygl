@@ -1,0 +1,40 @@
+{layout name="layout" /}
+<div class="container">
+    <table>
+        <thead>
+          <tr>
+            <th width="40px">序号</th>
+            <th width="140px">标题</th>
+            <th width="80px">发布时间</th>
+            <th width="80px">修改时间</th>
+            <th width="80px">点击数</th>
+            <th width="200px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        {if !empty($items)}
+        {foreach $items as $k=>$t}
+          <tr>
+            <td>{$t['id']}</td>
+            <td>{$t['title']}</td>
+            {if $t['createtime']}
+            <td>{$t['createtime']|date="Y-m-d",###}</td>
+            {else}
+            <td></td>
+            {/if}
+            {if $t['updatetime']}
+            <td>{$t['updatetime']|date="Y-m-d",###}</td>
+            {else}
+            <td></td>
+            {/if}
+            <td>{$t['hits']}</td>
+            <td><a href="{:url('news/show')}?id={$t['id']}">查看/修改</a><a href="{:url('news/top')}?id={$t['id']}">置顶</a><a href="{:url('news/del')}?id={$t['id']}">删除</a></td>
+          </tr>
+        {/foreach}
+        {/if}
+        </tbody>
+    </table>
+    {if !empty($items)}
+    <div>{$items->render()}</div>
+    {/if}
+</div>
