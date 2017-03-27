@@ -1,0 +1,46 @@
+{layout name="layout" /}
+{if empty($info)}
+<form role="form" method="post" action="{:url('donation/add')}" enctype="multipart/form-data">
+  <ul>
+    <li>
+      <label>捐赠人姓名<b>*</b>：</label>
+      <input name="donorname" type="text"  class="form-control" value=""  style="width:318px;"/>
+    </li>
+    <li>
+      <label>捐赠项目<b>*</b>：</label>
+      <input name="topic" type="text"  class="form-control" value=""  style="width:318px;"/>
+    </li>
+    <li>
+      <label>捐赠实物或金额<b>*</b>：</label>
+      <input name="money" type="text"  class="form-control" value=""  style="width:318px;"/>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <input name="submit" type="submit" class="btn" value="添加" />
+    </li>
+  </ul>
+</form>
+{else}
+<?php extract($info); ?>
+<form role="form" method="post" action="{:url('donation/show',['id'=>$id])}" enctype="multipart/form-data">
+  <input type="hidden" name="id" value="{$id}">
+  <ul>
+    <li>
+      <label>捐赠人姓名<b>*</b>：</label>
+      <input name="donorname" type="text"  class="form-control" value="{$donorname}"  style="width:318px;"/>
+    </li>
+    <li>
+      <label>捐赠项目<b>*</b>：</label>
+      <input name="topic" type="text"  class="form-control" value="{$topic}"  style="width:318px;"/>
+    </li>
+    <li>
+      <label>捐赠实物或金额<b>*</b>：</label>
+      <input name="money" type="text"  class="form-control" value="{$money}"  style="width:318px;"/>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <input name="submit" type="submit" class="btn" value="添加" />
+    </li>
+  </ul>
+</form>
+{/if}

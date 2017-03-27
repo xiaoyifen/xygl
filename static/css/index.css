@@ -1,0 +1,91 @@
+.header{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+.log{
+	margin-right: 40px;
+}
+.image{
+	width:100%;
+	height: 280px;
+	background-color: rgb(4,77,34);
+}
+.navbar{
+	margin-bottom: 0px;
+}
+.container .row{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.bright{
+	font-family:serif;
+}
+body{
+	background-color: #ebebeb;
+}
+.orange1{
+	background-color:white;
+	border-radius: 10px;
+	border: 1px outset green;
+}
+.btm {
+	background-image: url(../image/image12.jpg);
+}
+.btm1{
+	background-image: ;
+}
+a:link,a:visited,a:hover,a:active { 
+color:#000000; 
+text-decoration:none; 
+} 
+p {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.nav1{
+	font-size: 24px;
+	font-family: monospace;
+	font-weight: bold;
+
+}
+
+.active{
+	color: black;
+}
+.nav2{
+	font-size: 18px;
+}
+
+
+*{
+	margin:0;padding:0;
+	-webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+	-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+	-webkit-tap-highlight-color: rgba(210,210,210,0.35); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+	-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+}
+body{font-family:"微软雅黑";font-size:12px;}
+	ul,li{list-style:none;}
+	.ylcon{width:100%;min-width:320px;}
+	.tit{height:26px;line-height:26px;padding:0px 15px;position:relative;font-size:15px;color:#aaa;border-bottom:1px solid rgba(0, 0, 0, 0.15);}
+
+	.story{border-bottom:1px dashed #cecece;padding:0 15px 3px;position:relative;}
+	.story_t{font-size:1.2em;color:rgba(0,0,0,1);padding-top:5px;padding-bottom:2px;}
+	.story_m{color:rgba(110,110,110,1);line-height:21px;word-break:break-all;word-wrap:break-word;overflow:hidden;font-size:1.2em;padding:2px 0;}
+	.story_time{color:rgba(154,154,154,1);padding:2px 0;}
+	.story_hf{background:rgb(245,245,245);font-size:1.2em;border:1px solid rgba(204,204,204,0.2);border-radius:2px;color:rgba(110,110,110,1);padding:4px;margin-bottom:5px;}
+	.opbtn{position:absolute;top: 0;right: 0;}
+
+.img-size{
+	width: 350px;
+	min-height: 235px;
+	max-height: 235px;
+}
+.img-size-top{
+	width: 100%;
+	min-height: 387px;
+	max-height: 387px;
+}

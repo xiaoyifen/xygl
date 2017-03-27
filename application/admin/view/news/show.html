@@ -1,0 +1,202 @@
+{layout name="layout" /}
+
+<script type="text/javascript">
+$(document).ready(function() {
+  // 初始化文本编辑器
+  $('#editor').summernote({                    
+    minHeight: 300,             
+    maxHeight: 500, 
+    width: 1000,       
+    focus: true,   
+    lang:'zh-CN',
+    // 字体
+    fontNames: [
+      '宋体','楷体','Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
+      'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
+      'Tahoma', 'Times New Roman', 'Verdana'
+    ],
+    //工具栏
+    toolbar: [
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
+      ['insert', ['link', 'picture']],
+      ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+      ['view', ['codeview', 'help']]
+    ],
+    // 重写图片上传
+    callbacks:{  
+      onImageUpload: function(files, editor, $editable) {  
+        sendFile(files,editor,$editable);  
+      }  
+    }
+  });
+
+  // 图片上传
+  function sendFile(files,editor,$editable){
+    var formData = new FormData();
+    for(f in files){
+      formData.append("image", files[f]);
+    }
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('news/upload_img')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#editor').summernote('editor.insertImage','__STATIC__/uploads/' + data.imagepath);
+      },
+      error: function() {
+        alert("上传文件失败！");
+      }
+    });
+  }
+
+  // 文件上传及文件信息显示
+  $('#file').on('change', function(e){
+	var name = e.currentTarget.files[0].name;
+	$('#file1').val( name );
+	var formData = new FormData();
+    formData.append("file", $('#file')[0].files[0]); 
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('news/upload_file')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#file2').val( data.filepath );
+      },
+      error: function() {
+        alert("上传文件失败！");
+      }
+    });
+  });
+
+  // 图片上传及图片信息显示
+  $('#image').on('change', function(e){
+	var name = e.currentTarget.files[0].name;
+	$('#image1').val( name );
+	var formData = new FormData();
+    formData.append("image", $('#image')[0].files[0]);
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('news/upload_img')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#image2').val( data.imagepath );
+      },
+      error: function() {
+        alert("上传图片失败！");
+      }
+    });
+  });
+
+});
+</script>
+{if empty($info)}
+<form role="form" method="post" action="{:url('news/add')}" enctype="multipart/form-data">
+  <ul>
+    <li>
+      <label>类别<b>*</b>：</label>
+      <select class="form-control" name="categoryid" style="width:318px;">
+        <option value="1">新闻</option>
+        <option value="2">招聘</option>
+        <option value="3">资料</option>
+      </select>
+    </li>
+    <li>
+      <label>标题<b>*</b>：</label>
+      <input name="title" type="text"  class="form-control" value=""  style="width:318px;"/>
+    </li>
+    <li>
+      <label>作者<b></b>：</label>
+      <input name="author" type="text"  class="form-control" value=""  style="width:318px;"/>
+    </li>
+    <li>
+      <label>摘要：<b></b></label>
+      <textarea name="abstract" class="form-control"  value="" style="height:100px; width:318px"></textarea>
+    </li>
+    <li>
+      <label>内容：<b></b></label>
+      <textarea name="content" id="editor" class="form-control"  value="" style="height:100px; width:318px"></textarea>
+    </li>
+    <li>
+      <label>图片：<b></b></label>
+      <input type="file" name="image" style="position:absolute;clip:rect(0 0 0 0);" id="image" accept="image/*">
+      <input name="imagename" type="text" id="image1" class="form-control" value="" style="width:318px;" readonly />
+      <input name="imagepath" type="hidden" id="image2" class="form-control" value="" style="width:318px;" readonly />
+      <label for="image" class="btn btn-primary">浏览</label>
+    </li>
+    <li>
+      <label>选择文件：<b></b></label>
+      <input type="file" name="file" style="position:absolute;clip:rect(0 0 0 0);" id="file">
+      <input name="filename" type="text" id="file1" class="form-control" value="" style="width:318px;" readonly />
+      <input name="filepath" type="hidden" id="file2" class="form-control" value="" style="width:318px;" readonly />
+      <label for="file" class="btn btn-primary">浏览</label>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <input name="submit" type="submit" class="btn" value="添加" />
+    </li>
+  </ul>
+</form>
+{else}
+<?php extract($info); ?>
+<form role="form" method="post" action="{:url('news/show',['id'=>$id])}" enctype="multipart/form-data">
+  <input type="hidden" name="id" value="{$id}">
+  <ul>
+    <li>
+      <label>类别<b>*</b>：</label>
+      <select class="form-control" name="categoryid" style="width:318px;">
+        <option value="1">新闻</option>
+        <option value="2">招聘</option>
+        <option value="3">资料</option>
+      </select>
+    </li>
+    <li>
+      <label>标题<b>*</b>：</label>
+      <input name="title" type="text"  class="form-control" value="{$title}"  style="width:318px;"/>
+    </li>
+    <li>
+      <label>作者<b></b>：</label>
+      <input name="author" type="text"  class="form-control" value="{$author}"  style="width:318px;"/>
+    </li>
+    <li>
+      <label>摘要：<b></b></label>
+      <textarea name="abstract" class="form-control"  value="" style="height:100px; width:318px">{$abstract}</textarea>
+    </li>
+    <li>
+      <label>内容：<b></b></label>
+      <textarea name="content" id="editor" class="form-control"  value="" style="height:100px; width:318px">{$content}</textarea>
+    </li>
+    <li>
+      <label>图片：<b></b></label>
+      <input type="file" name="image" style="position:absolute;clip:rect(0 0 0 0);" id="image" accept="image/*">
+      <input name="imagename" type="text" id="image1" class="form-control" value="{$imagename}" style="width:318px;" readonly />
+      <input name="imagepath" type="hidden" id="image2" class="form-control" value="{$imagepath}" style="width:318px;" readonly />
+      <label for="image" class="btn btn-primary">浏览</label>
+    </li>
+    <li>
+      <label>选择文件：<b></b></label>
+      <input type="file" name="file" style="position:absolute;clip:rect(0 0 0 0);" id="file">
+      <input name="filename" type="text" id="file1" class="form-control" value="{$filename}" style="width:318px;" readonly />
+      <input name="filepath" type="hidden" id="file2" class="form-control" value="{$filepath}" style="width:318px;" readonly />
+      <label for="file" class="btn btn-primary">浏览</label>
+    </li>
+    <li>
+      <label>&nbsp;</label>
+      <input name="submit" type="submit" class="btn" value="添加" />
+    </li>
+  </ul>
+</form>
+{/if}

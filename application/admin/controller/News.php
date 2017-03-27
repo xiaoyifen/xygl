@@ -3,7 +3,7 @@ namespace app\admin\controller;
 use app\common\controller\Admin;
 use think\File;
 
-class News EXTENDS Admin
+class News extends Admin
 {
     function __construct(){
 		parent::__construct();
@@ -17,118 +17,251 @@ class News EXTENDS Admin
         //查询
         if(!empty($this->kw)){
             if ($this->search == 1) {
-                $map['title'] = ['like',"%{$this->kw}%"];//标题
+                if ($this->kw == '普通新闻') {
+                    $menuid = 1;
+                }elseif ($this->kw == '捐赠新闻') {
+                    $menuid = 2;
+                }
+                $map['menuid'] = ['like',"{$menuid}"];//新闻类别
             }elseif ($this->search == 2) {
-                $createtime = strtotime($this->kw);
-                $map['createtime'] = ['like',"%{$createtime}%"];//发布时间
+                $map['title'] = ['like',"%{$this->kw}%"];//标题
             }elseif ($this->search == 3) {
-                $updatetime = strtotime($this->kw);
-                $map['updatetime'] = ['like',"%{$updatetime}%"];//修改时间
+                $map['author'] = ['like',"%{$this->kw}%"];//作者
+            }elseif ($this->search == 4) {
+                $map['abstract'] = ['like',"%{$this->kw}%"];//摘要
+            }elseif ($this->search == 5) {
+                $map['content'] = ['like',"%{$this->kw}%"];//文章内容
             }
         }
-        $items = $this->model->where($map)->order('id asc')->paginate(50);
+        $map['categoryid'] = '1';
+        $items = $this->model->where($map)->order('id desc')->paginate(50);
         $this->view->items = $items;
     	return $this->fetch();
     }
 
-    // // 上传文件
-    // public function upload()
-    // {
-    //     // 获取表单上传文件
-    //     $file = request()->file('file');
-    //     // 上传文件验证
-    //     $result = $this->validate(['file' => $file],'Article.fileinfo');
-    //     if(true !== $result){
-    //         // 验证失败 输出错误信息
-    //         $this->error($result);
-    //     }
-    //     // 移动到目录/static/uploads/ 目录下
-    //     $info = $file->move(ROOT_PATH . 'static' . DS . 'uploads');
-    //     $filein = $info->getInfo();
-    //     $file_info['filename'] = $filein['name'];//获取原文件名
-    //     $file_info['filepath'] = $info->getSaveName();//获取文件路径
-    //     if ($info) {
-    //         return $file_info;
-    //     } else {
-    //         // 上传失败获取错误信息
-    //         $this->error($file->getError());
-    //     }
-    // }
+    // 上传图片
+    public function upload_img(){
+        // 获取表单上传图片
+        $file = request()->file('image');
+        // 判断是否有上传图片
+        if (!empty($file)) {
+            // 上传图片验证
+            $result = $this->validate(['image' => $file],'Article');
+            if(true !== $result){
+                // 验证失败 输出错误信息
+                $this->error($result);
+            }
+            // 移动到目录/static/uploads/ 目录下
+            $info = $file->move(ROOT_PATH . 'static' . DS . 'uploads');
+            if ($info) {
+                $filein = $info->getInfo();
+                $file_info['imagename'] = $filein['name'];//获取原图片名
+                $file_info['imagepath'] = $info->getSaveName();//获取图片路径
+                return $file_info;
+            } else {
+                // 上传失败获取错误信息
+                $this->error($file->getError());
+            }
+        }      
+    }
 
     // 上传文件
-    public function upload($name,$fileinfo)
-    {
+    public function upload_file(){
         // 获取表单上传文件
-        $file = request()->file($name);
-        // 上传文件验证
-        $result = $this->validate([$name => $file],$fileinfo);
-        if(true !== $result){
-            // 验证失败 输出错误信息
-            $this->error($result);
-        }
-        // 移动到目录/static/uploads/ 目录下
-        $info = $file->move(ROOT_PATH . 'static' . DS . 'uploads');
-        if ($info) {
-            return $info;
-        } else {
-            // 上传失败获取错误信息
-            $this->error($file->getError());
-        }
-    }
-
-    //添加
-    public function add()
-    {
-        if(IS_POST){
-            $post = $this->GET;
-            $post['createtime'] = time();
-            $post['updatetime'] = time();
-            $img_info = $this->upload('image','Article.img');
-            $image = $img_info->getSaveName();//获取文件路径
-            $file_info = $this->upload('file','Article.fileinfo');
-            $filein = $file_info->getInfo();
-            $filename = $filein['name'];//获取原文件名
-            $filepath = $file_info->getSaveName();//获取文件路径
-            $post['filepath'] = $filepath;
-            $post['filename'] = $filename;
-            $post['image'] = $image;
-            var_dump($post);
-            // $result = $this->model->allowField(true)->save($post);
-            // if(!$result){
-            //     $this->error($this->model->getError());
+        $file = request()->file('file');
+        // 判断是否有上传文件
+        if (!empty($file)) {
+            // 上传文件验证
+            // $result = $this->validate(['file' => $file],'');
+            // if(true !== $result){
+            //     // 验证失败 输出错误信息
+            //     $this->error($result);
             // }
-            // $this->success('添加成功...','news/index');
+            // 移动到目录/static/uploads/ 目录下
+            $info = $file->move(ROOT_PATH.'static'.DS.'uploads');
+            if ($info) {
+                $filein = $info->getInfo();
+                $file_info['filename'] = $filein['name'];//获取原文件名
+                $file_info['filepath'] = $info->getSaveName();//获取文件路径
+                return $file_info;
+            } else {
+                // 上传失败获取错误信息
+                $this->error($file->getError());
+            }
+        }      
+    }
+
+    // 添加
+    public function add(){
+        // 功能
+        if(request()->isPost()){
+            $post = $this->GET;
+            $post['createtime'] = time();//发布时间
+            $post['updatetime'] = time();//修改时间              
+            // var_dump($post);
+            $result = $this->model->allowField(true)->save($post);
+            if(!$result){
+                $this->error($this->model->getError());
+            }
+            $this->success('添加成功...','news/index');
+            exit;
         }
+        // 页面
+        return $this->fetch('show');
     }
 
-
-    //添加新闻
-    public function addp(){
-        return $this->fetch();
-    }
-
-    //查看/修改
+    // 查看/修改
     public function show($id){
+        // 修改
+        if(request()->isPost()){            
+            $post = $this->GET;
+            $post['updatetime'] = time();
+            $result = $this->model->allowField(true)->isUpdate(true)->save($post);
+            if(!$result){
+                $this->error($this->model->getError());
+            }
+            $this->success('修改成功...','news/index');
+            exit;
+        }
+        // 查看
         $item = $this->model->where(['id'=>$id])->find() or $this->error('数据不存在...');
-        $info=$item->toArray($item);
+        $info = $item->toArray($item);
         $this->view->info = $info;
-        return $this->fetch('index');
+        return $this->fetch();
     }
 
     //置顶
     public function top($id){
-        $item = $this->model->where(['id'=>$id])->find() or $this->error('数据不存在...');
-        $info=$item->toArray($item);
-        $this->view->info = $info;
-        return $this->fetch('index');
+        //判断是否通过审核，未过审核无法置顶
+        //判断是否为资料，资料不需要图片，其余，有图片，可置顶，无图片，不可
+        //top置1，表示置顶
+        $item = $this->model->has('category',['article.id'=>$id])->field('category.*,article.id')->find() or $this->error('数据不存在...');
+        $status = $item->getData('status');
+        $info = $item->toArray($item);
+        if($status == 1) {
+            if (!empty($info['imagepath']) || $info['categoryname'] == '资料') {
+                $post = $this->GET;
+                $post['top'] = '1';
+                $result = $this->model->allowField(true)->isUpdate(true)->save($post);
+                if(!$result){
+                    $this->error($this->model->getError());
+                }
+                $this->success('置顶成功...');
+            }else{
+                $this->error('图片不存在，无法置顶');
+            }
+        }else{
+            $this->error('未通过审核，无法置顶');
+        }
+               
     }
 
     //删除
     public function del($id){
         $item = $this->model->where(['id'=>$id])->find() or $this->error('数据不存在...');
-        $info=$item->toArray($item);
-        $this->view->info = $info;
-        return $this->fetch('index');
+        $info = $item->toArray($item);       
+        $this->model->destroy(['id'=>$id]) or $this->error('删除失败');
+        $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
+        preg_match_all($preg, $info['content'], $imgArr);
+        // 删除新闻内容中的图片
+        if (!empty($imgArr[1])) {
+            foreach ($imgArr[1] as $k => $v) {
+                $path = ROOT_PATH.$v;
+                is_file($path) && unlink($path);
+            }          
+        }
+        // 删除上传图片
+        if (!empty($info['imagepath'])) {
+            $path = ROOT_PATH.'static'.DS.'uploads'.DS.$info['imagepath'];
+            is_file($path) && unlink($path);
+        }
+        // 删除上传文件
+        if (!empty($info['filepath'])) {
+            $path = ROOT_PATH.'static'.DS.'uploads'.DS.$info['filepath'];
+            is_file($path) && unlink($path);
+        }
+        $this->success('删除成功...');
     }
 
+    // 审核界面
+    public function check(){
+        $map = [];
+        //查询
+        if(!empty($this->kw)){
+            if ($this->search == 1) {
+                $map['article.title'] = ['like',"%{$this->kw}%"];//标题
+            }elseif ($this->search == 2) {
+                $map['article.author'] = ['like',"%{$this->kw}%"];//作者
+            }elseif ($this->search == 3) {
+                $map['article.abstract'] = ['like',"%{$this->kw}%"];//摘要
+            }elseif ($this->search == 4) {
+                $map['article.content'] = ['like',"%{$this->kw}%"];//文章内容
+            }elseif ($this->search == 5) {
+                if ($this->kw == '待审核') {
+                    $search = 0;
+                }elseif ($this->kw == '已通过') {
+                    $search = 1;
+                }elseif ($this->kw == '未通过') {
+                    $search = 2;
+                }
+                $map['article.status'] = ['like',"{$search}"];//审核状态
+            }elseif ($this->search == 6) {
+                $map['categoryname'] = ['like',"%{$this->kw}%"];//类别
+            }
+        }
+        $map['id'] = ['>',1];
+        $items = $this->model->has('category',$map)->field('category.*,article.id')->order('status asc,article.id desc')->paginate(50);
+        // var_dump($items);
+        // exit;
+        $this->view->items = $items;
+        return $this->fetch();
+    }
+
+    // 审核功能
+    public function audit($id){
+        // 审核
+        if(request()->isPost()){            
+            $post = $this->GET;
+            // 写入审核未通过理由（日志表）
+            if ($post['status'] == 2) {
+                $info['articleid'] = $post['id'];
+                $info['reason'] = $post['reason'];
+                $info['time'] = time();
+                $info['adminid'] = 1;//待修改
+                $log = model('log');
+                $result = $log->validate(true)->allowField(true)->save($info);
+                if(!$result){
+                    $this->error($log->getError());
+                }
+            }
+            $result = $this->model->allowField(true)->isUpdate(true)->save($post);
+            if(!$result){
+                $this->error($this->model->getError());
+            }
+            $this->success('审核成功...','news/check');
+            exit;
+        }
+        // 一对一关联
+        // $user = model('log');
+        // var_dump($user->where('id=2')->find());
+        // var_dump($user->where('id=2')->find()->article);
+        // var_dump($this->model->where('id=5')->find());//id为article id
+        // var_dump($this->model->where('id=5')->find()->log);//id为log id
+        // exit;
+        // 查看
+        // 一对多关联
+        // $item = model('category')->has('article',['article.id'=>14])->field('article.*')->select() or $this->error('数据不存在...');
+        $item = $this->model->has('category',['article.id'=>$id])->field('category.*,article.id')->find() or $this->error('数据不存在...');
+        $status = $item->getData('status');
+        $info = $item->toArray($item);
+        $info['status'] = $status;
+        // 导出审核未通过理由（日志表中）
+        if ($status == 2) {
+            $item = $this->model->has('log',['article.id'=>$id])->field('log.*,article.id')->find() or $this->error('数据不存在...');
+            $info_log = $item->toArray($item); 
+            $info['reason'] = $info_log['reason'];
+        }
+        $this->view->info = $info;
+        return $this->fetch();
+    }
 }
