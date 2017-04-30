@@ -1,0 +1,46 @@
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/news.css">
+<style type="text/css">
+.maxlength {
+	word-break:keep-all;/* 不换行 */  
+  white-space:nowrap;/* 不换行 */  
+  overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */  
+  text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/  
+}
+</style>
+<div class="container" id="body">
+  <div class="clear"></div>                                                
+  <!--left -->
+  <?php extract($info); ?>
+	<div id="main_left" style="background-color:#F8FCFF;">   
+    <h1 style="">{$title}</h1>
+    <div class="news_info">发布：{$updatetime|date="Y-m-d H:i:s",###}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击：{$hits}</div>
+    <div class=" dotted_line" style="margin:0px 15px"></div>
+    <div class="news_content" id="content">
+			{$content}
+			{if !empty($filename)}
+				<a href="__STATIC__/uploads/{$filepath}" style="padding-left: 10px;">{$filename}</a>
+			{/if}
+    </div>
+    <div class=" dotted_line" style="margin:0px 15px"></div>
+  </div>
+	<!--//left -->
+
+	<!--right -->
+	<div id="view_right">
+    <!-- 热门点击-->
+    <p class="sidebar_title2"><span style="color:#c00">推荐</span>新闻</p>
+    <div class="sidebar_box2">
+      <ul class="con_small_list">
+      	{foreach $hit as $k=>$t}
+					<li class="maxlength">
+						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank">{$t['title']}</a>
+					</li>
+		    {/foreach}		
+      </ul>
+    </div>
+    <!-- //热门点击-->
+	</div>
+	<!--//right -->
+	<div class="clear"></div>
+</div>

@@ -1,4 +1,8 @@
 <?php
+/**
+ * 捐赠后台控制器
+ * @author lfn
+ */
 namespace app\admin\controller;
 use app\common\controller\Admin;
 use think\File;
@@ -26,7 +30,7 @@ class Donation extends Admin
         }
         // $items = $this->model->has('stu',$map)->field('stu.*,donation.id')->order('donation.id desc')->paginate(50);
         // var_dump($this->model->getLastSql());
-        $items = $this->model->where($map)->order('id desc')->paginate(50);
+        $items = $this->model->where($map)->order('donationid desc')->paginate(10);
         $this->view->items = $items;
     	return $this->fetch();
     }
@@ -61,7 +65,7 @@ class Donation extends Admin
             exit;
         }
         // 查看
-        $item = $this->model->where(['id'=>$id])->find() or $this->error('数据不存在...');
+        $item = $this->model->where(['donationid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);
         $this->view->info = $info;
         return $this->fetch();
@@ -69,9 +73,9 @@ class Donation extends Admin
 
     //删除
     public function del($id){
-        $item = $this->model->where(['id'=>$id])->find() or $this->error('数据不存在...');
+        $item = $this->model->where(['donationid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);       
-        $this->model->destroy(['id'=>$id]) or $this->error('删除失败');       
+        $this->model->destroy(['donationid'=>$id]) or $this->error('删除失败');       
         $this->success('删除成功...');
     }
 

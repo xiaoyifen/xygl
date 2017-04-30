@@ -1,0 +1,87 @@
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<style type="text/css">
+.pagination {
+  margin:10px 0px;
+  float: left;
+}
+.bigger-130 {
+	font-size: 130%;
+}
+.maxlength {
+	word-break:keep-all;/* 不换行 */  
+  white-space:nowrap;/* 不换行 */  
+  overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */  
+  text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/  
+}
+.info {
+  background: #A2C6EA;
+}
+.white {
+  color: white;
+}
+.button {
+	padding: 3px 8px;
+}
+.info.focus, .info:focus, .info:hover {
+  color: #478fca;
+  text-decoration: none;
+}
+</style>
+<div class="container" id="body">
+  <div class="clear"></div>
+  <!--body -->
+	<!--left -->
+	<div id="main_left">
+		<div style="border-bottom:1px solid #E1ECFA; font-size: 16px; color: #2e6da4; height: 30px;">
+		{if !empty($userid) && $categoryid != '1'}
+			<div class="col-md-7" style="font-size: 16px; color: #2e6da4">&nbsp;<i class="icon-th-large blue bigger-130"></i><b>&nbsp;&nbsp;{$category}</b></div>
+			<div class="col-md-offset-3 col-md-2" style="padding-left: 40px;"><button class="btn white info button"><a style="font-size: 14px; color: inherit; text-decoration: none;" href="{:url('index/add')}" target="_blank">发布</a></button></div>
+		{else}
+    	<div style="font-size: 16px; color: #2e6da4">&nbsp;<i class="icon-th-large blue bigger-130"></i><b>&nbsp;&nbsp;{$category}</b></div>
+    {/if}
+    </div>
+    <div class="con_list a14">
+	    <ul>
+	    {foreach $news as $k=>$t}
+				<li>
+					<a href="{:url('index/detail',['id'=>$t['articleid']])}" target="_blank">{$t['title']}</a>&nbsp;
+					{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}
+					<span>{$t['updatetime']|date="Y-m-d",###}</span>
+				</li>
+	    {/foreach}
+	    </ul>
+    </div>
+    <div style=" text-align: center">
+      <div class="comment_pager">
+      	{if !empty($news)}
+		      <label class="col-md-1 col-md-offset-3 num">共{$num}条记录</label>
+		      <div class="col-md-7" style="height:60px;padding:0px;left:15px;">{$news->render()}</div>
+		    {else}
+		      <div class="col-md-11" style="height:60px;padding:0px"></div>
+		    {/if}
+			</div>
+			<!-- .pagination -->                    
+		</div>   
+	</div>
+	<!--//left -->
+
+  <!--right -->
+  <div id="sidebar_right">
+		<!-- 热门点击-->
+    <p class="sidebar_title" >热门点击</p>
+    <div class="sidebar_box">
+			<ul class="ranking">
+				{foreach $hits as $k=>$t}
+					<li class="maxlength">
+						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank">{$t['title']}</a>
+					</li>
+		    {/foreach}				    
+			</ul>
+    </div>
+  	<!-- //热门点击-->
+	</div>
+	<!--//right -->
+	<div class="clear"></div>
+	<!--//body -->                                                
+</div>

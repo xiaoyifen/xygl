@@ -1,1 +1,126 @@
 <!-- 左侧栏 -->
+<div class="col-md-2 column ad-menu" id="ad-menu">
+    <div class="ad-logo"><img src="__STATIC__/image/m-logo.png" height="103" width="130"></div>
+    <div class="ad-list">
+        <ul>
+            <li>
+                <div class="li-item"><em class="scm li-ico ic1"></em>首页管理<span class="scm arrow"></span></div>
+                <dl>、
+                    <dd>
+                        <a href="{:url('news/index')}" class="dd-item">新闻公告管理<span class="scm dd-ar"></span></a>
+                    </dd>
+                    <dd>
+                        <a href="{:url('news/check')}" class="dd-item">招聘/资料审核<span class="scm dd-ar"></span></a>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <div class="li-item"><em class="scm li-ico ic2"></em>校友信息管理<span class="scm arrow"></span></div>
+                <dl>
+                    <dd>
+                        <a href="#" class="dd-item">学生信息列表<span class="scm dd-ar"></span></a>
+                    </dd>
+                    <dd>
+                        <a href="#" class="dd-item">添加学生信息<span class="scm dd-ar"></span></a>
+                    </dd>
+                    <dd>
+                        <a href="#" class="dd-item">批量上传信息<span class="scm dd-ar"></span></a>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <div class="li-item"><em class="scm li-ico ic3"></em>管理员管理<span class="scm arrow"></span></div>
+                <dl>
+                    <dd>
+                        <a href="{:url('adminer/index')}" class="dd-item">管理员管理<span class="scm dd-ar"></span></a>                                   
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <div class="li-item"><em class="scm li-ico ic4"></em>论坛管理<span class="scm arrow"></span></div> 
+                <dl>
+                    <dd>
+                        <a href="{:url('forum/index')}" class="dd-item">查看帖子<span class="scm dd-ar"></span></a>
+                    </dd>
+                </dl>                          
+            </li>
+            <li>
+                <div class="li-item"><em class="scm li-ico ic5"></em>捐赠管理<span class="scm arrow"></span></div>
+                <dl>
+                    <dd>
+                        <a href="{:url('donation/index')}" class="dd-item">捐赠记录<span class="scm dd-ar"></span></a>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <div class="li-item"><em class="scm li-ico ic7"></em>系统管理<span class="scm arrow"></span></div>
+                <dl>
+                    <dd>
+                        <a href="#" class="dd-item">修改密码<span class="scm dd-ar"></span></a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="col-md-10 column ad-comment-box" id="ad-comment">
+    <div class="col-md-12 column ad-top-comment">
+        <div class="ad-message">
+            <div class="ad-top-left">
+                <div class="ad-change-btn scm ad-list-btn"></div>
+                <div class="ad-search-box clear">
+                    <div class="ad-search-sel">
+                        <select>
+                            <option>新闻类</option>
+                            <option>新闻吩咐道类</option>
+                            <option>新闻广告费类</option>
+                            <option>新闻苟富贵类</option>
+                        </select>
+                    </div>
+                    <div class="ad-search-cha">
+                        <input type="text" class="ad-search-input" placeholder="请输入你要查找的内容">
+                        <input type="submit" class="scm ad-search-btn" value=""> 
+                    </div>
+                </div>
+            </div>
+            <div class="ad-top-right">
+                <div class="ad-notice">
+                    <ul>
+                        <li>
+                            <a href="javascript:;" class="scm nt1"><span class="scm nt-count dot">12</span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="scm nt2"><span class="scm nt-count dot">12</span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="scm nt3"><span class="scm nt-count dot">12</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ad-welcom">
+                    <div class="ad-wel-img"><img src="__STATIC__/image/min_logo.png" height="36" width="36"></div>
+                    <div class="ad-wel-text">
+                        <div class="font-wel">欢迎您！<strong>{$username}</strong></div>
+                        <div class="font-wel"><a href="{:url('logout/logout')}"><strong>【退出】</strong></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ad-main-nav-box">
+            <ul id="breadcrumbs-three">
+                <li title="首页"><a href="javascript:;" class="dot">{$location}</a></li>
+            </ul>
+            <div class="ad-main-wraper .J_menuItems">
+                <ul class="ad-main-list" id="ad-main">
+                </ul>
+            </div>
+        </div>
+        <div class="ad-sub-nav-box content-tabs">
+            <div class="ad-sub-wraper page-tabs J_menuTabs">
+                <ul class="ad-sub-list page-tabs-content">
+                    <li class="active J_menuTab" data-id="index_v0.html">{$location}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 column ad-main-comment J_mainContent pre-scrollable" id="ad-iframe">

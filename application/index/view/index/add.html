@@ -1,0 +1,236 @@
+<!-- 查看/修改页面 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+
+<style type="text/css">
+.cen {
+  margin-top: 7px;
+}
+.info {
+  background: #A2C6EA;
+}
+.white {
+  color: white;
+}
+.info.focus, .info:focus, .info:hover {
+  color: #478fca;
+  text-decoration: none;
+}
+b {
+  color: #dd5a43;
+}
+.red {
+    color: #dd5a43!important;
+}
+.bigger-120 {
+    font-size: 120%;
+}
+.bigger-130 {
+    font-size: 130%;
+}
+label {
+  font-size: 14px;
+}
+</style>
+
+<script type="text/javascript">
+$(function(){ 
+// 初始化文本编辑器
+  $('#editor1').summernote({                    
+    minHeight: 300,             
+    maxHeight: 500, 
+    // width: 1000,       
+    focus: false,   
+    lang:'zh-CN',
+    // 字体
+    fontNames: [
+      '宋体','楷体','Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
+      'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
+      'Tahoma', 'Times New Roman', 'Verdana'
+    ],
+    //工具栏
+    toolbar: [
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
+      ['insert', ['link', 'picture']],
+      ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+      ['view', ['codeview', 'help']]
+    ],
+    // 重写图片上传
+    callbacks:{  
+      onImageUpload: function(files, editor, $editable) {  
+        sendFile(files,editor,$editable);  
+      }  
+    }
+  });
+
+  // 图片上传
+  function sendFile(files,editor,$editable){
+    var formData = new FormData();
+    for(f in files){
+      formData.append("image", files[f]);
+    }
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('index/upload_img')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#editor1').summernote('editor.insertImage','__STATIC__/uploads/' + data.imagepath);
+      },
+      error: function() {
+        alert("上传文件失败！");
+      }
+    });
+  }
+
+  // 文件上传及文件信息显示
+  $('#file').on('change', function(e){
+    var name = e.currentTarget.files[0].name;
+    $('#file1').val( name );
+    var formData = new FormData();
+    formData.append("file", $('#file')[0].files[0]); 
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('index/upload_file')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#file2').val( data.filepath );
+      },
+      error: function() {
+        alert("上传文件失败！");
+      }
+    });
+  });
+
+  // 图片上传及图片信息显示
+  $('#image').on('change', function(e){
+    var name = e.currentTarget.files[0].name;
+    $('#image1').val( name );
+    var formData = new FormData();
+    formData.append("image", $('#image')[0].files[0]);
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('index/upload_img')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#image2').val( data.imagepath );
+      },
+      error: function() {
+        alert("上传图片失败！");
+      }
+    });
+  });
+
+  // 标题
+  $("#title").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#title1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：标题必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#title1").html(" ");  
+      }  
+  });
+
+  // 表单验证
+  $("#formnews").submit(function(){
+    // 标题不为空
+    if ($("#title").val() == "" ) {  
+      $("#title1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：标题必须填写！");  
+      $("#title").focus();  
+    }
+    // 验证为空，禁止提交
+    if ($("#title").val() == "" || $("#categoryid").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
+<div class="container" id="body">
+  <div style="border-bottom:1px solid #E1ECFA; font-size: 16px; color: #2e6da4; height: 30px;margin-bottom: 10px;">
+    <div style="font-size: 16px; color: #2e6da4">&nbsp;<i class="icon-th-large blue bigger-130"></i><b style="color: inherit;">&nbsp;&nbsp;发布资料/招聘信息</b></div>    
+  </div>
+  <form role="form" method="post" action="{:url('index/add')}" enctype="multipart/form-data" class="form-horizontal" id="formnews">
+    <input name="authorid" type="hidden" class="form-control" id="author" value="{$userid}" />
+    <div class="form-group">
+      <label for="categoryid" class="col-sm-1 control-label">类别<b>*</b>：</label>
+      <div class="col-sm-4">
+        <select class="form-control" name="categoryid" id="categoryid">
+          <option value="2">招聘</option>
+          <option value="3">资料</option>
+        </select>
+      </div>
+      <div class="col-sm-7"></div>
+    </div>
+    <div class="form-group">
+      <label for="title" class="col-sm-1 control-label">标题<b>*</b>：</label>
+      <div class="col-sm-4">
+        <input name="title" type="text" class="form-control" id="title" value="" />
+      </div>
+      <div class="col-sm-7 cen" id="title1"></div>
+    </div>
+    <div class="form-group">
+      <label for="author" class="col-sm-1 control-label">作者<b></b>：</label>
+      <div class="col-sm-4">
+        <input name="author" type="text" class="form-control" id="author" value="" />
+      </div>
+      <div class="col-sm-7"></div>
+    </div>
+    <div class="form-group">
+      <label for="abstract" class="col-sm-1 control-label">摘要<b></b>：</label>
+      <div class="col-sm-4">
+        <textarea name="abstract" class="form-control" id="abstract" value="" style="height:100px;"></textarea>
+      </div>
+      <div class="col-sm-7"></div>
+    </div>
+    <div class="form-group">
+      <label for="editor1" class="col-sm-1 control-label">内容<b></b>：</label>
+      <div class="col-sm-10">
+        <textarea name="content" id="editor1" class="form-control"  value="" style="height:100px;"></textarea>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="form-group">
+      <label for="image" class="col-sm-1 control-label">图片<b></b>：</label>
+      <div class="col-sm-4">
+        <input type="file" name="image" style="position:absolute;clip:rect(0 0 0 0);" id="image" accept="image/*">
+        <input name="imagename" type="text" id="image1" class="form-control" value="" style="width:318px;" readonly />
+        <input name="imagepath" type="hidden" id="image2" class="form-control" value="" style="width:318px;" readonly />
+      </div>
+      <div class="col-sm-1">
+        <label for="image" class="btn btn-info look">浏览</label>
+      </div>
+      <div class="col-sm-6"></div>
+    </div>
+    <div class="form-group">
+      <label for="file" class="col-sm-1 control-label">文件<b></b>：</label>
+      <div class="col-sm-4">
+        <input type="file" name="file" style="position:absolute;clip:rect(0 0 0 0);" id="file">
+        <input name="filename" type="text" id="file1" class="form-control" value="" style="width:318px;" readonly />
+        <input name="filepath" type="hidden" id="file2" class="form-control" value="" style="width:318px;" readonly />
+      </div>
+      <div class="col-sm-1">
+        <label for="image" class="btn btn-info look">浏览</label>
+      </div>
+      <div class="col-sm-6"></div>
+    </div>
+    <div class="form-group form-actions">
+      <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+      <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn info white" value="提交" /></div>
+      <div class="col-sm-1"> </div>
+    </div>
+  </form>
+</div>    

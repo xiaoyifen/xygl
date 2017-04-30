@@ -10,150 +10,296 @@
 	<!-- 引入 Bootstrap -->
 	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css">
+	<link rel="stylesheet" href="__STATIC__/css/home.css" type="text/css" >
+	<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
- 
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>	 
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- include summernote -->
+  <link type="text/css" rel="stylesheet" href="__STATIC__/summernote/summernote.css" />
+  <script type="text/javascript" src="__STATIC__/summernote/summernote.js"></script>
+  <script type="text/javascript" src="__STATIC__/summernote/lang/summernote-zh-CN.js"></script>
 </head>
-<body>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('.dropdown-toggle').dropdown();
+  // 初始化文本编辑器
+  $('#editor').summernote({                    
+    minHeight: 180,             
+    maxHeight: 180,
+    width: 1275,       
+    focus: false,   
+    lang:'zh-CN',
+    //工具栏
+    toolbar: [
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['insert', ['link', 'picture']],
+      ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+      ['view', ['codeview', 'help']]
+    ],
+    // 重写图片上传
+    callbacks:{  
+      onImageUpload: function(files, editor, $editable) {  
+        sendFile(files,editor,$editable);  
+      }  
+    }
+  });
+
+  // 图片上传
+  function sendFile(files,editor,$editable){
+    var formData = new FormData();
+    for(f in files){
+      formData.append("image", files[f]);
+    }
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('forum/upload_img')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#editor').summernote('editor.insertImage','__STATIC__/uploads/' + data.imagepath);
+      },
+      error: function() {
+        alert("上传文件失败！");
+      }
+    });
+  }
+
 });
 </script>
-<div class="container-fluid header">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<nav class="navbar navbar-inverse" role="navigation">
-				<div class="navbar-header">
-					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">导航栏</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">首页</a>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active">
-							 <a href="#">校友捐赠</a>
-						</li>
-						<li>
-							 <a href="#">联系我们</a>
-						</li>
-						<li>
-						<form role="form" class="navbar-form navbar-left">
-						  <div class="form-group">
-						    <label for="name">搜索</label>
-						    <select class="form-control" name="sel">
-						      <option value="1">按关键字搜索</option>
-						      <option value="2">按用户搜索</option>
-						    </select>
-						    <input name="search" type="text" class="form-control" />
-						    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-						  </div>
-						</form>
-						</li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right log">
-						<li>
-							 <a href="#">论坛天地</a>
-						</li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right log">
-						<li>
-							<a id="modal-879035" href="#modal-container-879035" role="button" class="btn" data-toggle="modal">登录</a>
-							<div class="modal fade" id="modal-container-879035" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<form class="form-horizontal" role="form">
-											<div class="form-group">
-					 						<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" id="inputEmail3" />
-												</div>
-											</div>
-											<div class="form-group">
-									 		<label for="inputPassword3" class="col-sm-2 control-label">密码</label>
-												<div class="col-sm-10">
-												<input type="password" class="form-control" id="inputPassword3" />
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="col-sm-offset-2 col-sm-10">
-													<div class="checkbox">
-							 						<label><input type="checkbox" />是否记住密码</label>
-													</div>
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="col-sm-offset-2 col-sm-10">
-						 						<button type="submit" class="btn btn-default">登录</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</nav>
-		</div>
-	</div>
-	<div class="row clearfix">
-		<div class="carousel slide" id="carousel-785264">
-				<ol class="carousel-indicators">
-					<li data-slide-to="0" data-target="#carousel-785264">
-					</li>
-					<li data-slide-to="1" data-target="#carousel-785264">
-					</li>
-					<li data-slide-to="2" data-target="#carousel-785264" class="active">
-					</li>
-				</ol>
-				<div class="carousel-inner">
-				{if !empty($items_news)}
-				{foreach $items_news as $k=>$t}
-					<div class="item">
-						<img class="img-responsive img-size-top" alt="{$t['title']}" src="__STATIC__/uploads/{$t['imagepath']}" />
-						<div class="carousel-caption">
-							<h4>
-								{$t['title']}
-							</h4>
-							<p>
-								{$t['content']|strip_tags}
-							</p>
+<script type="text/javascript">
+$(document).ready(function() {
+	// 文本框失去焦点时验证学号是否填写
+	$("#inputEmail3").blur(function() {
+		if ($(this).val() == "" ) {  
+        $("#username").html("&nbsp;&nbsp;提示：用户名必须填写！");  
+        $(this).focus();    
+	    }else{  
+	      $("#username").html(" ");  
+	    } 
+	});
+	// 文本框失去焦点时验证密码是否填写
+	$("#inputPassword3").blur(function() {
+		if ($(this).val() == "" ) {  
+      $("#password").html("&nbsp;&nbsp;提示：密码必须填写！");  
+      $(this).focus();  
+    }else{  
+      $("#password").html(" ");  
+    }  
+	});
+	// 文本框失去焦点时验证密码是否填写
+	$("#inputyzm3").blur(function() {
+		if ($(this).val() == "" ) {  
+      $("#yzm").html("&nbsp;&nbsp;提示：验证码必须填写！");  
+      $(this).focus();  
+    }else{  
+      $("#yzm").html(" ");  
+    }  
+	});
+
+	$("#login1").click(function(){
+		// 用户名不为空
+    if ($("#inputEmail3").val() == "") {
+      $("#username").html("&nbsp;&nbsp;提示：用户名必须填写！"); 
+      $("#inputEmail3").focus();
+    }else	
+    // 密码不为空
+    if ($("#inputPassword3").val() == "") {
+      $("#password").html("&nbsp;&nbsp;提示：密码必须填写！"); 
+      $("#inputPassword3").focus();
+    }else
+    // 验证码不为空
+    if ($("#inputyzm3").val() == "") {
+      $("#yzm").html("&nbsp;&nbsp;提示：验证码必须填写！"); 
+      $("#inputyzm3").focus();
+    }	    
+		if ($("#inputEmail3").val() != "" && $("#inputPassword3").val() != "" && $("#inputyzm3").val() != "") {
+				$.ajax({
+		      type: "POST",
+		      url: "{:url('login/login')}",
+		      dataType : 'text',  
+	        data : $('#loginform').serialize(),
+		      success: function(data) {
+		      	if (data == 2 && $('#role').val() == 1) {
+		      		location.href = "{:url('index/index')}";
+		      	}else if (data == 2 && $('#role').val() == 2) {
+		      		location.href = "{:url('admin/news/index')}";
+		      	}else if(data == 0){
+		      		$("#password").html("&nbsp;&nbsp;登录失败，用户名或密码错误！");      		
+		      	}else if(data == 1){
+		      		$("#yzm").html("&nbsp;&nbsp;登录失败，验证码错误！");
+		      		$("#yzmimg").click();	      		
+		      	}	        
+		      },
+		      error: function() {
+		        alert("登入失败!");
+		      }
+		    });
+			}
+	});
+
+	// 当模态框完全对用户隐藏时触发
+	$('#modal-container-879035').on('hidden.bs.modal', function () {
+  	$("#username").html(" ");  
+  	$("#password").html(" ");
+  	$("#yzm").html(" ");
+	});
+
+	$('.dropdown').mouseover(function() { 
+		$(this).addClass('open'); }).mouseout(function() {
+		  $(this).removeClass('open'); 
+	}); 
+
+});
+</script>
+
+<body id="htmlbody">
+  <div class="container-fluid" id="header">
+    <!-- global/header_top:_header_top -->
+		<!--top -->
+		<div class="logo_tool">
+			<div class="col-md-2 col-md-offset-2"><a href="/" style="display:block;width:250px;height:58px"></a></div>
+  		<div class="col-md-offset-2 col-md-4" style="padding-right: 0px;margin-top: 10px;">
+  			<div class="user_nav">
+  				<div class="col-md-3 col-md-offset-7" style="padding-right: 0px;"><span style="float:right;color: #DBEBFB;">欢迎回来！</span></div>
+  				{if empty($username)}
+    			<div class="col-md-2" style="padding-left: 0px;padding-right: 25px;"><a href="#modal-container-879035" data-toggle="modal" id="flogin_btn" style="float:right;">登录</a></div>
+    			<div class="modal fade left1" id="modal-container-879035" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <div class="col-md-11 column" id="tips">
+                    <span class="headsize">用户登录</span>
+                  </div>
+                  <button type="button" class="col-md-1 close" data-dismiss="modal" aria-hidden="true">×</button>                            
+                </div>
+                <div class="modal-body">
+                  <form class="form-horizontal" id="loginform" role="form">
+                  	<div class="form-group">
+                      <label class="col-sm-1 control-label"></label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="role" id="role">
+										      <option value="1">普通用户</option>
+										      <option value="2">管理员</option>
+										    </select>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-9 top"></div>
+                      <div class="col-sm-1"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-1 control-label"></label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputEmail3" name="studentid" placeholder="用户名"/>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-9 top">
+                        <!-- 提示：请填写用户名！ -->
+                        <span id="username"></span>
+                      </div>
+                      <div class="col-sm-1"></div>
+                    </div>
+                      
+                    <div class="form-group">
+                      <label for="inputPassword3" class="col-sm-1 control-label"></label>
+                      <div class="col-sm-10">
+                      	<input type="password" class="form-control" id="inputPassword3" name="password" placeholder="密码"/>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-9 top">
+                        <!-- 提示：请填写密码！ -->
+                        <span id="password"></span>
+                      </div>
+                      <div class="col-sm-1"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="inputyzm3" class="col-sm-1 control-label"></label>
+                      <div class="col-sm-5">
+                      	<input type="text" class="form-control" id="inputyzm3" name="yzm" placeholder="验证码" />
+                      </div>
+                      <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                        <img src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?x='+Math.random();" id="yzmimg" style="height: 36px;"/>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-9 top">
+                        <!-- 提示：请填写验证码！ -->
+                        <span id="yzm"></span>
+                      </div>
+                      <div class="col-sm-1"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-offset-1 col-sm-10">
+                        <div class="checkbox">
+                          <label><input type="checkbox" name="remember" />记住密码</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-offset-1 col-sm-11">
+                      	<button type="button" class="btn btn-info" id="login1">登录</button>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {else}
+          	<div class="dropdown col-md-2" style="padding-left: 0px;">
+					    <button type="button" class="btn btn-link dropdown-toggle user" id="dropdownMenu1" data-toggle="dropdown">{$username}
+					        <span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+					        <li role="presentation">
+					            <a role="menuitem" tabindex="-1" href="#"><span class="text-info">个人中心</span></a>
+					        </li>
+					        <li role="presentation">
+					            <a role="menuitem" tabindex="-1" href="{:url('login/logout')}"><span class="text-info">退出</span></a>
+					        </li>
+					    </ul>
 						</div>
-					</div>
-				{/foreach}
-				{/if}
-					<div class="item active">
-						<img alt="校友联盟" src="__STATIC__/image/image1.jpg" />
-						<div class="carousel-caption">
-							<h4>
-								校友联盟
-							</h4>
-							<p>
-								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-							</p>
-						</div>
-					</div>
-				</div> <a class="left carousel-control" href="#carousel-785264" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-785264" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-			</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<div class="jumbotron">
-				<h1>
-					旧浪校友圈
-				</h1>
-				<p>
-					志合者，不以山海为远。
-				</p>
-				<p>
-					 <a class="btn btn-primary btn-large" href="file:///C:/Users/dellpc/Desktop/io/leesijia/mycenter.html">进入个人中心</a>
-				</p>
-			</div>
+          {/if}
+				</div>
+      	<div class="site_search">
+          <form action="/search" method="get" >
+          	<div class="input-group">
+              <input type="text" class="form-control" title="输入新闻、活动等关键字进行搜索" style="height: 24px;">
+              <span class="input-group-btn">
+                <button class="btn btn-primary search-btn" type="submit">
+                	<i class="icon-search"></i>
+                </button>
+              </span>
+            </div>
+        	</form>
+      	</div>
+  		</div>
+  		<div class="col-md-2"></div>
 		</div>
-	</div>
-</div>
+		<div id="nav1">
+			<div id="nav" class="col-md-8 col-md-offset-2">
+				<a href="{:url('index/index')}" >首页</a>
+		    <a href="{:url('index/news')}" >新闻专区</a>
+		    <a href="{:url('index/invite')}" >招聘专区</a>
+		    <a href="{:url('index/info')}" >资料专区</a>
+		    <a href="file:///C:/Users/dellpc/Desktop/alumni/event.html" >校友活动</a>
+		    <a href="{:url('forum/index')}" target="_blank">论坛天地</a>
+		    <a href="{:url('index/donate')}" >校友捐赠</a>
+		    <a href="/service" >为您服务</a>
+		    <a href="/mail" nonebg >邮箱</a>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+
+
+
+		
+		<!--//top -->                
+  </div>

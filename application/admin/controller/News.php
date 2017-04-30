@@ -1,4 +1,8 @@
 <?php
+/**
+ * 新闻后台控制器
+ * @author lfn
+ */
 namespace app\admin\controller;
 use app\common\controller\Admin;
 use think\File;
@@ -34,8 +38,9 @@ class News extends Admin
             }
         }
         $map['categoryid'] = '1';
-        $items = $this->model->where($map)->order('id desc')->paginate(50);
+        $items = $this->model->where($map)->order('articleid desc')->paginate(2);
         $this->view->items = $items;
+        $this->view->location = '新闻公告管理';
     	return $this->fetch();
     }
 
@@ -107,6 +112,7 @@ class News extends Admin
             exit;
         }
         // 页面
+        $this->view->location = '新闻公告管理';
         return $this->fetch('show');
     }
 
@@ -124,9 +130,10 @@ class News extends Admin
             exit;
         }
         // 查看
-        $item = $this->model->where(['id'=>$id])->find() or $this->error('数据不存在...');
+        $item = $this->model->where(['articleid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);
         $this->view->info = $info;
+        $this->view->location = '新闻公告管理';
         return $this->fetch();
     }
 
@@ -135,7 +142,7 @@ class News extends Admin
         //判断是否通过审核，未过审核无法置顶
         //判断是否为资料，资料不需要图片，其余，有图片，可置顶，无图片，不可
         //top置1，表示置顶
-        $item = $this->model->has('category',['article.id'=>$id])->field('category.*,article.id')->find() or $this->error('数据不存在...');
+        $item = $this->model->has('category',['article.articleid'=>$id])->field('category.*,article.articleid')->find() or $this->error('数据不存在...');
         $status = $item->getData('status');
         $info = $item->toArray($item);
         if($status == 1) {
@@ -158,9 +165,9 @@ class News extends Admin
 
     //删除
     public function del($id){
-        $item = $this->model->where(['id'=>$id])->find() or $this->error('数据不存在...');
+        $item = $this->model->where(['articleid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);       
-        $this->model->destroy(['id'=>$id]) or $this->error('删除失败');
+        $this->model->destroy(['articleid'=>$id]) or $this->error('删除失败');
         $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
         preg_match_all($preg, $info['content'], $imgArr);
         // 删除新闻内容中的图片
@@ -209,11 +216,12 @@ class News extends Admin
                 $map['categoryname'] = ['like',"%{$this->kw}%"];//类别
             }
         }
-        $map['id'] = ['>',1];
-        $items = $this->model->has('category',$map)->field('category.*,article.id')->order('status asc,article.id desc')->paginate(50);
+        $map['categoryid'] = ['>',1];
+        $items = $this->model->has('category',$map)->field('category.*,article.articleid')->order('status asc,article.articleid desc')->paginate(2);
         // var_dump($items);
         // exit;
         $this->view->items = $items;
+        $this->view->location = '招聘/资料审核';
         return $this->fetch();
     }
 
@@ -224,7 +232,7 @@ class News extends Admin
             $post = $this->GET;
             // 写入审核未通过理由（日志表）
             if ($post['status'] == 2) {
-                $info['articleid'] = $post['id'];
+                $info['articleid'] = $post['articleid'];
                 $info['reason'] = $post['reason'];
                 $info['time'] = time();
                 $info['adminid'] = 1;//待修改
@@ -251,17 +259,18 @@ class News extends Admin
         // 查看
         // 一对多关联
         // $item = model('category')->has('article',['article.id'=>14])->field('article.*')->select() or $this->error('数据不存在...');
-        $item = $this->model->has('category',['article.id'=>$id])->field('category.*,article.id')->find() or $this->error('数据不存在...');
+        $item = $this->model->has('category',['article.articleid'=>$id])->field('category.*,article.articleid')->find() or $this->error('数据不存在...');
         $status = $item->getData('status');
         $info = $item->toArray($item);
         $info['status'] = $status;
         // 导出审核未通过理由（日志表中）
         if ($status == 2) {
-            $item = $this->model->has('log',['article.id'=>$id])->field('log.*,article.id')->find() or $this->error('数据不存在...');
+            $item = $this->model->has('log',['article.articleid'=>$id])->field('log.*,article.articleid')->find() or $this->error('数据不存在...');
             $info_log = $item->toArray($item); 
             $info['reason'] = $info_log['reason'];
         }
         $this->view->info = $info;
+        $this->view->location = '招聘/资料审核';
         return $this->fetch();
     }
 }

@@ -1,0 +1,203 @@
+<!-- 论坛帖子详情页 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/colorbox.css" type="text/css"  />
+<link type="text/css" href="__STATIC__/css/bbs.css" rel="stylesheet" />
+<script type="text/javascript">
+$(function(){
+  // 表单验证
+  $("#formtips").submit(function(){   
+    // 帖子内容不为空
+    if ($("#editor").val() == "") {
+      $("#tips").html("<b>提示：请填写回复内容！</b>"); 
+      $("#editor").focus();
+    }
+    // 验证为空，禁止提交
+    if ($("#editor").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
+<style type="text/css">
+.bigger-130 {
+  font-size: 130%;
+}
+.blue {
+  color: #A2C6EA;
+}
+.pagination {
+  margin: 10px 0;
+}
+.pagination>li>a, .pagination>li>span {
+  padding: 4px 8px;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #A2C6EA;
+    border-color: #A2C6EA;
+}
+.num {
+	width: 75px;
+  line-height: 1.42857143;
+  color: #337ab7;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+.white {
+	color: white;
+}
+.info {
+	background: #A2C6EA;
+}
+.info.focus, .info:focus, .info:hover {
+    color: #478fca;
+    text-decoration: none;
+}
+b {
+  color: #dd5a43;
+}
+</style>
+<div id="body">
+	<!--发布新帖及回复按钮 -->
+	<div class="bbs_post_reply_bar">
+	  <a href="{:url('forum/add')}" target="_blank"><button class="unit_post">发布新帖</button></a>
+	</div>
+	<!--//发布新帖及回复按钮 -->
+
+	<!--主题 -->
+	<?php extract($info); ?>
+	<table border="0" cellspacing="0" cellpadding="0" class="unit_table">
+    <tbody>
+	    <tr>
+	      <td colspan="2" class="topic_topbar">主题：{$title}</td>
+	    </tr>
+	    <tr>
+	      <td valign="top" class="unit_left_bg" rowspan="2">
+	        <div class="left_user_face">
+	          <span class="blue"><i class="icon-user bigger-130"></i></span>&nbsp;&nbsp;
+	          <a href="http://zuaa.zju.edu.cn/user_home?id=24180" class="commentor" target="_blank">{$stu['username']}</a>
+	        </div>
+	        <div class="left_user_info">
+	          年级&nbsp;{$stu['enrollmentdate']}级<br>
+	          院系&nbsp;{$stu['department']}<br>
+	          专业&nbsp;{$stu['major']}<br>               
+	        </div>
+	      </td>
+	      <td valign="top" class="bbs_unit_content" style=" position: relative">
+	        <div class="topic_postdate">
+	          <p style="float:left"><span style="color:#f60; font-weight: bold">楼主</span>&nbsp;&nbsp;发布于&nbsp;{$pubtime|date="Y-m-d H:i:s",###}</p>
+	        </div>
+	        <div class="comment_content" style="word-break:break-all">
+	          <div>
+	            {$content}
+		        </div>
+		      </div>
+				</td>
+	    </tr>
+	    <tr>
+	      <td>
+	        <div class="bbs_bottom_tools">
+	          <div style="text-align:right" class="manage_tool"></div>
+	          <div style="height:40px">
+	            <div style="margin:8px 0; float: right;"></div>
+	          </div>
+						<div class="dotted_line"></div>
+					 </div>
+	      </td>
+	    </tr>
+		</tbody>
+	</table>
+	<!--//主题 -->
+  <div id="scrollToComment" style="height:2px"></div>
+	<!--评论模块 -->
+	<div id="unitComment">
+		<div class="clear"></div>
+		<div id="get_comment_list">
+			{if $num}
+				<label class="col-md-1 num">共{$num}条评论</label>
+		    <div class="col-md-11" style="margin:0px 0;">{$notes->render()}</div>
+		  {else}
+		    <div style="margin:0px 0;"></div>
+		  {/if}  
+			{if !empty($notes)}
+			{foreach $notes as $k=>$t}  
+      <table border="0" cellspacing="0" cellpadding="0" class="unit_table" id="comment_143691" style="margin-bottom: 2px;">
+      	<tbody>
+          <tr>
+            <td valign="top" class="unit_left_bg" rowspan="2">
+              <div class="left_user_face">
+                <span class="blue"><i class="icon-user bigger-130"></i></span>&nbsp;&nbsp;
+                <a href="http://zuaa.zju.edu.cn/user_home?id=32478" class="commentor" id="comment_author_143691" target="_blank">{$t['stu']['username']}</a><br>
+              </div>
+              <div class="left_user_info">
+              	年级&nbsp;{$t['stu']['enrollmentdate']}级<br>
+	          		院系&nbsp;{$t['stu']['department']}<br>
+	          		专业&nbsp;{$t['stu']['major']}<br>  
+              </div>
+            </td>
+            <td valign="top">
+              <div class="topic_postdate">
+                <p style="float:left">
+                  <span style="color:#f60;"><strong>{$t['rank']}</strong>楼</span>
+                  &nbsp;&nbsp;发布于&nbsp;<span id="comment_postdate_143691">{$t['time']|date="Y-m-d H:i:s",###}</span>
+                </p>
+              </div>
+              <div class="comment_content">
+                <div>
+                  {$t['content']}                            
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td valign="bottom">
+              <div class="bbs_bottom_tools">
+              	<div style="padding: 15px 0px;text-align: right"></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {/foreach}
+			{/if}   
+      <div id="comment_page_box">    
+      	{if !empty($notes)}
+					<label class="col-md-1 num">共{$num}条评论</label>
+			    <div  class="col-md-11" style="margin:0px 0;">{$notes->render()}</div>
+			  {else}
+			    <div style="margin:0px 0;"></div>
+			  {/if}         
+      </div>
+    <!--//回帖 -->
+    </div>
+		{if empty($username)}
+    <div class="notice" style="margin:10px 0">
+      您还没有注册或登录，请<a href="#modal-container-879035" data-toggle="modal"><b>登录</b></a> 后进行回帖或讨论。
+    </div>
+    {/if}
+		<div class="clear"></div>
+  </div>
+  {if !empty($username)}
+  <form role="form" method="post" action="{:url('forum/reply',['id'=>$topicid])}" enctype="multipart/form-data" id="formtips">
+  	<input type="hidden" name="authorid" value="{$userid}">
+	  <ul>
+	    <!-- <li>
+	      <label>作者<b>*</b>：</label>
+	      <input name="authorid" type="text" class="form-control" value=""  style="width:318px;"/>
+	    </li> -->
+	    <li>
+	      <!-- <label>内容<b>*</b>：</label> -->
+	      <textarea name="content" id="editor" class="form-control"  value="" style="height:100px; width:318px"></textarea>
+	    </li>
+	    <li>
+	      <label class="col-md-11" style="font-size: 14px" id="tips"></label>
+	      <input name="submit" type="submit" class="btn info white" value="回复" class="col-md-1" style="margin-left: 40px;"/>
+	    </li>
+	  </ul>
+	</form>
+	{/if}
+</div>

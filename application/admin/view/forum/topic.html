@@ -1,0 +1,78 @@
+<!-- 论坛帖子详情页 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-table.css">
+<style type="text/css">
+.ptable {
+	padding: 10px 15px;
+    border: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+	color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.table {
+	margin-bottom: 10px;
+}
+td {
+	height: 35px;
+}
+.mintd {
+	width: 131px;
+}
+.table tbody tr td.mincon {
+	height: 100px;
+	vertical-align: top;
+}
+.end {
+	text-align: end;
+}
+</style>
+<?php extract($info); ?>
+<div class="panel-body" style="padding-bottom:0px;">
+    <div class="ptable">主题：{$title}</div>
+	<div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <tbody>		            
+              <tr>		                
+                <td rowspan="3" class="mintd"><center>{$stu['username']}</center></td>
+                <td><span class="red">楼主</span>&nbsp;&nbsp;发布于&nbsp;<span>{$pubtime|date="Y-m-d H:i:s",###}</span></td>  
+              </tr>
+              <tr>		                
+                <td class="mincon">{$content}</td>
+              </tr>
+              <tr>		                
+                <td></td> 
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+    {if !empty($note)}
+	{foreach $note as $k=>$t}
+		<table class="table table-striped table-bordered">
+			<tbody>	
+				<tr>		                
+	                <td rowspan="3" class="mintd"><center>{$t['stu']['username']}</center></td>
+	                <td><span class="red">{$t['rank']}楼</span>&nbsp;&nbsp;回复于&nbsp;<span>{$t['time']|date="Y-m-d H:i:s",###}</span></td>  
+	            </tr>
+	            <tr>		                
+	                <td class="mincon">{$t['content']}</td>
+	            </tr>
+	            <tr>		                
+	                <td class="end">
+	                	<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+	                        <!-- 删除 -->
+	                        <a class="red" href="{:url('forum/del_reply')}?id={$t['noteid']}">
+	                            <i class="icon-trash bigger-140"></i>
+	                        </a>
+	                    </div>
+	                </td> 
+	            </tr>
+			</tbody>
+		</table>
+	{/foreach}
+	{/if}
+	</div>
+</div>

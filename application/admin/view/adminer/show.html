@@ -1,0 +1,146 @@
+<!-- 捐赠详情页即添加页 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-form.css">
+<style type="text/css">
+.cen {
+  margin-top: 7px;
+}
+</style>
+
+<script type="text/javascript">
+(function($){ //定义匿名函数并设置形参为$
+  $(function(){ //匿名函数内部的$均为jQuery
+    // 姓名
+    $("#adminname").blur(function() {
+      if ($(this).val() == "" ) {  
+        $("#adminname1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：姓名必须填写！");  
+        $(this).focus();  
+      }else{  
+        $("#adminname1").html(" ");  
+      }  
+    });
+
+    // 密码
+    $("#password").blur(function() {
+      if ($(this).val() == "" ) {  
+        $("#password1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：密码必须填写！");  
+        $(this).focus();  
+      }else{  
+        $("#password1").html(" ");  
+      }  
+    });
+
+    // 确认密码
+    $("#passwordr").blur(function() {
+      if ($(this).val() == "" ) {  
+        $("#passwordr1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：确认密码必须填写！");  
+        $(this).focus();  
+      }else{  
+        $("#passwordr1").html(" ");  
+      }  
+    });
+
+    // 表单验证
+    $("form").submit(function(){
+      // 姓名不为空
+      if ($("#adminname").val() == "") {
+        $("#adminname1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：姓名必须填写！"); 
+        $("#adminname").focus();
+      }
+      // 密码不为空
+      if ($("#password").val() == "") {
+        $("#password1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：密码必须填写！"); 
+        $("#password").focus();
+      }
+      // 确认密码不为空
+      if ($("#passwordr").val() == "") {
+        $("#passwordr1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：确认密码必须填写！"); 
+        $("#passwordr").focus();
+      }
+      // 密码是否一致
+      if ($("#password").val() != $("#passwordr").val()) {
+        $("#passwordr1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：密码必须一致！"); 
+        $("#passwordr").focus();
+      }
+      // 验证为空，禁止提交
+      if ($("#adminname").val() == "" || $("#password").val() == "" || $("#passwordr").val() == "" || $("#password").val() != $("#passwordr").val()) {
+        return false;
+      } 
+    });
+  });
+})(jQuery); 
+</script>
+
+<div class="panel-body" style="padding-bottom:0px;">
+  <div class="panel panel-default">
+    {if empty($info)}
+      <div class="panel-heading">添加管理员</div>
+    {else}
+      <div class="panel-heading">修改管理员信息</div>
+    {/if}
+    <div class="panel-body body">
+      {if empty($info)}
+      <form role="form" method="post" action="{:url('adminer/add')}" enctype="multipart/form-data" class="form-horizontal">
+        <div class="form-group">
+          <label for="adminname" class="col-sm-2 control-label">姓名<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="adminname" type="text" class="form-control" id="adminname" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="adminname1"></div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">密码<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="password" type="password" class="form-control" id="password" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="password1"></div>
+        </div>
+        <div class="form-group">
+          <label for="passwordr" class="col-sm-2 control-label">确认密码<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="passwordr" type="password" class="form-control" id="passwordr" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="passwordr1"></div>
+        </div>
+        <div class="form-group form-actions">
+          <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+          <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn btn-info" value="提交" /></div>
+          <div class="col-sm-1"> </div>
+        </div>
+      </form>
+      {else}
+      <?php extract($info); ?>
+      <form role="form" method="post" action="{:url('adminer/show',['id'=>$adminid])}" enctype="multipart/form-data" class="form-horizontal">
+        <input type="hidden" name="adminid" value="{$adminid}">
+        <div class="form-group">
+          <label for="adminname" class="col-sm-2 control-label">姓名：</label>
+          <div class="col-sm-4">
+            <input name="adminname" type="text" class="form-control" id="adminname" value="{$adminname}" readonly />
+          </div>
+          <div class="col-sm-6 cen" id="adminname1"></div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">新密码<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="password" type="password" class="form-control" id="password" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="password1"></div>
+        </div>
+        <div class="form-group">
+          <label for="passwordr" class="col-sm-2 control-label">确认密码<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="passwordr" type="password" class="form-control" id="passwordr" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="passwordr1"></div>
+        </div>
+        <div class="form-group form-actions">
+          <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+          <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn btn-info" value="提交" /></div>
+          <div class="col-sm-1"> </div>
+        </div>
+      </form>
+      {/if}
+      </div>
+  </div>
+</div>

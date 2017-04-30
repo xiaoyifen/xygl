@@ -1,70 +1,88 @@
+<!-- 捐赠列表页 -->
 {layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-table.css">
 <style type="text/css">
 .form-group{
     float: left;
 }
 </style>
-<div class="container">
-    <div class="row clearfix">
-        <div class="col-md-12 column">
+<div class="panel-body" style="padding-bottom:0px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
             <form class="form-horizontal" role="form" action="{:url('donation/index')}" method="get">
-                <div class="form-group">
-                     <label for="inputEmail3" class="col-sm-2 control-label" style="width: 40px">查询</label>
-                    <div class="col-sm-10">
-                        <input name="kw" type="text"  class="form-control" value=""/>
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="txt_search_departmentname">查询</label>
+                    <div class="col-sm-4">
+                        <input name="kw" type="text" class="form-control" value="" style="width: 250px;"/>
                     </div>
-                </div>
-                <div class="form-group">
-                     <label for="inputPassword3" class="col-sm-2 control-label">&nbsp;</label>
-                    <div class="col-sm-10">
-                        <select class="form-control" name="search">
+                    <div class="col-sm-3">
+                        <select class="form-control" name="search" style="width: 120px;">
                             <option value="1">捐赠项目</option>
                             <option value="2">捐赠人</option>
                             <option value="3">捐赠实物或金额</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                         <button type="submit" class="btn btn-default">查询</button>
+                    <div class="col-sm-4" style="text-align:left;">
+                        <button type="submit" class="btn button-pill" style="margin-left:350px;" id="btn_query" >查询</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div class="container">
-    <table>
-        <thead>
-          <tr>
-            <th width="40px">序号</th>
-            <th width="160px">捐赠项目</th>
-            <th width="80px">捐赠人</th>
-            <th width="100px">捐赠实物或金额</th>
-            <th width="80px">捐赠时间</th>
-            <th width="200px">操作</th>
-          </tr>
-        </thead>
-        <tbody>
-        {if !empty($items)}
-        {foreach $items as $k=>$t}
-          <tr>
-            <td>{$t['id']}</td>
-            <td>{$t['topic']}</td>
-            <td>{$t['donorname']}</td>
-            <td>{$t['money']}</td>
-            {if $t['donationtime']}
-            <td>{$t['donationtime']|date="Y-m-d",###}</td>
-            {else}
-            <td></td>
-            {/if}
-            <td><a href="{:url('donation/show')}?id={$t['id']}" target="_blank">查看/修改</a><a href="{:url('donation/del')}?id={$t['id']}">删除</a></td>
-          </tr>
-        {/foreach}
-        {/if}
-        </tbody>
-    </table>
-    {if !empty($items)}
-    <div>{$items->render()}</div>
-    {/if}
+<div>
+<div class="col-md-2">
+<label><a href="{:url('donation/add')}" target="_blank" class="btn btn-info look">添加捐赠</a></label>
+</div> 
+<div class="col-md-10"></div>
 </div>
+<div class="col-xs-12">
+    <div class="table-responsive">
+        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>捐赠项目</th>
+                    <th>捐赠人</th>
+                    <th>捐赠实物或金额</th>
+                    <th>捐赠时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {if !empty($items)}
+            {foreach $items as $k=>$t}
+              <tr>
+                <td>{$t['donationid']}</td>
+                <td>{$t['topic']}</td>
+                <td>{$t['donorname']}</td>
+                <td>{$t['money']}</td>
+                {if $t['donationtime']}
+                <td>{$t['donationtime']|date="Y-m-d",###}</td>
+                {else}
+                <td></td>
+                {/if}
+                <td>
+                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                        <!-- 查看/修改 -->
+                        <a class="blue" href="{:url('donation/show')}?id={$t['donationid']}" target="_blank">
+                            <i class="icon-edit bigger-140"></i>
+                        </a>
+                        <!-- 删除 -->
+                        <a class="red" href="{:url('donation/del')}?id={$t['donationid']}">
+                            <i class="icon-trash bigger-140"></i>
+                        </a>
+                    </div>
+                </td>
+              </tr>
+            {/foreach}
+            {/if}
+            </tbody>
+        </table>
+    </div>
+    {if !empty($items)}
+    <div id="page">{$items->render()}</div>
+    {/if}
+</div>  

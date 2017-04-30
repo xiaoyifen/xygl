@@ -7,15 +7,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="Shortcut Icon" type="image/x-icon" href="__STATIC__/image/favicon.ico" />
 	<title>[title]</title>
+	<link href="__STATIC__/css/smartMenu.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/contabs.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/maintabs.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/jquery-smartMenu-min.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/jquery.nicescroll.min.js"></script>
+	<script type="text/javascript">
+	    $(function(){
+	        $(".ad-menu").niceScroll({cursorborder:"0 none",cursorcolor:"#1a1a19",cursoropacitymin:"0",boxzoom:false});
+	    });
+	    $(function(){
+			$("#ad-menu").Smartmenu();
+		});
+	</script>
 	<!-- 引入 Bootstrap -->
 	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		jQuery.noConflict();
+	</script>
 	<!-- 包括所有已编译的插件 -->
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- include summernote -->
     <link type="text/css" rel="stylesheet" href="__STATIC__/summernote/summernote.css" />
     <script type="text/javascript" src="__STATIC__/summernote/summernote.js"></script>
     <script type="text/javascript" src="__STATIC__/summernote/lang/summernote-zh-CN.js"></script>
+    <link href="__STATIC__/css/public.css" type="text/css" rel="stylesheet">
+    <link href="__STATIC__/css/houtai.css" type="text/css" rel="stylesheet">
+    
 </head>
 <body>
+<div class="container-fluid">

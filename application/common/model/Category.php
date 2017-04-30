@@ -15,7 +15,7 @@ class Category extends Model{
 
 	public function article()
     {
-        return $this->hasMany('Article','categoryid','id');
+        return $this->hasMany('Article','categoryid','categoryid');
     }
 }
 ?>

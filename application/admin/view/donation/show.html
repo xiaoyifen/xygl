@@ -1,46 +1,141 @@
+<!-- 捐赠详情页即添加页 -->
 {layout name="layout" /}
-{if empty($info)}
-<form role="form" method="post" action="{:url('donation/add')}" enctype="multipart/form-data">
-  <ul>
-    <li>
-      <label>捐赠人姓名<b>*</b>：</label>
-      <input name="donorname" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>捐赠项目<b>*</b>：</label>
-      <input name="topic" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>捐赠实物或金额<b>*</b>：</label>
-      <input name="money" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>&nbsp;</label>
-      <input name="submit" type="submit" class="btn" value="添加" />
-    </li>
-  </ul>
-</form>
-{else}
-<?php extract($info); ?>
-<form role="form" method="post" action="{:url('donation/show',['id'=>$id])}" enctype="multipart/form-data">
-  <input type="hidden" name="id" value="{$id}">
-  <ul>
-    <li>
-      <label>捐赠人姓名<b>*</b>：</label>
-      <input name="donorname" type="text"  class="form-control" value="{$donorname}"  style="width:318px;"/>
-    </li>
-    <li>
-      <label>捐赠项目<b>*</b>：</label>
-      <input name="topic" type="text"  class="form-control" value="{$topic}"  style="width:318px;"/>
-    </li>
-    <li>
-      <label>捐赠实物或金额<b>*</b>：</label>
-      <input name="money" type="text"  class="form-control" value="{$money}"  style="width:318px;"/>
-    </li>
-    <li>
-      <label>&nbsp;</label>
-      <input name="submit" type="submit" class="btn" value="添加" />
-    </li>
-  </ul>
-</form>
-{/if}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-form.css">
+<style type="text/css">
+.cen {
+  margin-top: 7px;
+}
+</style>
+
+<script type="text/javascript">
+(function($){ //定义匿名函数并设置形参为$
+  $(function(){ //匿名函数内部的$均为jQuery
+    // 捐赠人姓名
+    $("#donorname").blur(function() {
+      if ($(this).val() == "" ) {  
+        $("#donorname1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：捐赠人姓名必须填写！");  
+        $(this).focus();  
+      }else{  
+        $("#donorname1").html(" ");  
+      }  
+    });
+
+    // 捐赠项目
+    $("#topic").blur(function() {
+      if ($(this).val() == "" ) {  
+        $("#topic1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：捐赠项目必须填写！");  
+        $(this).focus();  
+      }else{  
+        $("#topic1").html(" ");  
+      }  
+    });
+
+    // 捐赠实物或金额
+    $("#money").blur(function() {
+      if ($(this).val() == "" ) {  
+        $("#money1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：捐赠实物或金额必须填写！");  
+        $(this).focus();  
+      }else{  
+        $("#money1").html(" ");  
+      }  
+    });
+
+    // 表单验证
+    $("form").submit(function(){
+      // 捐赠人姓名不为空
+      if ($("#donorname").val() == "") {
+        $("#donorname1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：捐赠人姓名必须填写！"); 
+        $("#donorname").focus();
+      }
+      // 捐赠项目不为空
+      if ($("#topic").val() == "") {
+        $("#topic1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：捐赠项目必须填写！"); 
+        $("#topic").focus();
+      }
+      // 捐赠实物或金额不为空
+      if ($("#money").val() == "") {
+        $("#money1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：捐赠实物或金额必须填写！"); 
+        $("#money").focus();
+      }
+      // 验证为空，禁止提交
+      if ($("#donorname").val() == "" || $("#topic").val() == "" || $("#money").val() == "") {
+        return false;
+      } 
+    });
+  });
+})(jQuery); 
+</script>
+
+<div class="panel-body" style="padding-bottom:0px;">
+  <div class="panel panel-default">
+    {if empty($info)}
+      <div class="panel-heading">添加捐赠</div>
+    {else}
+      <div class="panel-heading">查看/修改捐赠信息</div>
+    {/if}
+    <div class="panel-body body">
+      {if empty($info)}
+      <form role="form" method="post" action="{:url('donation/add')}" enctype="multipart/form-data" class="form-horizontal">
+        <div class="form-group">
+          <label for="donorname" class="col-sm-2 control-label">捐赠人姓名<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="donorname" type="text" class="form-control" id="donorname" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="donorname1"></div>
+        </div>
+        <div class="form-group">
+          <label for="topic" class="col-sm-2 control-label">捐赠项目<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="topic" type="text" class="form-control" id="topic" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="topic1"></div>
+        </div>
+        <div class="form-group">
+          <label for="money" class="col-sm-2 control-label">捐赠实物或金额<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="money" type="text" class="form-control" id="money" value="" />
+          </div>
+          <div class="col-sm-6 cen" id="money1"></div>
+        </div>
+        <div class="form-group form-actions">
+          <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+          <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn btn-info" value="提交" /></div>
+          <div class="col-sm-1"> </div>
+        </div>
+      </form>
+      {else}
+      <?php extract($info); ?>
+      <form role="form" method="post" action="{:url('donation/show',['id'=>$donationid])}" enctype="multipart/form-data" class="form-horizontal">
+        <input type="hidden" name="donationid" value="{$donationid}">
+        <div class="form-group">
+          <label for="donorname" class="col-sm-2 control-label">捐赠人姓名<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="donorname" type="text" class="form-control" id="donorname" value="{$donorname}" />
+          </div>
+          <div class="col-sm-6 cen" id="donorname1"></div>
+        </div>
+        <div class="form-group">
+          <label for="topic" class="col-sm-2 control-label">捐赠项目<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="topic" type="text" class="form-control" id="topic" value="{$topic}" />
+          </div>
+          <div class="col-sm-6 cen" id="topic1"></div>
+        </div>
+        <div class="form-group">
+          <label for="money" class="col-sm-2 control-label">捐赠实物或金额<b>*</b>：</label>
+          <div class="col-sm-4">
+            <input name="money" type="text" class="form-control" id="money" value="{$money}" />
+          </div>
+          <div class="col-sm-6 cen" id="money1"></div>
+        </div>
+        <div class="form-group form-actions">
+          <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+          <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn btn-info" value="提交" /></div>
+          <div class="col-sm-1"> </div>
+        </div>
+      </form>
+      {/if}
+      </div>
+  </div>
+</div>

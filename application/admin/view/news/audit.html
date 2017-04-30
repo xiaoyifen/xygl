@@ -1,12 +1,21 @@
+<!-- 审核界面 -->
 {layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-form.css">
+<style type="text/css">
+.cen {
+  margin-top: 35px;
+}
+</style>
 <script type="text/javascript">
-$(document).ready(function() {
+(function($){ //定义匿名函数并设置形参为$
+$(function(){ //匿名函数内部的$均为jQuery
   // 初始化文本编辑器
   $('#editor').summernote({                    
     minHeight: 300,             
     maxHeight: 500, 
-    width: 1000,       
-    focus: true,   
+    // width: 1000,       
+    focus: false,   
     lang:'zh-CN',
     // 字体
     fontNames: [
@@ -56,81 +65,169 @@ $(document).ready(function() {
     });
   }
 
+  // 审核理由
+  $("#reason").blur(function() {
+    if ($(this).val() == "" ) {  
+      $("#reason1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：审核理由必须填写！");  
+      $(this).focus();  
+    }else{  
+      $("#reason1").html(" ");  
+    }  
+  });
+
+  // 是否显示审核理由
+  $("input[name='status']").click(function () {
+    if ($("input[name='status']:checked").val()==2) {
+      $("#beWork").css("display","block");
+      $("#reason1").html(" "); 
+    }else{
+      $("#beWork").css("display","none");
+      $("#reason1").html(" ");
+    }
+  });
+
+  // 表单验证
+  $("form").submit(function(){
+    if ($("#beWork").css("display") == "block") {
+      // 审核理由不为空
+      if ($("#reason").val() == "" ) {  
+        $("#reason1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：审核理由必须填写！");  
+        $("#reason").focus();  
+      }
+      // 验证为空，禁止提交
+      if ($("#reason").val() == "") {
+        return false;
+      } 
+    } 
+  });
+
 });
+})(jQuery);
 </script>
-<?php extract($info); ?>
-<form role="form" method="post" action="{:url('news/audit',['id'=>$id])}" enctype="multipart/form-data">
-  <input type="hidden" name="id" value="{$id}">
-  <ul>
-    <li>
-      <label>类别：</label>
-      <input type="text"  class="form-control" value="{$categoryname}"  style="width:318px;" readonly />
-    </li>
-    <li>
-      <label>标题：</label>
-      <input type="text"  class="form-control" value="{$title}"  style="width:318px;" readonly />
-    </li>
-    <li>
-      <label>作者：</label>
-      <input type="text"  class="form-control" value="{$author}"  style="width:318px;" readonly />
-    </li>
-    <li>
-      <label>摘要：</label>
-      <textarea class="form-control"  value="" style="height:100px; width:318px" readonly >{$abstract}</textarea>
-    </li>
-    <li>
-      <label>内容：</label>
-      <textarea id="editor" class="form-control"  value="" style="height:100px; width:318px" readonly >{$content}</textarea>
-    </li>
-    {if !empty($imagepath)}
-    <li>
-      <label>图片：<b></b></label>
-      <img class="img-responsive" alt="{$title}" src="__STATIC__/uploads/{$imagepath}" style="max-width:318px;max-height: 240px;"/>
-      <input type="text" id="image1" class="form-control" value="{$imagename}" style="width:318px;" readonly />
-    </li>
-    {/if}
-    {if !empty($filepath)}
-    <li>
-      <label>文件：<b></b></label>
-      <p><a href="__STATIC__/uploads/{$filepath}" target="_blank" >{$filename}</a></p>
-    </li>
-    {/if}
-    {if $status == 0}
-    <li>
-      <label>审核：<b></b></label>
-      <div class="checkbox-inline">
-        <label>
-          <input type="radio" name="status" id="status1" value="2" checked>未通过
-        </label>
-      </div>
-      <div class="checkbox-inline">
-        <label>
-          <input type="radio" name="status" id="status2" value="1">通过
-        </label>
-      </div>
-    </li>
-    <li>
-      <label>理由：</label>
-      <textarea name="reason" class="form-control"  value="" style="height:100px; width:318px" ></textarea>
-    </li>
-    <li>
-      <label>&nbsp;</label>
-      <input name="submit" type="submit" class="btn" value="审核" />
-    </li>
-    {elseif $status == 1}
-    <li>
-      <label>审核结果：<b></b></label>
-      <p>已通过审核</p>
-    </li>
-    {elseif $status == 2}
-    <li>
-      <label>审核结果：<b></b></label>
-      <p>未通过审核</p>
-    </li>
-    <li>
-      <label>理由：</label>
-      <textarea name="reason" class="form-control"  value="" style="height:100px; width:318px" readonly >{$reason}</textarea>
-    </li>
-    {/if}
-  </ul>
-</form>
+
+<div class="panel-body" style="padding-bottom:0px;">
+  <div class="panel panel-default">
+    <div class="panel-heading">审核信息</div>
+    <div class="panel-body body">
+      <?php extract($info); ?>
+      <form role="form" method="post" action="{:url('news/audit',['id'=>$articleid])}" enctype="multipart/form-data" class="form-horizontal">
+        <input type="hidden" name="articleid" value="{$articleid}">
+        <div class="form-group">
+          <label for="categoryid" class="col-sm-1 control-label">类别：</label>
+          <div class="col-sm-4">
+            <input type="text" id="category" class="form-control" value="{$categoryname}" readonly />
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        <div class="form-group">
+          <label for="title" class="col-sm-1 control-label">标题：</label>
+          <div class="col-sm-4">
+            <input type="text" id="title" class="form-control" value="{$title}" readonly />
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        <div class="form-group">
+          <label for="author" class="col-sm-1 control-label">作者：</label>
+          <div class="col-sm-4">
+            <input type="text" id="author" class="form-control" value="{$author}" readonly />
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        <div class="form-group">
+          <label for="abstract" class="col-sm-1 control-label">摘要：</label>
+          <div class="col-sm-4">
+            <textarea class="form-control" id="abstract" value="" style="height:100px;" readonly >{$abstract}</textarea>
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        <div class="form-group">
+          <label for="editor" class="col-sm-1 control-label">内容：</label>
+          <div class="col-sm-10">
+            <textarea id="editor" class="form-control"  value="" style="height:100px;" readonly >{$content}</textarea>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+        {if !empty($imagepath)}
+        <div class="form-group">
+          <label for="image1" class="col-sm-1 control-label">图片：</label>
+          <div class="col-sm-4">
+            <input type="text" id="image1" class="form-control" value="{$imagename}" readonly />
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        <div class="form-group">
+          <label for="image2" class="col-sm-1 control-label"></label>
+          <div class="col-sm-4">
+            <a href="#" class="thumbnail">
+            <img class="img-responsive" alt="{$title}" src="__STATIC__/uploads/{$imagepath}" style="max-width:318px;max-height: 240px;"/>
+            </a>
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        {/if}
+        {if !empty($filepath)}
+        <div class="form-group">
+          <label for="file" class="col-sm-1 control-label">文件：</label>
+          <div class="col-sm-4">
+            <p style="margin-top: 7px;"><b><a style="color: #337ab7;" href="__STATIC__/uploads/{$filepath}" target="_blank" id="file">{$filename}</a></b></p>
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        {/if}
+        {if $status == 0}
+        <div class="form-group">
+          <label for="check" class="col-sm-1 control-label">审核：</label>
+          <div class="col-sm-4">
+            <div class="checkbox-inline">
+              <label>
+                <input type="radio" name="status" id="status2" value="2" checked>未通过
+              </label>
+            </div>
+            <div class="checkbox-inline">
+              <label>
+                <input type="radio" name="status" id="status1" value="1">通过
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        <div class="form-group" id="beWork">
+          <label for="reason" class="col-sm-1 control-label">理由<b>*</b>：</label>
+          <div class="col-sm-4">
+            <textarea name="reason" id="reason" class="form-control" value="" style="height:100px;" ></textarea>
+          </div>
+          <div class="col-sm-7 cen" id="reason1"></div>
+        </div>
+        <div class="form-group form-actions">
+          <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+          <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn btn-info" value="提交" /></div>
+          <div class="col-sm-1"> </div>
+        </div>
+        {elseif $status == 1}
+        <div class="form-group">
+          <label for="result" class="col-sm-1 control-label">结论：</label>
+          <div class="col-sm-4">
+            <p style="margin-top: 7px;" id="result"><b class="green">已通过审核</b></p>
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        {elseif $status == 2}
+        <div class="form-group">
+          <label for="result" class="col-sm-1 control-label">结论：</label>
+          <div class="col-sm-4">
+            <p style="margin-top: 7px;" id="result"><b>未通过审核</b></p>
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        <div class="form-group">
+          <label for="reason" class="col-sm-1 control-label">理由：</label>
+          <div class="col-sm-4">
+            <textarea name="reason" id="reason" class="form-control"  value="" style="height:100px;" readonly>{$reason}</textarea>
+          </div>
+          <div class="col-sm-7"></div>
+        </div>
+        {/if}
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<!-- 留言列表页 -->
+{layout name="layout" /}
+<style type="text/css">
+.editor{
+    
+}
+</style>
+<div class="container">
+    <form role="form" method="post" action="{:url('message/add')}" enctype="multipart/form-data">
+        <!-- <input type="hidden" name="senderid" value="{$userid}"> -->
+        <input type="hidden" name="ownerid" value="{$ownerid}">
+        <input type="hidden" name="receiverid" value="{$ownerid}">
+        <ul>
+            <li>
+              <label>作者<b>*</b>：</label>
+              <input name="senderid" type="text"  class="form-control" value="" />
+            </li>
+            <li>
+              <label>内容<b>*</b>：</label>
+              <textarea name="content" class="form-control editor" value=""></textarea>
+            </li>
+            <li>
+              <label>&nbsp;</label>
+              <input name="submit" type="submit" class="btn" value="留言" />
+            </li>
+        </ul>
+    </form>
+</div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel-group" id="accordion">
+            {if !empty($item)}
+            {foreach $item as $k=>$t}
+                <div class="col-md-11">
+                    <h5>
+                        用户：{$t['message']['sender']['username']}
+                    </h5>
+                </div>
+                
+                <div class="col-md-1">
+                    <h5>
+                    {if $userid == $t['message']['ownerid']}
+                        <a href="{:url('message/del',['id'=>$t['message']['messageid']])}">删除</a>
+                    {else}
+                        <span>&nbsp;</span>
+                    {/if}
+                    </h5>
+                </div>
+                
+                <h5>
+                    留言内容：{$t['message']['content']}
+                </h5>
+                <h5>
+                    留言时间：{$t['message']['time']|date="m-d H:i",###}
+                </h5>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class="message" data-toggle="collapse" data-parent="#accordion" href="#demo{$t['message']['messageid']}">回复</a>
+                        </h6>
+                    </div>
+                    <div id="demo{$t['message']['messageid']}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form role="form" method="post" action="{:url('message/reply')}" enctype="multipart/form-data">
+                              <!-- <input type="hidden" name="senderid" value="{$userid}"> -->
+                              <input type="hidden" name="ownerid" value="{$ownerid}">
+                              <input type="hidden" name="receiverid" value="{$t['message']['senderid']}">
+                              <input type="hidden" name="replyid" value="{$t['message']['messageid']}">
+                              <ul>
+                                <li>
+                                  <label>作者<b>*</b>：</label>
+                                  <input name="senderid" type="text" class="form-control" value="" />
+                                </li>
+                                <li>
+                                  <label>内容<b>*</b>：</label>
+                                  <textarea name="content" class="form-control editor" value="" placeholder="回复{$t['message']['sender']['username']}："></textarea>
+                                </li>
+                                <li>
+                                  <label>&nbsp;</label>
+                                  <input name="submit" type="submit" class="btn" value="提交回复" />
+                                </li>
+                              </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {foreach $t['reply'] as $key=>$v}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <span>{$v['sender']['username']}</span>回复<span>{$v['receiver']['username']}</span>：<span>{$v['content']}</span>
+                            <a class="message" data-toggle="collapse" data-parent="#accordion" href="#demo{$v['messageid']}">回复</a>
+                        </h6>
+                    </div>
+                    <div id="demo{$v['messageid']}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form role="form" method="post" action="{:url('message/reply')}" enctype="multipart/form-data">
+                              <!-- <input type="hidden" name="senderid" value="{$userid}"> -->
+                              <input type="hidden" name="ownerid" value="{$ownerid}">
+                              <input type="hidden" name="receiverid" value="{$v['senderid']}">
+                              <input type="hidden" name="replyid" value="{$t['message']['messageid']}">
+                              <ul>
+                                <li>
+                                  <label>作者<b>*</b>：</label>
+                                  <input name="senderid" type="text" class="form-control" value="" />
+                                </li>
+                                <li>
+                                  <label>内容<b>*</b>：</label>
+                                  <textarea name="content" class="form-control editor" value="" placeholder="回复{$v['sender']['username']}："></textarea>
+                                </li>
+                                <li>
+                                  <label>&nbsp;</label>
+                                  <input name="submit" type="submit" class="btn" value="提交回复" />
+                                </li>
+                              </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {/foreach}   
+            {/foreach}
+            {/if}
+            </div>
+            {if !empty($items)}
+            <div>{$items->render()}</div>
+            {/if}
+        </div>
+    </div>
+</div>

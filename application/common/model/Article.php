@@ -19,11 +19,11 @@ class Article extends Model{
     }
 
     public function log(){
-        return $this->belongsTo('Log','id','articleid');// id为article id
+        return $this->belongsTo('Log','articleid','articleid');// id为article id
     }
 
     public function category(){
-        return $this->belongsTo('Category','categoryid','id');
+        return $this->belongsTo('Category','categoryid','categoryid');
     }
 }
 ?>

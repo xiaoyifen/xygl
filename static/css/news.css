@@ -1,0 +1,29 @@
+.news_list{ margin:10px}
+.news_list li{ height:26px;background:url(../image/dot1.gif) no-repeat 0 5px; padding-left:15px; position:relative}
+.news_list li span{ position:absolute; top:0; right:0; color:#999}
+.path{ color: #999}
+
+/*view */
+#view_right{ width: 230px; float:right; border: 1px solid #eee; border-top-width: 0}
+.sidebar_title2{ width: 228px; height: 30px; background: url(../image/newsTitlebg.gif) repeat-x; padding-left: 15px; color: #333}
+.sidebar_box2{ padding:5px 10px}
+.sidebar_box2 a{ color: #333}
+h1{ font-size: 20px; text-align: center; margin: 15px 0 5px 0}
+.news_info{color: #666; text-align: center; height: 25px; line-height: 25px}
+.news_content{ font-size: 14px; line-height: 1.6em; padding:15px  10px; background: #F8FCFF}
+.news_content p{ text-indent: 25px; margin-bottom: 15px}
+.news_content img{ padding:3px; border: 1px solid #E5E5E5; margin-bottom: 15px; text-align: center}
+.tool_link{ height: 30px; background: #fff; margin: 0px 15px; text-align: right; line-height: 30px; padding: 0px 10px}
+.tool_link a{ color: #666}
+#next_prev_nwes{ margin: 10px 20px; color: #666}
+
+.related_title{margin:10px;background: url(../image/newsico.gif) no-repeat 4px -60px; font-size:14px; padding-left: 20px;}
+#related{ margin: 10px 30px}
+#related li{ background: url(../image/dot3.gif) no-repeat 0 10px; padding-left: 15px; height: 25px; line-height: 25px;}
+#related li span{ color: #999; padding: 0px 5px}
+#related li a{ font-size: 14px;}
+
+/*comments*/
+#comments_list .one_cmt_right{float:left; margin-left:8px; width:580px; text-align: left;}
+#comment_form_box .comment_form{float:left; width:580px;}
+#cmt_content{width:600px; height:70px}

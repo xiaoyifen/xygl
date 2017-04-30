@@ -1,21 +1,19 @@
+<!-- 审核列表页 -->
 {layout name="layout" /}
-<style type="text/css">
-.form-group{
-    float: left;
-}
-</style>
-<div class="container">
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <form class="form-horizontal" role="form" action="{:url('news/check')}" method="get">
-                <div class="form-group">
-                     <label for="inputEmail3" class="col-sm-2 control-label" style="width: 40px">查询</label>
-                    <div class="col-sm-10">
-                        <input name="kw" type="text"  class="form-control" value=""/>
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-table.css">
+
+<div class="panel-body" style="padding-bottom:0px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <form id="formSearch" class="form-horizontal" role="form" action="{:url('news/check')}" method="get">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="txt_search_departmentname">查询</label>
+                    <div class="col-sm-4">
+                        <input name="kw" type="text" class="form-control" value="" style="width: 250px;"/>
                     </div>
-                </div>
-                <div class="form-group" style="width: 200px;">
-                    <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-3">
                         <select class="form-control" name="search" style="width: 120px;">
                             <option value="1">标题</option>
                             <option value="2">作者</option>
@@ -25,56 +23,70 @@
                             <option value="6">类别</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                         <button type="submit" class="btn btn-default">查询</button>
+                    <div class="col-sm-4" style="text-align:left;">
+                        <button type="submit" class="btn button-pill" style="margin-left:350px;" id="btn_query"  >查询</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div class="container">
-    <table>
-        <thead>
-          <tr>
-            <th width="40px">序号</th>
-            <th width="40px">类别</th>
-            <th width="140px">标题</th>
-            <th width="140px">作者</th>
-            <th width="80px">发布时间</th>
-            <th width="80px">修改时间</th>
-            <th width="80px">状态</th>
-            <th width="200px">操作</th>
-          </tr>
-        </thead>
-        <tbody>
-        {if !empty($items)}
-        {foreach $items as $k=>$t}
-          <tr>
-            <td>{$t['id']}</td>
-            <td>{$t['categoryname']}</td>
-            <td>{$t['title']}</td>
-            <td>{$t['author']}</td>
-            {if $t['createtime']}
-            <td>{$t['createtime']|date="Y-m-d",###}</td>
-            {else}
-            <td></td>
-            {/if}
-            {if $t['updatetime']}
-            <td>{$t['updatetime']|date="Y-m-d",###}</td>
-            {else}
-            <td></td>
-            {/if}
-            <td>{$t['status']}</td>
-            <td><a href="{:url('news/top')}?id={$t['id']}">置顶</a><a href="{:url('news/audit')}?id={$t['id']}" target="_blank">审核</a></td>
-          </tr>
-        {/foreach}
-        {/if}
-        </tbody>
-    </table>
+
+<div class="col-xs-12">
+    <div class="table-responsive">
+        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>类别</th>
+                    <th>标题</th>
+                    <th>作者</th>
+                    <th>发布时间</th>
+                    <th>修改时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {if !empty($items)}
+                {foreach $items as $k=>$t}
+                  <tr>
+                    <td>{$t['articleid']}</td>
+                    <td>{$t['categoryname']}</td>
+                    <td>{$t['title']}</td>
+                    <td>{$t['author']}</td>
+                    {if $t['createtime']}
+                    <td>{$t['createtime']|date="Y-m-d",###}</td>
+                    {else}
+                    <td></td>
+                    {/if}
+                    {if $t['updatetime']}
+                    <td>{$t['updatetime']|date="Y-m-d",###}</td>
+                    {else}
+                    <td></td>
+                    {/if}
+                    <td>{$t['status']}</td>
+                    <td>
+                        <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                            <!-- 审核 -->
+                            <a class="blue" href="{:url('news/audit')}?id={$t['articleid']}" target="_blank">
+                                <i class="icon-check bigger-140"></i>
+                            </a>
+                            <!-- 置顶 -->
+                            <a class="green" href="{:url('news/top')}?id={$t['articleid']}">
+                                <i class="icon-pushpin bigger-140"></i>
+                            </a>
+                        </div>
+                    </td>
+                  </tr>
+                {/foreach}
+                {/if}
+            </tbody>
+        </table>
+    </div>
     {if !empty($items)}
-    <div>{$items->render()}</div>
+    <div id="page">{$items->render()}</div>
     {/if}
-</div>
+</div>  
+
+

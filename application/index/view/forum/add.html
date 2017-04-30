@@ -1,0 +1,64 @@
+<!-- 论坛发帖页面 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/colorbox.css" type="text/css"  />
+<link type="text/css" href="__STATIC__/css/bbs.css" rel="stylesheet" />
+<script type="text/javascript">
+$(function(){
+  // 表单验证
+  $("#formtips").submit(function(){   
+    // 帖子内容不为空
+    if ($("#editor").val() == "") {
+      $("#tips").html("<b>提示：请填写帖子内容！</b>"); 
+      $("#editor").focus();
+    }
+    // 话题不为空
+    if ($("#title").val() == "") {
+      $("#tips").html("<b>提示：请填写话题！</b>"); 
+      $("#title").focus();
+    }
+    // 验证为空，禁止提交
+    if ($("#title").val() == "" || $("#editor").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
+<style type="text/css">
+.white {
+  color: white;
+}
+.info {
+  background: #A2C6EA;
+}
+.info.focus, .info:focus, .info:hover {
+    color: #478fca;
+    text-decoration: none;
+}
+b {
+  color: #dd5a43;
+}
+</style>
+<div class="container" id="body" >
+  <form role="form" method="post" action="{:url('forum/add')}" enctype="multipart/form-data" id="formtips">
+    <input type="hidden" name="authorid" value="{$userid}">
+    <ul>
+      <!-- <li>
+        <label>作者<b>*</b>：</label>
+        <input name="authorid" type="text"  class="form-control" value=""  style="width:318px;"/>
+      </li> -->
+      <li>
+        <label style="font-size: 14px">话题<b>*</b>：</label>
+        <input name="title" type="text" class="form-control" value="" style="width:318px;" id="title" />
+      </li>
+      <li>
+        <label style="font-size: 14px">内容<b>*</b>：</label>
+        <textarea name="content" id="editor" class="form-control"  value="" style="height:100px; width:318px"></textarea>
+      </li>
+      <li>
+        <label class="col-md-11" id="tips">&nbsp;</label>
+        <input name="submit" type="submit" class="btn info white" value="发布" class="col-md-1" style="margin-left: 20px;" />
+      </li>
+    </ul>
+  </form>
+</div>

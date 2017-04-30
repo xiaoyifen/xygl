@@ -10,7 +10,7 @@ class Donation extends Model{
 
 	public function stu()
     {
-        return $this->belongsTo('Stu','donorid','id');
+        return $this->belongsTo('Stu','donorid','userid');
     }
 
 }

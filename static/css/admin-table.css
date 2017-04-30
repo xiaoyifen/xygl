@@ -1,0 +1,92 @@
+.form-group{
+    float: left;
+}
+.table-responsive{
+    font-size: 13px;
+    color: #393939;
+    line-height: 1.5;  
+}
+.table thead tr th {
+    vertical-align: middle;
+}
+.table tbody tr td {
+    vertical-align: middle;
+}
+thead tr {
+    background-image: linear-gradient(to bottom,#f8f8f8 0,#ececec 100%);
+}
+.bigger-120 {
+    font-size: 120%;
+}
+.btn:focus,
+.btn:active:focus {
+    outline: none;  
+}
+.btn-success.focus, .btn-success:focus {
+    border-color: #449d44; 
+}
+.button-pill {
+    border-radius: 200px;
+}
+.blue {
+    color: #478fca!important;
+}
+.green {
+    color: #69aa46!important;
+}
+.red {
+    color: #dd5a43!important;
+}
+.bigger-140 {
+    font-size: 140%;
+}
+.action-buttons a {
+    margin: 0 3px;
+    display: inline-block;
+    opacity: .85;
+    -webkit-transition: all .1s;
+    transition: all .1s;
+}
+.action-buttons a:hover {
+    text-decoration: none;
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    opacity: 1;
+}
+a:focus, a:hover {
+    text-decoration: none;
+}
+#page {
+    float: right;
+}
+/*info按钮样式*/
+.btn-info {
+  display: inline-block;
+  color: #FFF!important;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25)!important;
+  background-image: none!important;
+  border: 5px solid #FFF;
+  border-radius: 4px;
+  box-shadow: none!important;
+  -webkit-transition: all ease .15s;
+  transition: all ease .15s;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0;
+  position: relative;
+}
+.btn-info, .btn-info:focus {
+  background-color: #6fb3e0!important;
+  border-color: #6fb3e0;
+}
+.btn-info:hover {
+  background-color: #4f99c6!important;
+  border-color: #6fb3e0;
+}
+.look {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
