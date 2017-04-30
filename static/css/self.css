@@ -1,0 +1,106 @@
+@CHARSET "UTF-8";
+/*左边导航栏*/
+.Nsb_layout_l{
+	border:solid 1px #D1E5ED;
+	width: 179px;
+	height:780px;
+	float:left;
+	background-color: #F6FAFB;
+}
+.Nsb_l_list_top{
+	height:25px;
+}
+.Nsb_l_list H4{
+	font-weight:bold;
+	display:inline-block;
+}
+.Nsb_l_list UL{
+	display:inline-block;
+}
+.Nsb_l_list LI{
+	display:inline-block;
+}
+.Nsb_l_list LI{
+	display:inline-block;
+}
+.Nsb_l_list A{
+	display:inline-block;
+}
+.Nsb_l_list H4{
+	height:22px;
+	line-height:22px;
+	padding-top:0px;
+	padding-right:0px;
+	padding-bottom:0px;
+	padding-left:40px;
+	font-size:14px;
+	font-weight:blod;
+	margin-top:8px;
+	margin-right:0px;
+	margin-bottom:8px;
+	margin-left:0px;
+}
+.Nsb_l_list UL{
+	weight:179px;
+	padding-bottom:8px;
+}
+.Nsb_l_list LI{
+	margin-bottom:8px;
+}
+.Nsb_l_list A{
+	width:139px;
+	color:#333;
+	line-height:22px;
+	padding-left:40px;
+}
+.exam_user_exam{
+	background-attachment:scroll;
+	background-repeat:no-repeat;
+	background-position-x:0%;
+	background-position-y:0%;
+	background-color:transparent;
+}
+/*右边对于内容*/
+.Nsb_layout_r{
+	padding-toop:35px;
+	padding-right:0px;
+	padding-bottom:0px;
+	padding-left:24px;
+	margin-left:180px !important;
+}
+.Nsb_r_title{
+	height:22px;
+	color:#333;
+	line-height:22px;
+	font-family:"Microsoft YaHei";
+	font-size:16px;
+	font-weight:bold;
+}
+.Nsb_r_title A{
+	color:blue;
+	text-description:none;
+}
+.Nsb_r_title A:hover{
+	color:red;
+	text-description:none;
+}
+.Nsb_r_title2 {
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	height: 22px;
+	line-height: 22px;
+	padding-bottom: 12px
+}
+
+.Nsb_r_title2 span,.Nsb_r_title2 span a {
+	font-size: 12px
+}
+
+.Nsb_r_title2 a:hover {
+	text-decoration: underline
+}
+/*修改密码表单css*/
+.self_form_control{
+	width:200px;
+}

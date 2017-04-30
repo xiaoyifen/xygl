@@ -1,0 +1,116 @@
+#body .row{ width: 100%; margin-bottom:5px}
+#banner{ float: left;width: 663px;height:185px;}
+#login,#qlink{ float: right;width:250px;height:185px; background:#F6FAFB  url(../images/login_bg.gif) no-repeat; border: 1px solid #BCDDEA}
+#login .title{padding-left: 2px; margin: 10px}
+#qlink .title{padding-left:2px; margin: 10px}
+
+/* small tab*/
+.small_tab{ height: 30px; background: url(../images/small_title_bg.jpg) no-repeat; border-bottom: 1px solid #BCDDEA; position: relative}
+.small_tab ul{ position: absolute; top:4px; left: 10px}
+.small_tab li{ float: left; list-style: none; padding: 0px 3px}
+.small_tab a{height:27px; line-height: 27px;text-align: center}
+.small_tab a:hover{ text-decoration: none}
+.small_tab a.cur:link,.small_tab a.cur:visited{display: block;width:79px;background:url(../images/small_tab_cur3.gif) no-repeat; font-weight: bold}
+
+#marquee{ line-height:24px; height: 148px;overflow:hidden;}
+#marquee ul{margin: 0px 10px;padding: 0px;list-style-type: none;}
+#marquee ul li{overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin:0;padding: 0px;}
+
+#marquee2{ line-height:24px; height: 300px;overflow:hidden;}
+#marquee2 ul{margin: 0px 10px;padding: 0px;list-style-type: none;}
+#marquee2 ul li{overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin:0;padding: 0px;}
+
+.tab_content{ padding: 15px; height:160px;}
+.tab_content li{ height:24px;}
+.tab_content li span{ color:#999}
+
+/*校友�?*/
+#alumni_event{ float: left; width: 230px; border: 1px solid #BCDDEA; background: #F6FAFB}
+#news{ float: left; margin-left:10px;width:420px;}
+#news h1{ margin:0; padding:5px 2px}
+#news h1 a{ font-family:'微软雅黑','黑体'; color:#c00; font-size:18px; font-weight:bold}
+#news .des{ background:#F2FAFE; padding:5px; line-height:1.6em; color:#666;}
+
+/*求是群芳*/
+#qiushi{ margin-left: 16px;float:left;width:249px; border: 1px solid #BCDDEA; background:#F6FAFB; height:533px; border-top-width: 0px;}
+.one_qiushi{margin:10px; height: 170px ;line-height:1.6em; }
+.one_qiushi img{ float: left;margin:0px 10px 10px 0}
+.one_qiushi .left{ float:left; width:83px;}
+.one_qiushi .right{ float:right; width:130px; text-align: left}
+
+/*搜索*/
+.search_form{ padding: 10px}
+
+#event_banner{ text-align:center}
+
+/*推荐活动*/
+.one_event{margin:5px 0px; height:50px;background:url(../images/dotted_line_bg2.gif) repeat-x bottom; padding-bottom:5px}
+.no_bg{ background-image: none}
+.one_event .left{ float:left; width:42px; height:37px; padding-top:5px; text-align:center; background:url(../images/home_event_logo_bg.gif) no-repeat;}
+.one_event span{ color:#999}
+.one_event .right{ float:right; width:155px; line-height:1.6em; color:#444; text-align: left}
+
+/*明星校友*/
+#stars_alumni{padding:10px 15px; padding-left: 30px;text-align:center;*padding-left: 20px;}
+#stars_alumni .alumni_face{float:left;width:52px; height:75px; margin-right:15px; *margin-right:10px}
+#stars_alumni .alumni_face img{border:1px solid #eee; padding:2px; margin-bottom:3px}
+
+/*活动tab*/
+.big_tab_title{ width:931px; height:42px;background:url(../images/big_tab_bg.gif) no-repeat; position:relative}
+.big_tab_title ul{ position: absolute; top:12px; left:10px}
+.big_tab_title li{ float: left; list-style: none; }
+.big_tab_title ul a{display: block;width:107px;height:30px; line-height: 30px;text-align: center}
+.big_tab_title ul  a:hover{ text-decoration: none}
+.big_tab_title ul  a.cur:link,.big_tab_title ul  a.cur:visited{ background:url(../images/big_tab_cur.gif) no-repeat; font-weight: bold}
+.tab_content_photo{ height:100px; border:1px solid #BCDDEA; padding:10px; border-top-width:0}
+.tab_content_photo li,.a_pic{ float: left; background:url(../images/home_photo_bg.gif) no-repeat; margin-right:2px; width:127px; height:100px; text-align:center; padding-top:9px}
+.a_pic{background:url(../images/home_photo_bg.gif) no-repeat; margin-right:2px; width:127px; height:100px; text-align:center; padding-top:9px}
+
+#row4{ margin-top:2px}
+#row4 .left{ width:237px; float:left;}
+#row4 .fcenter{margin-left:15px; width:400px; float:left; text-align: left}
+#row4 .fright{ width:251px; float:right; text-align: left;}
+/*最新加入校�?*/
+#new_alumni{border:1px solid #E3EFF4; border-top-width:0; padding:10px 15px}
+#new_alumni .a_alumni{ height:70px;background:url(../images/dotted_line_bg2.gif) repeat-x bottom; margin-bottom:7px}
+#new_alumni .no_line{ background:none}
+#new_alumni .a_alumni .left{ float:left;width:40px}
+#new_alumni .a_alumni img{ border:1px solid #eee; padding:2px}
+#new_alumni .a_alumni .right{ float:right; width:140px; line-height:1.6em; text-align: left}
+
+/*bbs*/
+#home_bbs thead th{ border-bottom: 1px solid #E7F1FD; height: 30px; line-height: 30px; font-weight: normal; color: #666}
+#home_bbs tbody td{height: 30px; font-size: 12px; color: #999999}
+#home_bbs .aa_bbs{ color: #999; font-size: 14px; padding-right:5px}
+#home_bbs .aa_bbs a:link,#home_bbs .aa_bbs a:visited{ color: #999; font-size: 14px;}
+#home_bbs tbody .two{ background: #F9F9F9}
+.unit_title:link,.unit_title:visited{ font-size: 14px}
+/*校内链接*/
+#more_links{ margin:5px 0;color:#666666;}
+#more_links .text{  margin:5px 0; line-height:1.6em}
+#more_links .logo{padding:5px 0}
+
+/*捐赠鸣谢*/
+.donate_tks li{ height: 20px;}
+.donate_tks li span{ float: right;color: #333}
+
+#bbs_tabs{font-size: 14px;height: 27px; line-height: 27px; border-bottom: 1px solid #E7F1FD;color:#999}
+#bbs_tabs li{ float: left; list-style: none; }
+#bbs_tabs a{display: block;width: 70px;text-align: center;font-size: 14px;  color: #999}
+#bbs_tabs a:hover{ text-decoration: none}
+#bbs_tabs a.cur:link,#bbs_tabs a.cur:visited{font-weight:bold;color: #0D5194;}
+
+#user_home_qlink{ color:#333; margin-top:5px; background:#EEF6F8; padding: 3px; border: 1px solid #CAE1E6 }
+#user_home_qlink a{ display: block; padding: 0 0 0 8px; margin:1px; text-align: left; text-decoration: none; }
+#user_home_qlink a:hover{ background: #C5DEE3 }
+
+
+.go2top { background: url(/static/images/o_o_go2top.png) no-repeat scroll left top transparent; bottom: 175px;    color: #444444;    display: none;    height: 50px;right: 60px; margin-left: 510px;position: fixed;text-align: center; width: 50px;z-index: 99}
+.go2top:hover {background-position: -50px top;}
+ #siteapptool li{position: relative;margin-bottom: 10px;}
+#siteapptool li a{ display: block;width:50px;height:50px;background-image:url(/static/images/sinalogo.png);background-repeat: no-repeat;}
+#siteapptool li a.tentweixin{background-position: 0 -206px;}
+ .app{ position:absolute; left: -185px;top:1px;display: none;width:180px}
+ .box{ font-family:SimSun;padding:10px; text-align: center;color: #666;background-color: #fff; width:150px; height:180px; border:1px solid #93BFEA;box-shadow: 0 1px 5px rgba(80, 129, 175, 0.8); -webkit-box-shadow: rgba(80, 129, 175, 0.8) 0px 1px 5px;}
+.box em,.box span{font-style:normal;font-size:25px; position:absolute; right:-5px; top:15px; color:#93BFEA;}
+.box span{font-size:25px; right:-4px; color:#fff; }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- 引入 Bootstrap -->
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- 包括所有已编译的插件 -->
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>后台活动审核</title>
+</head>
+<body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							编号
+						</th>
+						<th>
+							活动名称
+						</th>
+						<th>
+							发起人
+						</th>
+						<th>
+							活动开始时间
+						</th>
+						<th>
+							活动结束时间
+						</th>
+						<th>
+							活动人数
+						</th>
+						<th>
+							
+						</th>
+					</tr>
+				</thead>
+				{if !empty($list)}
+				{foreach $list as $k=>$v}
+				<tbody>
+					<tr>
+						<td>
+							
+						</td>
+						<td>
+							<a href="{:url('activity/showAct',['activityid'=>$v['activityid']])}" class="deep_blue_14"  target="_blank" style="">{$v['title']}</a> <br />
+						</td>
+						<td>
+							{$v->stus->username}
+						</td>
+						<td>
+							{$v['activitytime']|date="Y-m-d H:i",###}
+						</td>
+						<td>
+							{$v['activityendtime']|date="Y-m-d H:i",###}
+						</td>
+						<td>
+							{$v['number']}
+						</td>
+						<td>
+							<button type="button" class="btn btn-default active btn-success"><a href="{:url('activity/pass',['activityid'=>$v['activityid']])}" >通过审核</a></button>
+							<button type="button" class="btn btn-default active btn-danger"><a href="{:url('activity/passnot',['activityid'=>$v['activityid']])}" >不通过审核</a></button>
+				
+						</td>
+					</tr>
+				</tbody>
+				{/foreach}
+				<!-- <div>{$list->render()}</div>-->
+				{else}
+				<tbody>
+					<tr>
+						
+						很抱歉，没有待审核活动！	
+						
+						</tr>
+				</tbody>
+				{/if}
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

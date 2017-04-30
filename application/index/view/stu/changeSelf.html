@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>修改个人信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="renderer" content="webkit" />
+        <meta name="keywords" content="浙江大学校友总会,浙大校友总会,浙大校友,浙江大学校友,浙江大学校友会,浙大校友会" />
+        <meta name="description" content="加入浙大校友网，与校友亲切交流，参与校友会各种活动，从这里您也可以了解到母校最新动态，让我们共同在快乐中进步！" />
+        <!-- 引入 Bootstrap -->
+		<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+		<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+		<!-- 包括所有已编译的插件 -->
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="/./xygl/static/css/index.css" type="text/css"  />
+        <link rel="stylesheet" href="/./xygl/static/css/home.css" type="text/css"  />
+        <link rel="stylesheet" href="/./xygl/static/css/self.css" type="text/css"  />
+        <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/static/artDialog4.1.5/jquery.artDialog.source.js?skin=default"></script>
+        <script type="text/javascript" src="/static/js/tips.js"></script>
+        <script type="text/javascript" src="/static/js/global.js?v=20141117"></script>
+        <script type="text/javascript" src="/static/js/home.js?v=20130712"></script>
+        <script type="text/javascript" src="/static/js/swfobject_source.js"></script>
+</head>
+<body id="htmlbody">
+       <div id="append_parent"></div>
+        <div class="container">
+            <div id="header">
+                <!-- global/header_top:_header_top -->
+<!--top -->
+<div id="zuaa_bg">
+    <div class="logo_tool" >
+        <div class="left"><a href="/" style="display:block;width:250px;height:58px"></a></div>
+        <div class="right"><div class="user_nav">    欢迎回来！<a href="/user/register" >加入校友网</a>&nbsp;&nbsp;
+            <a href="javascript:;" onclick="loginForm('/people')" id="flogin_btn">登录</a>
+    </div>
+            <div class="site_search">
+                                <form action="/search" method="get" >
+                    <p><input name="q" type="text" class="site_search_input" title="输入新闻、组织、活动、姓名等关键字进行搜索" ></p>
+                    <p><input type="submit" class="site_search_button" value="搜索" ></p>
+                    <input type="hidden" name="for" value="news"  >
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="nav">
+        <a href="/" >首页</a>
+        <a href="/news" >新闻中心</a>
+        <a href="/aa/branch" >校友组织</a>
+        <a href="/event" >校友活动</a>
+        <a href="/classroom" >班级录</a>
+        <a href="/bbs/list" class="nonebg" >交流园地</a>
+        <a href="/people" class="cur" >求是群芳</a>
+        <a href="/donate" >校友捐赠</a>
+        <a href="/publication" >校友刊物</a>
+        <a href="/service" >为您服务</a>
+        <a href="/mail" nonebg >邮箱</a>
+    </div>
+</div>
+<!--//top -->                <div class="clear"></div>
+</div>
+<div id="body">
+
+<div id="LeftMenu1_divChildMenu" class="Nsb_layout_l Nsb_l_list">
+	<div class="Nsb_l_list_top"></div>
+	
+			<h4 class="exam_user_exam">留言帖子</h4>
+			<ul>			
+	
+				<li><a  href="/jsxsd/ggly/ysgg_query{:url('index/index')}">已收留言</a></li>
+	
+				<li><a  href="/jsxsd/ggly/ysly_query">已发帖子</a></li>
+	
+			</ul>
+	
+			<h4 class="exam_user_exam">个人信息</h4>
+			<ul>			
+				<li><a class='Nsb_l_list_now' href="{:url('stu/changeSelf',['userid'=>1])}">修改个人信息</a></li>
+				<li><a class='Nsb_l_list_now' href="{:url('stu/changePwd')}">修改密码</a></li>
+			</ul>
+	
+			<h4 class="exam_user_exam">活动信息</h4>
+			<ul>			
+				<li><a  href="{:url('activity/hasJoinAct',['applicantid'=>1])}">已报名活动</a></li>
+				<li><a  href="{:url('activity/hasSetupAct',['userid'=>1])}">已发起活动</a></li>
+			</ul>
+			<h4 class="exam_user_exam">招聘资料</h4>
+			<ul>			
+				<li><a  href="/jsxsd/jxzl/jxzl_query">已发布招聘信息</a></li>
+				<li><a  href="/jsxsd/jxzl/jxzl_query">已发资料</a></li>
+	
+			</ul>
+	
+</div>
+<div class="Nsb_layout_r">
+	<div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » 留言信息 » 已收留言</div>
+	<!-- 修改个人信息 -->
+	<div class="row clearfix">
+	<div class="col-md-12 column">
+	<br>
+	<form class="form-horizontal" method="post" action="{:url('stu/modifyInfo',['userid'=>1])}">
+	{if !empty($list)}
+		<div class="Nsb_r_title">
+			<label>*基本信息-------------------------------------------</label>
+		</div>
+		<br>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">学号</label>
+					<div class="col-sm-10">
+						<input type="text" name="studentid" class="form-control self_form_control" id="disabledInput" value="{$list['studentid']}" disabled />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">姓名</label>
+					<div class="col-sm-10">
+						<input type="text" name="username" class="form-control self_form_control" value="{$list['username']}"  />
+					</div>
+					<div class="col-sm-10">
+					<font color="red">*必填</font>
+					</div>>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">性别</label>
+					<div class="col-sm-10">
+					<input type="checkbox" value="1">男
+					<input type="checkbox" value="2">女
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">籍贯</label>
+					<div class="col-sm-10">
+						<input type="text" name="hometown" class="form-control self_form_control" value="{$list['hometown']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">出生日期</label>
+					<div class="col-sm-10">
+						<input type="text" name="birthday" class="form-control self_form_control" value="{$list['birthday']|date="Y-m-d",###}" />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">院系</label>
+					<div class="col-sm-10">
+						<input type="text" name="department" class="form-control self_form_control" value="{$list['department']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">专业</label>
+					<div class="col-sm-10">
+						<input type="text" name="major" class="form-control self_form_control" value="{$list['major']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">班级</label>
+					<div class="col-sm-10">
+						<input type="text" name="class" class="form-control self_form_control" value="{$list['class']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">入学年份</label>
+					<div class="col-sm-10">
+						<input type="text" name="enrollmentdate" class="form-control self_form_control" value="{$list['enrollmentdate']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">毕业年份</label>
+					<div class="col-sm-10">
+						<input type="text" name="graduationdate" class="form-control self_form_control" value="{$list['graduationdate']}"  />
+					</div>
+				</div>
+		<div class="Nsb_r_title">
+			<label >*联系方式---------------------------------------</label>
+		</div>
+		<br>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">手机号码</label>
+					<div class="col-sm-10">
+						<input type="text" name="cellphone" class="form-control self_form_control" value="{$list['cellphone']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">QQ账号</label>
+					<div class="col-sm-10">
+						<input type="text" name="qq" class="form-control self_form_control" value="{$list['qq']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">微信账号</label>
+					<div class="col-sm-10">
+						<input type="text" name="weixin" class="form-control self_form_control" value="{$list['weixin']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">现地址</label>
+					<div class="col-sm-10">
+						<input type="text" name="address" class="form-control self_form_control" value="{$list['address']}"  />
+					</div>
+				</div>
+		<div class="Nsb_r_title">
+			<label>*附加信息-----------------------------------------</label>
+		</div>
+		<br>
+				<div class="form-group" >
+					<label class="col-sm-2 control-label">毕业去向</label>
+					<div class="col-sm-10">
+					<select class="form-control self_form_control">
+						<option >就业</option>
+						<option>继续深造</option>
+						<option>创业</option>
+					</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">就业方向</label>
+					<div class="col-sm-10">
+					<select class="form-control self_form_control" >
+						<option></option>
+						<option></option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+					</select>
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">学习或工作单位</label>
+					<div class="col-sm-10">
+						<input type="text" name="workplace" class="form-control self_form_control" value="{$list['workplace']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">工作职位</label>
+					<div class="col-sm-10">
+						<input type="text" name="workpost" class="form-control self_form_control" value="{$list['workpost']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">个人签名</label>
+					<div class="col-sm-10">
+						<input type="text" name="sign" class="form-control self_form_control" value="{$list['sign']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">个人爱好</label>
+					<div class="col-sm-10">
+						<input type="text" name="hobby" class="form-control self_form_control" value="{$list['hobby']}"  />
+					</div>
+				</div>
+				<div class="form-group">
+    				<label class="col-sm-2 control-label">个人简介</label>
+    				<textarea name="introduction" class="form-control" style="width:300px;" rows="3" value="{$list['introduction']}"></textarea>
+  				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						 <button type="submit" class="btn btn-default">保存</button>
+						 <button type="reset" class="btn btn-default">重置</button>
+					</div>
+				</div>
+				{/if}
+			</form>
+</div>
+</div>
+	
+	
+</div>
+</div>
+</div>
+</body>
+</html>
