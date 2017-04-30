@@ -37,5 +37,11 @@ class Stu extends Model{
     {
         return $this->hasMany('Message','receiverid','userid');
     }
+
+    // 活动报名
+    public function stuToRegister(){
+        return $this->hasOne('Registration','applicantid','userid');
+    }
 }
 ?>
+
