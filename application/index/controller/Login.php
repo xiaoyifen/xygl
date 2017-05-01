@@ -53,14 +53,16 @@ class Login extends Base
             // 检测管理员
             if ($post['role'] == 2) {
                 $user = model('admin')->where('adminname',$post['studentid'])->find();
+                $userid = $user['adminid'];
                 if (!$user || $user['password'] != $post['password']) {
-                    $flag = 0;
+                    $flag = 0;                    
                     return $flag;
                 }
             }elseif ($post['role'] == 1) {
                 $user = model('stu')->where('studentid',$post['studentid'])->find();
+                $userid = $user['userid'];
                 if(!$user || $user['password'] != $post['password']){
-                    $flag = 0;
+                    $flag = 0;                   
                     return $flag;
                 }
             }
@@ -69,7 +71,7 @@ class Login extends Base
                 $flag = 1;
                 return $flag;
             }
-            $auth = encrypt($post['role'].'|'.$user['userid'].'|'.$user['password'], 'USER'.$_SERVER['HTTP_USER_AGENT']);
+            $auth = encrypt($post['role'].'|'.$userid.'|'.$user['password'], 'USER'.$_SERVER['HTTP_USER_AGENT']);
  
             // 记住密码
             if (!empty($post['remember'])) {

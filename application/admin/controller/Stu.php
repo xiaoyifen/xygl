@@ -9,6 +9,8 @@
  class Stu EXTENDS Admin{
  	function __construct(){
  		parent::__construct();
+ 		$this->view->location = '学生信息管理';
+    	$this->view->title = '学生信息管理';
 // 		$stu=new Stu();
  	}
  	/*
@@ -30,7 +32,7 @@
   	  	$stu=model('stu');
   	  	$list=$stu->paginate(10);
   	  	$this->assign('list',$list);
-  	  	return$this->fetch('stuList');
+  	  	return $this->fetch('stuList');
   	  }
   	  /*
   	   * 管理员查看或者修改学生信息

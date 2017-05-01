@@ -1,0 +1,23 @@
+<div id="LeftMenu1_divChildMenu" class="Nsb_layout_l Nsb_l_list">
+  <div class="Nsb_l_list_top"></div>       
+  <h4 class="exam_user_exam">留言帖子</h4>
+  <ul>                            
+    <li><a href="/jsxsd/ggly/ysgg_query{:url('index/index')}">已收留言</a></li>        
+    <li><a href="/jsxsd/ggly/ysly_query">已发帖子</a></li>        
+  </ul>
+  <h4 class="exam_user_exam">个人信息</h4>
+  <ul>                    
+    <li><a class='Nsb_l_list_now' href="{:url('stu/changeSelf',['userid'=>1])}">修改个人信息</a></li>
+    <li><a class='Nsb_l_list_now' href="{:url('stu/changePwd')}">修改密码</a></li>
+  </ul>        
+  <h4 class="exam_user_exam">活动信息</h4>
+  <ul>                    
+    <li><a href="{:url('activity/hasJoinAct',['applicantid'=>1])}">已报名活动</a></li>
+    <li><a href="{:url('activity/hasSetupAct',['userid'=>1])}">已发起活动</a></li>
+  </ul>
+  <h4 class="exam_user_exam">招聘资料</h4>
+  <ul>                    
+    <li><a href="{:url('selfcenter/employment',['id'=>$userid])}">已发布招聘信息</a></li>
+    <li><a href="{:url('selfcenter/data',['id'=>$userid])}">已发资料</a></li>
+  </ul>
+</div>

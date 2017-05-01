@@ -15,11 +15,11 @@
  	 * 渲染个人中心界面
  	 */
  	public function selfCenter(){
-  	 	return $this->fetch('selfCenter');
-  	 }
-  	 /*
-  	  * 渲染查找校友界面
-  	  */
+   	return $this->fetch('selfCenter');
+  }
+ /*
+  * 渲染查找校友界面
+  */
   	  public function findAlumni(){
   	  	//查找全部校友
   	  	$stu =model('stu');
@@ -66,8 +66,8 @@
  	 public function changeSelf($userid){
  	 	//获取参数
  	 	$userid=$this->GET;
-// 	 	var_dump($userid);
-// 	 	exit;
+	 	// var_dump($userid);
+	 	// exit;
  	 	//查询账户的个人信息
  	 	$stu=model('stu');
  	 	$list=$stu->where('userid',$userid['userid'])->find();

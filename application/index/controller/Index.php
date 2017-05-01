@@ -51,6 +51,7 @@ class Index extends Base
 
     // 资料专区
     public function info(){
+        $map['status'] = '1';
         $map['categoryid'] = '3';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
         $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
@@ -76,6 +77,7 @@ class Index extends Base
 
     // 招聘专区
     public function invite(){
+        $map['status'] = '1';
         $map['categoryid'] = '2';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
         $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片

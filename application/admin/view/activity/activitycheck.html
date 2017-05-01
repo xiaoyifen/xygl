@@ -1,88 +1,87 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<!-- 引入 Bootstrap -->
-	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- 包括所有已编译的插件 -->
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>后台活动审核</title>
-</head>
-<body>
-<div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>
-							编号
-						</th>
-						<th>
-							活动名称
-						</th>
-						<th>
-							发起人
-						</th>
-						<th>
-							活动开始时间
-						</th>
-						<th>
-							活动结束时间
-						</th>
-						<th>
-							活动人数
-						</th>
-						<th>
-							
-						</th>
-					</tr>
-				</thead>
-				{if !empty($list)}
-				{foreach $list as $k=>$v}
-				<tbody>
-					<tr>
-						<td>
-							
-						</td>
-						<td>
-							<a href="{:url('activity/showAct',['activityid'=>$v['activityid']])}" class="deep_blue_14"  target="_blank" style="">{$v['title']}</a> <br />
-						</td>
-						<td>
-							{$v->stus->username}
-						</td>
-						<td>
-							{$v['activitytime']|date="Y-m-d H:i",###}
-						</td>
-						<td>
-							{$v['activityendtime']|date="Y-m-d H:i",###}
-						</td>
-						<td>
-							{$v['number']}
-						</td>
-						<td>
-							<button type="button" class="btn btn-default active btn-success"><a href="{:url('activity/pass',['activityid'=>$v['activityid']])}" >通过审核</a></button>
-							<button type="button" class="btn btn-default active btn-danger"><a href="{:url('activity/passnot',['activityid'=>$v['activityid']])}" >不通过审核</a></button>
-				
-						</td>
-					</tr>
-				</tbody>
-				{/foreach}
-				<!-- <div>{$list->render()}</div>-->
-				{else}
-				<tbody>
-					<tr>
-						
-						很抱歉，没有待审核活动！	
-						
-						</tr>
-				</tbody>
-				{/if}
-			</table>
-		</div>
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-table.css">
+<style type="text/css">
+.top {
+    margin-top: 15px;
+}
+</style>
+<div class="col-xs-12 top">
+    <div class="table-responsive">
+		<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						活动名称
+					</th>
+					<th>
+						发起人
+					</th>
+					<th>
+						活动开始时间
+					</th>
+					<th>
+						活动结束时间
+					</th>
+					<th>
+						活动人数
+					</th>
+					<th>
+						操作
+					</th>
+				</tr>
+			</thead>
+			{if !empty($list)}
+			{foreach $list as $k=>$v}
+			<tbody>
+				<tr>
+					<td>
+						{$v['activityid']}
+					</td>
+					<td>
+						<a href="{:url('activity/showAct',['activityid'=>$v['activityid']])}" class="deep_blue_14"  target="_blank" style="">{$v['title']}</a> <br />
+					</td>
+					<td>
+						{$v->stus->username}
+					</td>
+					<td>
+						{$v['activitytime']|date="Y-m-d H:i",###}
+					</td>
+					<td>
+						{$v['activityendtime']|date="Y-m-d H:i",###}
+					</td>
+					<td>
+						{$v['number']}
+					</td>
+					<td>	
+						<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+	                        <!-- 通过审核 -->
+	                        <a class="green" href="{:url('activity/pass',['activityid'=>$v['activityid']])}" title="通过审核">
+	                            <i class="icon-ok bigger-140"></i>
+	                        </a>
+	                        <!-- 不通过审核 -->
+	                        <a class="red" href="{:url('activity/passnot',['activityid'=>$v['activityid']])}" title="不通过审核">
+	                            <i class="icon-remove bigger-140"></i>
+	                        </a>
+	                    </div>			
+					</td>
+				</tr>
+			</tbody>
+			{/foreach}
+			<!-- <div>{$list->render()}</div>-->
+			{else}
+			<tbody>
+				<tr>
+					
+					很抱歉，没有待审核活动！	
+					
+				</tr>
+			</tbody>
+			{/if}
+		</table>
 	</div>
 </div>
-</body>
-</html>
+	
