@@ -1,0 +1,89 @@
+<!-- 查看/回复留言 -->
+{layout name="layoutself" /}
+<link rel="stylesheet" href="__STATIC__/css/self.css" type="text/css"  />
+<style type="text/css">
+.right {
+  float: right;
+}
+.table>tbody>tr>td {
+  border: 1px solid #D1E5ED;
+}
+.table {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.minheight {
+  height: 100px;
+}
+p{ 
+  text-indent: 2em; 
+}
+.cyan {
+  background-color: #F6FAFB;
+}
+.top-10 {
+  margin-top: 10px;
+}
+.top-20 {
+  margin-top: 20px;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+  // 表单验证
+  $("#formtips").submit(function(){   
+    // 回复内容不为空
+    if ($("#editor1").val() == "") {
+      $("#tips").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写回复内容！"); 
+      $("#editor1").focus();
+    }
+    // 验证为空，禁止提交
+    if ($("#editor1").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
+<div class="Nsb_layout_r">
+  <div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » {$location} » {$locationNext}</div> 
+  <div class="col-sm-12 form-top">
+    <?php extract($info); ?>
+    <table class="table table-bordered">
+      <tr class="cyan">
+        <td><span><b>{$sender['username']}</b>&nbsp;&nbsp;于&nbsp;{$time|date="Y-m-d H:i",###}&nbsp;留言</span><span class="right"><a href="{:url('message/del',['id'=>$messageid])}">删除</a></span></td>
+      </tr>
+      <tr class="minheight">
+        <td><p>{$content}</p></td>
+      </tr>
+    </table>
+    {if !empty($items)}
+    {foreach $items as $k=>$t}
+    <table class="table table-bordered">
+      <tr class="cyan">
+        <td><span><b>{$t['sender']['username']}</b>&nbsp;&nbsp;于&nbsp;{$t['time']|date="Y-m-d H:i",###}&nbsp;回复&nbsp;&nbsp;<b>{$t['receiver']['username']}</b></span><span class="right"><a href="{:url('message/del',['id'=>$t['messageid']])}">删除</a></span></td>
+      </tr>
+      <tr class="minheight">
+        <td><p>{$t['content']}</p></td>
+      </tr>
+    </table>
+    {/foreach}
+    {/if}
+    <form role="form" method="post" action="{:url('selfcenter/showMessage',['id' => $messageid])}" enctype="multipart/form-data" id="formtips">
+      <input type="hidden" name="senderid" value="{$userid}">
+      <input type="hidden" name="ownerid" value="{$userid}">
+      <input type="hidden" name="receiverid" value="{$senderid}">
+      <input type="hidden" name="replyid" value="{$messageid}">
+      <ul>
+        <li>
+          <label>&nbsp;</label>
+          <textarea name="content" class="form-control" value="" id="editor1"></textarea>
+        </li>
+        <li>
+          <label class="col-md-7">&nbsp;</label>
+          <div class="col-md-4 top-20" id="tips"></div>
+          <input name="submit" type="submit" class="btn info white col-md-1 top-10" value="回复" />
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

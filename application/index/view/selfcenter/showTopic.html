@@ -1,0 +1,106 @@
+<!-- 查看/修改帖子 -->
+{layout name="layoutself" /}
+<link rel="stylesheet" href="__STATIC__/css/self.css" type="text/css"  />
+<script type="text/javascript">
+$(function(){ 
+// 初始化文本编辑器
+  $('#editor1').summernote({                    
+    minHeight: 300,             
+    maxHeight: 500, 
+    // width: 1000,       
+    focus: false,   
+    lang:'zh-CN',
+    // 字体
+    fontNames: [
+      '宋体','楷体','Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
+      'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
+      'Tahoma', 'Times New Roman', 'Verdana'
+    ],
+    //工具栏
+    toolbar: [
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
+      ['insert', ['link', 'picture']],
+      ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+      ['view', ['codeview', 'help']]
+    ],
+    // 重写图片上传
+    callbacks:{  
+      onImageUpload: function(files, editor, $editable) {  
+        sendFile(files,editor,$editable);  
+      }  
+    }
+  });
+
+  // 图片上传
+  function sendFile(files,editor,$editable){
+    var formData = new FormData();
+    for(f in files){
+      formData.append("image", files[f]);
+    }
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('news/upload_img')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#editor').summernote('editor.insertImage','__STATIC__/uploads/' + data.imagepath);
+      },
+      error: function() {
+        alert("上传文件失败！");
+      }
+    });
+  }  
+});
+</script>
+<script type="text/javascript">
+$(function(){
+  // 表单验证
+  $("#formtips").submit(function(){   
+    // 帖子内容不为空
+    if ($("#editor1").val() == "") {
+      $("#tips").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写帖子内容！"); 
+      $("#editor").focus();
+    }
+    // 话题不为空
+    if ($("#title").val() == "") {
+      $("#tips").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写话题！"); 
+      $("#title").focus();
+    }
+    // 验证为空，禁止提交
+    if ($("#title").val() == "" || $("#editor1").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
+<div class="Nsb_layout_r">
+  <div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » {$location} » {$locationNext}</div> 
+  <div class="col-sm-12 form-top">
+    <?php extract($info); ?>
+    <form role="form" method="post" action="{:url('selfcenter/showTopic',['id'=>$topicid])}" enctype="multipart/form-data" id="formtips">
+      <input type="hidden" name="topicid" value="{$topicid}">
+      <input type="hidden" name="authorid" value="{$userid}">
+      <ul>
+        <li>
+          <label style="font-size: 14px">话题<b class="lab">*</b>：</label>
+          <input name="title" type="text" class="form-control" value="{$title}" style="width:318px;" id="title" />
+        </li>
+        <li>
+          <label style="font-size: 14px">内容<b class="lab">*</b>：</label>
+          <textarea name="content" id="editor1" class="form-control"  value="" style="height:100px; width:318px">{$content}</textarea>
+        </li>
+        <li>
+          <label class="col-md-11" id="tips">&nbsp;</label>
+          <input name="submit" type="submit" class="btn info white" value="发布" class="col-md-1" style="margin-left: 20px;" />
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

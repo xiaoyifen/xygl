@@ -1,0 +1,121 @@
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/event.css">
+<div id="body" class="container">
+  <!--left -->
+  <div id="main_left">
+    <p style="font-size: 18px;">&nbsp;&nbsp;<b>校友活动</b></p>
+    <div class="event_title">
+      <div style="float: left">
+        <form role="form" method="post" action="{:url('activity/findActByType')}" enctype="multipart/form-data">
+          <select name="type" onchange="location.href='?type='+this.value" class="form-control">
+            <option value="全部活动">全部活动</option>
+            <option value="运动健身" >运动健身</option>
+            <option value="吃饭逛街" >吃饭逛街</option>
+            <option value="座谈沙龙" >座谈沙龙</option>
+            <option value="室内娱乐" >室内娱乐</option>
+            <option value="户外旅游" >户外旅游</option>
+            <option value="周年聚会" >周年聚会</option>
+            <option value="艺术欣赏" >艺术欣赏</option>
+            <option value="爱心互助" >爱心互助</option>
+            <option value="创业大赛" >创业大赛</option>
+            <option value="其他" >其他</option>
+          </select>
+        </form>
+      </div>
+      <div style="float:right;padding:0px 15px">
+          <a href="{:url('activity/setupact')}"><button type="submit" class="btn info white">我要发起活动</button></a>
+      </div>
+    </div>
+
+    <div class="blue_tab" style="margin: 5px 20px">
+      
+    </div>
+
+    <!--活动列表开始-->
+    <div id="event_list"> 
+      {if !empty($list)}
+      {foreach $list as $k=>$v} 
+      {if $k%2 == 0} 
+      <div class="event_one">
+      {else}
+      <div class="event_one bg2">
+      {/if}
+        <p class="p1"></p>
+        <p class="p2">
+          <a href="{:url('activity/findActDetail',['activityid'=>$v['activityid']])}" class="deep_blue_14"  target="_blank" style="">{$v['title']}</a> <br />
+          <!-- 所属：<a href="/aa_home?id=1">杭州浙江大学校友会</a> &raquo;<a href="/aa_home/eventview?id=1&eid=5260"> </a><br /> --> 
+          地址：{$v['address']}<br />
+          参与：<a href="/event/view?id=5260&tab=event_slist" title="点击浏览名单">{$v['registerNumber']}</a>人
+          <!--  讨论：<a href="/event/view?id=5260&tab=event_comment" title="点击浏览讨论">1</a>条 --> 
+        </p>
+        <p class="p3">{$v['activitytime']|date="Y-m-d",###}<br>
+          <span style="color:#333">{$v['weekday']}</span>
+        </p>
+        <p class="p4">
+          <span style="color:#4D7E05">{$v['remainday']}</span>
+        </p>
+      </div>
+      {/foreach}
+      <div style="float: right;">{$list->render()}</div>
+      {else}
+      <div class="event_one">
+        <p class="p1"></p>
+        <p class="p2">
+          很抱歉，没有任何活动！
+        </p>
+      </div>
+      {/if}
+    </div>
+  </div>
+  <!--//left -->
+
+    <!--right -->
+    <div id="sidebar_right">
+    <div style="">
+        <p class="sidebar_title">快速查找</p>
+        <div class="sidebar_box">
+            <ul class="sidebar_menus">
+                <li><a href="{:url('activity/findActBySeven')}" >未来7天</a></li>
+                <li><a href="{:url('activity/findActBytoday')}" >今天</a></li>
+                <li><a href="{:url('activity/findActByWeeken')}" >周末</a></li>
+                <li><a href="{:url('activity/findActByType',['type'=>'全部活动'])}">所有活动  </a></li>
+            </ul>
+        </div></div>
+    <p class="sidebar_title" style="border-top-width:0">主题活动</p>
+    <div class="sidebar_box">
+                    <ul class="sidebar_menus">
+                                        <li>
+                    <a href="http://zuaa.zju.edu.cn/wedding/2017" target="_blank" title="“缘定浙大”校友集体婚礼">“缘定浙大”校友集体婚礼</a>
+                    </li>
+                                <li>
+                    <a href="http://zuaa.zju.edu.cn/news/view?id=5556" target="_blank" title="浙江大学校友总会启动值年校友返校计划">浙江大学校友总会启动值年校友返校..</a>
+                    </li>
+                                <li>
+                    <a href="http://zuaa.zju.edu.cn/news/view?id=6242" target="_blank" title="“聚沙成塔”众筹捐赠活动">“聚沙成塔”众筹捐赠活动</a>
+                    </li>
+                                <li>
+                    <a href="http://www.zuef.zju.edu.cn/hotelClub/" target="_blank" title="酒店行业俱乐部">酒店行业俱乐部</a>
+                    </li>
+                                <li>
+                    <a href="http://zjunion.zjuhz.com/publication?type=1001" target="_blank" title="校友刊物征订投稿">校友刊物征订投稿</a>
+                    </li>
+                                <li>
+                    <a href="http://zuaa.zju.edu.cn/zaec2014/" target="_blank" title="在中国 很世界——第二届浙江大学校友创业大赛">在中国 很世界——第二届浙江大学..</a>
+                    </li>
+                                <li>
+                    <a href="http://zuaa.zju.edu.cn/donate/annual" target="_blank" title="年度捐赠">年度捐赠</a>
+                    </li>
+                        </ul>
+    </div>
+
+    
+        <div class="clear"></div>
+    </div>
+
+</div>
+<!--//right -->
+
+<div class="clear"></div>
+
+                                                <div class="clear"></div>
+            </div>

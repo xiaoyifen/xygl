@@ -104,3 +104,45 @@
 .self_form_control{
 	width:200px;
 }
+
+
+.bigger-130 {
+  font-size: 130%;
+}
+.red {
+  color: #dd5a43!important;
+}
+.blue {
+    color: #478fca!important;
+}
+.action-buttons a{
+  text-decoration: none;
+}
+.action-buttons a {
+    margin: 0 3px;
+    display: inline-block;
+    opacity: .85;
+    -webkit-transition: all .1s;
+    transition: all .1s;
+}
+.action-buttons a:hover {
+    text-decoration: none;
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    opacity: 1;
+}
+.form-top {
+  margin-top: 10px;
+}
+.cen {
+  margin-top: 7px;
+}
+.top-40 {
+  margin-top: 40px;
+}
+.lab {
+  color: #dd5a43;
+}

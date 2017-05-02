@@ -1,0 +1,17 @@
+.path{ padding: 5px; color: #666}
+.donate_intro{ color: #c00;padding: 20px; text-indent: 25px; line-height: 1.6em;}
+.donate_title{ color: #0D5194; font-size: 14px;font-weight: bold; background:#EAF2F7  url(../images/dotted_line_bg2.gif) repeat-x bottom; height: 28px; line-height:28px; padding-left: 15px }
+#view_right{ width: 230px; float:right; border: 1px solid #eee; border-top-width: 0}
+.sidebar_title2{ height: 30px; background: url(../images/newsTitlebg.gif) repeat-x; padding-left: 15px; color: #333}
+.sidebar_box2{ padding:5px 10px}
+.sidebar_box2 a{ color: #333}
+h1{ font-size: 20px; text-align: center; margin: 15px 0 5px 0}
+.con_info{color: #666; text-align: center; height: 25px; line-height: 25px}
+.content{ font-size: 14px; line-height: 1.6em; padding:15px  10px; background: #F8FCFF}
+.content p{ text-indent: 25px; margin-bottom: 15px}
+.content img{ padding:3px; border: 1px solid #E5E5E5;}
+
+#dontae_table th{ background: #f8f8f8; border-bottom: 1px solid #ccc; height: 30px;line-height: 30px}
+#dontae_table td{ border-bottom: 1px solid #eee; height: 30px;line-height: 30px}
+
+

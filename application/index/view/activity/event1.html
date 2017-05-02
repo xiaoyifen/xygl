@@ -1,4 +1,5 @@
 {layout name="layout" /}
+<<<<<<< HEAD
 <link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
 <link rel="stylesheet" href="__STATIC__/css/event1.css">
 
@@ -38,25 +39,26 @@
             {/if}
             </div>
         </div>
-
-        <div class="view_title"><span class="middle"><img src="/static/images/ico_page.gif"></span>&nbsp;基本信息</div>
-        <div class="view_box" >
-            <b>发起：</b><a href="{:url('activity/findActLeader',['userid'=>$list->stus->userid])}">{$list->stus->username} </a><br>
-            <b>时间：</b>{$list['activitytime']|date="Y-m-d H:i",###}&nbsp;~{$list['activityendtime']|date="Y-m-d H:i",###}<br>
-            <!-- <b>所属：</b><a href="/aa_home?id=36" title="进入校友会主页">绍兴浙江大学校友会</a><br> -->
-            <b>地址：</b>{$list['address']}<br>
-            <b>人数：</b>{$list['number']}人 已有{$list['registerNumber']}人报名<br>
-            {if $list['remainday']=="结束"}
-                        <b>状态：</b><span style="color:#999">活动已结束，欢迎下次参加～</span><br>
+      </div>
+      <div class="view_title"><span class="middle"><img src="/static/images/ico_page.gif"></span>&nbsp;基本信息</div>
+      <div class="view_box" >
+        <b>发起：</b><a href="{:url('activity/findActLeader',['userid'=>$list->stus->userid])}">{$list->stus->username} </a><br>
+        <b>时间：</b>{$list['activitytime']|date="Y-m-d H:i",###}&nbsp;~{$list['activityendtime']|date="Y-m-d H:i",###}<br>
+        <!-- <b>所属：</b><a href="/aa_home?id=36" title="进入校友会主页">绍兴浙江大学校友会</a><br> -->
+        <b>地址：</b>{$list['address']}<br>
+        <b>人数：</b>{$list['number']}人 已有{$list['registerNumber']}人报名<br>
+        {if $list['remainday']=="结束"}
+        <b>状态：</b><span style="color:#999">活动已结束，欢迎下次参加～</span><br>
+		{else}
+			{if $list['remainday']=="进行中"}
+				<b>状态：</b><span style="color:#999">正在进行中</span><br>
 			{else}
-				{if $list['remainday']=="进行中"}
-					<b>状态：</b><span style="color:#999">正在进行中</span><br>
-				{else}
-					<b>状态：</b><span style="color:#999">{$list['remainday']}活动开始</span><br>
-				{/if}
-				{/if}
+				<b>状态：</b><span style="color:#999">{$list['remainday']}活动开始</span><br>
+			{/if}
+		{/if}
             <!-- <b>体验：</b><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle">&nbsp;&nbsp;<span style="color:#999">1人评分</span><br> -->                    
-            </div>
+      </div>
+
 
         <div class="view_title"><span class="middle"><img src="/static/images/ico_morepage.gif"></span>&nbsp;活动介绍</div>
         <div class="view_box event_content">
@@ -75,45 +77,30 @@
 </ul>                    <div class="clear"></div>
 {/if}
 
-            </div>
-        
-       
-
-<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=600886" ></script>
-<script type="text/javascript" id="bdshell_js"></script>
-<script type="text/javascript">document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();</script>
-<script type="text/javascript">
-readyScript.autoChangeGroup=function(){
-    $("#event_pics .colorboxPic").colorbox({rel:'colorboxPic'});
-    };
-</script>            <div class="clear"></div>
+                </div>
+            
+         <div id="manageGroup" style=" clear: both">
+         </div>
+                
         </div>
-        <script type="text/javascript" src="/static/js/jquery.scrollTo.js"></script>
-        <script type="text/javascript" src="/static/artDialog4.1.5/jquery.artDialog.source.js?skin=default"></script>
-        <script type="text/javascript" src="/static/colorbox/jquery.colorbox-min.js"></script>
-        <script type="text/javascript" src="/static/js/tips.js"></script>
-        <div id="footer">
-            <!-- global/footer_bottom:_footer_bottom -->
-<!--footer-->
-<!--footer-->
-<div class="links">
-    <a href="/aa">关于我们</a><a href="/help/file">档案查询</a><a href="http://zuaa.zju.edu.cn/mobile">3G版</a> <a href="/bbs/list?f=0&b=68">意见建议</a><a href="#">  隐私声明</a><a href="#">版权申明</a></div>
-联系信箱：zuaa@zju.edu.cn 地址：杭州西湖区余杭塘路866号浙江大学校友总会 邮编：310058<br>
-浙江大学校友总会版权所有 All rights reserved by Zhejiang University Alumni Association <a href="http://www.icp123.net/icp/zuaa.org.cn">浙ICP备10048528号</a>&nbsp; <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602004744" ><img src="/static/images/beian.png"> 浙公网安备 33010602004744号</a><br>
-为了您的安全及获得最佳浏览体验，建议您使用IE8、Firefox4、Chrom20或更高浏览器&nbsp;&nbsp;技术支持：<a href="mailto:ushosales@163.com" >友笑网络</a>
-<!--//footer-->
-<!--返回到顶部 -->
-<a id="go2top" class="go2top" href="#header" style="display: none; "><span class="go2top-inner"></span></a>
-<script type="text/javascript">
-    $(document).ready(function() {
-        readyScript.footer = getToTop;
-runReadyScript();
-    });
-</script>
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2212ddd090696e188b21c20c4e87a234' type='text/javascript'%3E%3C/script%3E"));
-</script>                <div class="clear"></div>
-            </div>
-                    </div>
-                    </div>
+        <div id="scrollToComment" style="height:5px"></div>
+        <div class="view_title" ><span class="middle"><img src="/static/images/comments.png"></span>&nbsp;评论(3)</div>
+        <div class="view_box">
+
+            <!--回复及评论 -->
+                        <div class="clear"></div>
+<div id="get_comment_list" style="width:99%">
+    <div style="text-align: center"><img src="/static/ico/loading4.gif" style="margin:10px"></div>
+</div>
+    <div class="notice">
+        您还没有注册或登录，请<a href="javascript:;" onclick="loginForm('/aa_home/eventview?id=36&eid=5250')"><b>登录</b></a> 后进行回帖或讨论。
+    </div>
+
+
+
+            <!--//回复及评论 -->
+        </div>
+        {/if}
+    </div>
+</div>
+</div>

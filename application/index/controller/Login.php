@@ -55,14 +55,14 @@ class Login extends Base
                 $user = model('admin')->where('adminname',$post['studentid'])->find();
                 $userid = $user['adminid'];
                 if (!$user || $user['password'] != $post['password']) {
-                    $flag = 0;
+                    $flag = 0;                    
                     return $flag;
                 }
             }elseif ($post['role'] == 1) {
                 $user = model('stu')->where('studentid',$post['studentid'])->find();
                 $userid = $user['userid'];
                 if(!$user || $user['password'] != $post['password']){
-                    $flag = 0;
+                    $flag = 0;                   
                     return $flag;
                 }
             }

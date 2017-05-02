@@ -75,10 +75,13 @@ class Message extends Base
 
     //删除留言
     public function del($id){
+        $num = $this->model->where(['replyid'=>$id])->count();
         // 删除留言
         $this->model->destroy(['messageid'=>$id]) or $this->error('删除失败');     
-        // 删除该留言的回复     
-        $this->model->destroy(['replyid'=>$id]) or $this->error('删除失败');
+        // 删除该留言的回复  
+        if ($num) {
+            $this->model->destroy(['replyid'=>$id]) or $this->error('删除失败');
+        }          
         $this->success('删除成功...');
     }
 

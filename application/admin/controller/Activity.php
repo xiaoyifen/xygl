@@ -11,8 +11,10 @@
   class Activity EXTENDS Admin{
   	function __construct(){
  		parent::__construct();
+    $this->view->location = '活动管理';
+    $this->view->title = '活动管理';
  		//$activity=new Activity();
- 	}
+ 	  }
  	/*
  	 * 直接运行后台主界面
  	 */

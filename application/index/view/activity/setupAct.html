@@ -1,75 +1,240 @@
 {layout name="layout" /}
 <link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
-<link rel="stylesheet" href="__STATIC__/css/self.css">
+<style type="text/css">
+.cen {
+  margin-top: 9px;
+}
+.red {
+    color: #dd5a43!important;
+}
+.bigger-120 {
+    font-size: 120%;
+}
+.bigger-130 {
+    font-size: 130%;
+}
+label {
+  font-size: 14px;
+}
+</style>
+<script type="text/javascript">
+$(function(){ 
+// 初始化文本编辑器
+  $('#editor1').summernote({                    
+    minHeight: 300,             
+    maxHeight: 500, 
+    // width: 1000,       
+    focus: false,   
+    lang:'zh-CN',
+    // 字体
+    fontNames: [
+      '宋体','楷体','Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
+      'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
+      'Tahoma', 'Times New Roman', 'Verdana'
+    ],
+    //工具栏
+    toolbar: [
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
+      ['insert', ['link', 'picture']],
+      ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+      ['view', ['codeview', 'help']]
+    ],
+    // 重写图片上传
+    callbacks:{  
+      onImageUpload: function(files, editor, $editable) {  
+        sendFile(files,editor,$editable);  
+      }  
+    }
+  });
 
+  // 图片上传
+  function sendFile(files,editor,$editable){
+    var formData = new FormData();
+    for(f in files){
+      formData.append("image", files[f]);
+    }
+    $.ajax({
+      data: formData,
+      type: "POST",
+      url: "{:url('news/upload_img')}",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $('#editor').summernote('editor.insertImage','__STATIC__/uploads/' + data.imagepath);
+      },
+      error: function() {
+        alert("上传文件失败！");
+      }
+    });
+  }  
+});
+</script>
+<script type="text/javascript">
+$(function(){
+  // 标题
+  $("#title").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#title1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：标题必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#title1").html(" ");  
+      }  
+  });
+  // 活动开始时间
+  $("#activitytime").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#activitytime1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：活动开始时间必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#activitytime1").html(" ");  
+      }  
+  });
+  // 活动结束时间
+  $("#activityendtime").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#activityendtime1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：活动结束时间必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#activityendtime1").html(" ");  
+      }  
+  });
+  // 活动地址
+  $("#address").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#address1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：活动地址必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#address1").html(" ");  
+      }  
+  });
+  // 活动联系人
+  $("#contact").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#contact1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：活动联系人必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#contact1").html(" ");  
+      }  
+  });
+  
+  // 表单验证
+  $("#formtips").submit(function(){   
+    // 标题不为空
+    if ($("#title").val() == "") {
+      $("#title1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写标题！"); 
+      $("#title").focus();
+    }
+    // 活动开始时间不为空
+    if ($("#activitytime").val() == "") {
+      $("#activitytime1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写活动开始时间！"); 
+      $("#activitytime").focus();
+    }
+    // 活动结束时间不为空
+    if ($("#activityendtime").val() == "") {
+      $("#activityendtime1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写活动结束时间！"); 
+      $("#activityendtime").focus();
+    }
+    // 活动地址不为空
+    if ($("#address").val() == "") {
+      $("#address1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写活动地址！"); 
+      $("#address").focus();
+    }
+    // 活动联系人不为空
+    if ($("#contact").val() == "") {
+      $("#contact1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写活动联系人！"); 
+      $("#contact").focus();
+    }
+    // 验证为空，禁止提交
+    if ($("#type").val() == "" || $("#title").val() == "" || $("#activitytime").val() == "" || $("#activityendtime").val() == "" || $("#contact").val() == "" || $("#editor1").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
 <div class="container" id="body">
-  <div class="clear"></div> 
-<!--left -->
-
-<form method="post"  class="form-horizontal" action="{:url('activity/setupact')}" enctype="multipart/form-data">
-  <div class="control-group">
-	<label class="control-label" >活动类型</label>
-	<div class="controls">
-	<select class="form-control self_form_control" name="type">
-        <option value="运动健身">运动健身</option>
-        <option value="吃饭逛街">吃饭逛街</option>
-        <option value="室内娱乐">座谈沙龙</option>
-        <option value="室内娱乐">室内娱乐</option>
-        <option value="室内娱乐">户外旅游</option>
-        <option value="室内娱乐">周年聚会</option>
-        <option value="室内娱乐">艺术欣赏</option>
-        <option value="室内娱乐">爱心互助</option>
-        <option value="室内娱乐">创业大赛</option>
-        <option value="室内娱乐">其他</option>
-      </select>
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" >活动标题</label>
-	<div class="controls ">
-		<input  name="title" type="text" class="form-control self_form_control" />
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" >活动人数</label>
-	<div class="controls ">
-		<input  name="number" type="text" class="form-control self_form_control" />
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" >活动开始时间</label>
-	<div class="controls">
-		<input  name="activitytime" type="text" class="form-control self_form_control"/>
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" >活动结束时间</label>
-	<div class="controls">
-		<input  name="activityendtime" type="text" class="form-control self_form_control"/>
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" >截止报名时间时间</label>
-	<div class="controls">
-		<input  name="deadline" type="text" class="form-control self_form_control"/>
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" >活动地址</label>
-	<div class="controls">
-		<input  name="address" type="text" class="form-control self_form_control"/>
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" >联系方式</label>
-	<div class="controls ">
-		<input  name="contact" type="text" class="form-control self_form_control"/>
-	</div>
-</div>
-<div class="control-group">
-	<div class="controls">
-	<button type="submit" class="btn">提交</button>
-	</div>
-</div>
+  <div style="border-bottom:1px solid #E1ECFA; font-size: 16px; color: #2e6da4; height: 30px;margin-bottom: 10px;">
+    <div style="font-size: 16px; color: #2e6da4">&nbsp;<i class="icon-th-large blue bigger-130"></i><b style="color: inherit;">&nbsp;&nbsp;发布活动</b></div>    
+  </div>
+<form role="form" method="post" action="{:url('activity/setupact')}" enctype="multipart/form-data" id="formtips" class="form-horizontal">
+  <ul>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">活动类型<b class="lab">*</b>：</label>
+        <div class="col-sm-4">
+          <select class="form-control" name="type id="type">
+            <option value="运动健身">运动健身</option>
+            <option value="吃饭逛街">吃饭逛街</option>
+            <option value="室内娱乐">室内娱乐</option>
+          </select>
+        </div>
+        <div class="col-sm-6" id="type1"></div>
+      </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">活动标题<b class="lab">*</b>：</label>
+      <div class="col-sm-4">
+        <input name="title" type="text"  class="form-control" value="" id="title" />
+      </div>
+      <div class="col-sm-6 cen" id="title1"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">活动开始时间<b class="lab">*</b>：</label>
+      <div class="col-sm-4">
+        <input name="activitytime" type="text"  class="form-control" value="" id="activitytime" />
+      </div>
+      <div class="col-sm-6 cen" id="activitytime1"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">活动结束时间<b class="lab">*</b>：</label>
+      <div class="col-sm-4">
+        <input name="activityendtime" type="text"  class="form-control" value="" id="activityendtime" />
+      </div>
+      <div class="col-sm-6 cen" id="activityendtime1"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">活动地址<b class="lab">*</b>：</label>
+      <div class="col-sm-4">
+        <input name="address" type="text"  class="form-control" value="" id="address" />
+      </div>
+      <div class="col-sm-6 cen" id="address1"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">活动介绍<b></b>：</label>
+      <div class="col-sm-9">
+        <textarea name="content" class="form-control" id="editor1" value="" style="height:100px;"></textarea>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">活动联系人<b class="lab">*</b>：</label>
+      <div class="col-sm-4">
+        <input name="contact" type="text"  class="form-control" value="" id="contact" />
+      </div>
+      <div class="col-sm-6 cen" id="contact1"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">活动截止报名时间<b></b>：</label>
+      <div class="col-sm-4">
+        <input name="deadline" type="text"  class="form-control" value="" id="deadline" />
+      </div>
+      <div class="col-sm-6"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">&nbsp;</label>
+      <div class="col-sm-offset-8 col-sm-1">
+        <input type="submit" class="btn info white" value="提交"/>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+  </ul>
 </form>
 </div>
