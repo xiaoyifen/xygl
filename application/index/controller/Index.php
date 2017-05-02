@@ -15,11 +15,46 @@ class Index extends Base
         $this->model = model('article');    
 	}
 
+    // 判断是否含有图片
+    public function img($items){
+        $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
+        foreach ($items as $k => $v) {
+            preg_match_all($preg, $v['content'], $imgArr);
+            if (!empty($imgArr[1])) {   
+                $items[$k]['img'] = 1;      
+            }else{
+                $items[$k]['img'] = 0;
+            }
+        }
+        return $items;
+    }
+
     // 首页
     public function index(){
         $map['categoryid'] = '1';
-        $items = $this->model->where($map)->order('articleid desc')->limit(16)->select();
+        $items = $this->model->where($map)->order('updatetime desc')->limit(16)->select();
+        $items = $this->img($items);
         $this->view->items_news = $items;
+
+        $map['categoryid'] = '2';
+        $items = $this->model->where($map)->order('updatetime desc')->limit(10)->select();
+        $this->view->items_employment = $items;
+
+        $map['categoryid'] = '3';
+        $items = $this->model->where($map)->order('updatetime desc')->limit(10)->select();
+        $this->view->items_info = $items;
+
+        $map['categoryid'] = '1';
+        $map['top'] = '1';
+        $items = $this->model->where($map)->order('updatetime desc')->limit(3)->select();
+        $this->view->items_pic = $items;
+
+        $items = model('activity')->order('updatetime desc')->limit(15)->select();
+        $this->view->items_activity = $items;
+
+        $items = model('topic')->with('stu')->order('hits desc')->limit(15)->select();
+        $this->view->items_topic = $items;
+
         return $this->fetch();
     }
 
@@ -28,15 +63,7 @@ class Index extends Base
         $map['menuid'] = '1';
         $map['categoryid'] = '1';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
-        $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
-        foreach ($news as $k => $v) {
-            preg_match_all($preg, $v['content'], $imgArr);
-            if (!empty($imgArr[1])) {   
-                $news[$k]['img'] = 1;      
-            }else{
-                $news[$k]['img'] = 0;
-            }
-        }
+        $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
         // var_dump($items);
@@ -54,15 +81,7 @@ class Index extends Base
         $map['status'] = '1';
         $map['categoryid'] = '3';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
-        $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
-        foreach ($news as $k => $v) {
-            preg_match_all($preg, $v['content'], $imgArr);
-            if (!empty($imgArr[1])) {   
-                $news[$k]['img'] = 1;      
-            }else{
-                $news[$k]['img'] = 0;
-            }
-        }
+        $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
         // var_dump($items);
@@ -80,15 +99,7 @@ class Index extends Base
         $map['status'] = '1';
         $map['categoryid'] = '2';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
-        $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
-        foreach ($news as $k => $v) {
-            preg_match_all($preg, $v['content'], $imgArr);
-            if (!empty($imgArr[1])) {   
-                $news[$k]['img'] = 1;      
-            }else{
-                $news[$k]['img'] = 0;
-            }
-        }
+        $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
         // var_dump($items);
@@ -106,15 +117,7 @@ class Index extends Base
         $map['menuid'] = '2';
         $map['categoryid'] = '1';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
-        $preg = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';// 匹配新闻内容中的图片
-        foreach ($news as $k => $v) {
-            preg_match_all($preg, $v['content'], $imgArr);
-            if (!empty($imgArr[1])) {   
-                $news[$k]['img'] = 1;      
-            }else{
-                $news[$k]['img'] = 0;
-            }
-        }
+        $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
         // var_dump($items);
@@ -124,7 +127,7 @@ class Index extends Base
         $this->view->hits = $hits;
         $this->view->category = '校友捐赠';
         $this->view->categoryid = '1';
-        return $this->fetch('news');
+        return $this->fetch();
     }
 
     // 新闻详细内容
@@ -158,32 +161,6 @@ class Index extends Base
         return $this->fetch();
     }
 
-    // 上传图片
-    public function upload_img(){
-        // 获取表单上传图片
-        $file = request()->file('image');
-        // 判断是否有上传图片
-        if (!empty($file)) {
-            // 上传图片验证
-            $result = $this->validate(['image' => $file],'Article');
-            if(true !== $result){
-                // 验证失败 输出错误信息
-                $this->error($result);
-            }
-            // 移动到目录/static/uploads/ 目录下
-            $info = $file->move(ROOT_PATH . 'static' . DS . 'uploads');
-            if ($info) {
-                $filein = $info->getInfo();
-                $file_info['imagename'] = $filein['name'];//获取原图片名
-                $file_info['imagepath'] = $info->getSaveName();//获取图片路径
-                return $file_info;
-            } else {
-                // 上传失败获取错误信息
-                $this->error($file->getError());
-            }
-        }      
-    }
-
     // 上传文件
     public function upload_file(){
         // 获取表单上传文件
@@ -209,4 +186,10 @@ class Index extends Base
             }
         }      
     }
+
+    // 登录错误跳转页面
+    public function errorLogin(){
+        return $this->fetch('common/error');
+    }
+
 }

@@ -1,12 +1,13 @@
 {layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/event.css">
 <div id="body" class="container">
   <!--left -->
   <div id="main_left">
-    <p><img src="/static/images/event_title.gif"></p>
+    <p style="font-size: 18px;">&nbsp;&nbsp;<b>校友活动</b></p>
     <div class="event_title">
       <div style="float: left">
         <form role="form" method="post" action="{:url('activity/findActByType')}" enctype="multipart/form-data">
-          <select name="type" onchange="location.href='?type='+this.value">
+          <select name="type" onchange="location.href='?type='+this.value" class="form-control">
             <option value="全部活动">全部活动</option>
             <option value="运动健身" >运动健身</option>
             <option value="吃饭逛街" >吃饭逛街</option>
@@ -22,22 +23,23 @@
         </form>
       </div>
       <div style="float:right;padding:0px 15px">
-          <button type="submit"><a href="{:url('activity/setupact')}">我要发起活动</a></button>
+          <a href="{:url('activity/setupact')}"><button type="submit" class="btn info white">我要发起活动</button></a>
       </div>
     </div>
 
-    <div class="blue_tab" style="margin: 15px 20px">
-      <ul>
-        <li><a href="{:url('activity/findActByType',['type'=>'全部活动'])}"    class="cur" style="width:80px">所有活动</a></li>
-        <li><a href="/event/tags"   style="width:60px">标签</a></li>
-      </ul>
+    <div class="blue_tab" style="margin: 5px 20px">
+      
     </div>
 
     <!--活动列表开始-->
     <div id="event_list"> 
       {if !empty($list)}
-      {foreach $list as $k=>$v}  
+      {foreach $list as $k=>$v} 
+      {if $k%2 == 0} 
       <div class="event_one">
+      {else}
+      <div class="event_one bg2">
+      {/if}
         <p class="p1"></p>
         <p class="p2">
           <a href="{:url('activity/findActDetail',['activityid'=>$v['activityid']])}" class="deep_blue_14"  target="_blank" style="">{$v['title']}</a> <br />
@@ -54,7 +56,7 @@
         </p>
       </div>
       {/foreach}
-      <div>{$list->render()}</div>
+      <div style="float: right;">{$list->render()}</div>
       {else}
       <div class="event_one">
         <p class="p1"></p>
@@ -106,51 +108,7 @@
                         </ul>
     </div>
 
-    <p class="sidebar_title" style="border-top-width:0">热门标签</p>
-    <div class="sidebar_box">
-                    <a href="/event?tag=%E7%BE%BD%E6%AF%9B%E7%90%83" >羽毛球</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%B2%99%E9%BE%99" >沙龙</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E5%88%9B%E4%B8%9A" >创业</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E7%94%B5%E5%BD%B1" >电影</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E8%BF%90%E5%8A%A8" >运动</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E4%B9%A6" >书</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%88%B7%E5%A4%96" >户外</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E9%87%91%E8%9E%8D" >金融</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E8%AF%BB%E4%B9%A6" >读书</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%A0%A1%E5%8F%8B" >校友</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E7%BE%BD%E6%AF%9B%E7%90%83%E3%80%81%E8%BF%90%E5%8A%A8" >羽毛球、运动</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E8%AE%B2%E5%BA%A7" >讲座</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%B5%99%E5%A4%A7" >浙大</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%B9%96" >湖</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E4%BA%A4%E5%8F%8B" >交友</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E5%8D%95%E8%BA%AB" >单身</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%BB%A8%E6%B1%9F" >滨江</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%8A%95%E8%B5%84" >投资</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E5%81%A5%E8%BA%AB" >健身</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%8B%9B%E8%81%98" >招聘</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E8%A5%BF%E6%B9%96" >西湖</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E8%B7%91%E6%AD%A5" >跑步</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E5%88%86%E4%BA%AB" >分享</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E5%88%9B%E4%B8%9A%E6%B2%99%E9%BE%99" >创业沙龙</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E4%BA%B2%E5%AD%90" >亲子</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E6%91%84%E5%BD%B1" >摄影</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E7%AF%AE%E7%90%83" >篮球</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E4%BA%BA%E6%96%87" >人文</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E8%81%9A%E4%BC%9A" >聚会</a>&nbsp;&nbsp;
-            <a href="/event?tag=%E8%AF%BB%E4%B9%A6%E4%BC%9A" >读书会</a>&nbsp;&nbsp;
-        <p class="more"><a href="/event/tags">更多</a></p>
-    </div>
-    <p class="sidebar_title" style="border-top-width:0">最新活动掠影</p>
-    <div class="sidebar_box">
-
-                    <ul class="sidebar_photo img_border">
-                                    <li><a href="/album/picIndex?id=6410" title="求是跑马会2017A01号活动 贺百廿求是 跑魔都雄鹰相册"  target="_blank"><img src="/static/upload/pic/201702/12/2946020170212224117534_mini.jpg" width="80" height="60" /></a></li>
-                                <li><a href="/album/picIndex?id=6348" title="求是跑马会2016003号活动Big Game 勇不落幕疯狂气垫之城市障碍赛相册"  target="_blank"><img src="/static/upload/pic/201608/01/294602016080123062340_mini.jpg" width="80" height="60" /></a></li>
-                                <li><a href="/album/picIndex?id=6240" title="清明节桌游小聚相册"  target="_blank"><img src="/static/upload/pic/201604/07/2946020160407225447660_mini.jpg" width="80" height="60" /></a></li>
-                                <li><a href="/album/picIndex?id=6230" title="【侯哥小跑】3月18日滨江万米跑相册"  target="_blank"><img src="/static/upload/pic/201603/16/5239620160316220007143_mini.jpg" width="80" height="60" /></a></li>
-                                <li><a href="/album/picIndex?id=6202" title="【求是跑马会】【侯哥小跑】辞旧岁之羊年健康跑 迎新春之猴年希望跑相册"  target="_blank"><img src="/static/upload/pic/201602/06/5239620160206074710331_mini.jpg" width="80" height="60" /></a></li>
-                                <li><a href="/album/picIndex?id=6200" title="加拿大浙江大学校友会2016迎新春联欢活动通知相册"  target="_blank"><img src="/static/upload/pic/201602/03/1907120160203041347413_mini.jpg" width="80" height="60" /></a></li>
-                        </ul>
+    
         <div class="clear"></div>
     </div>
 

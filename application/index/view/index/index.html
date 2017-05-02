@@ -24,6 +24,17 @@
      bottom: 0px; 
      margin-bottom: 0px;
   }
+  .jq {
+	  overflow:hidden;;/* 内容超出宽度时隐藏超出部分的内容 */
+		text-overflow:ellipsis;;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+		white-space:nowrap;/* 不换行 */
+  }
+  .padding-tb-8 {
+  	padding: 8px 0px;
+  }
+  .padding-tb-4 {
+  	padding: 4px 0px;
+  }
 </style>
 
 <div class="container" id="body">
@@ -43,15 +54,19 @@
 					</li>
 				</ol>
 				<div class="carousel-inner">
-					<div class="item active">
-						<img alt="" src="__STATIC__/image/top_bg.jpg" class="carousel-img" />
-					</div>
-					<div class="item">
-						<img alt="" src="__STATIC__/image/image1.jpg" class="carousel-img" />						
-					</div>
-					<div class="item">
-						<img alt="" src="__STATIC__/image/image12.jpg" class="carousel-img" />						
-					</div>
+					{if !empty($items_pic)}
+      		{foreach $items_pic as $k=>$t}
+      			{if $k == 0}
+						<div class="item active">
+							<a href="{:url('index/detail',['id'=>$t['articleid']])}"><img alt="{$t['title']}" src="__STATIC__/uploads/{$t['imagepath']}" class="carousel-img" /></a>
+						</div>
+						{else}
+						<div class="item">
+							<a href="{:url('index/detail',['id'=>$t['articleid']])}"><img alt="{$t['title']}" src="__STATIC__/uploads/{$t['imagepath']}" class="carousel-img" /></a>						
+						</div>
+						{/if}
+          {/foreach}
+          {/if}
 				</div> 
 				<a class="left carousel-control" href="#carousel-265387" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> 
 				<a class="right carousel-control" href="#carousel-265387" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -67,57 +82,22 @@
 	<!--row2:alumni、news... -->
 	<div class="row">
 		<div id="news" class="col-md-9 margin">
-      <h1><a href="/news/view?id=6539" title="北京浙江大学校友会捐赠泰山石贺母校120周年校庆" target="_blank"  style="">北京浙江大学校友会捐赠泰山石贺母校120..</a></h1>
-      <div class="des">简述：四月芳菲天，五月佳朋聚。4月9日下午，北京浙江大学校友会陈明德名誉会长、潘里新副会长一行十余人专程回到学校，捐赠泰山石贺母校..&nbsp;&nbsp;<a href="/news/view?id=6539" style="color:#666">全文</a></div>
     	<div class="con_list a14">
-      	<ul>
-          <li>
-          	<a href="/news/view?id=6535" title="全球同庆丨浙江大学120周年华诞巴黎站庆祝活动圆满举行" target="_blank" style="">全球同庆丨浙江大学120周年华诞巴黎站庆祝活动..</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>4-01</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6536" title="全球同庆│浙江大学建校120周年欧洲米兰站庆祝活动圆满举行" target="_blank" style="">全球同庆│浙江大学建校120周年欧洲米兰站庆祝..</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>4-01</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6534" title="程厚博校友在2017年研究生毕业典礼上寄语毕业生" target="_blank" style="">程厚博校友在2017年研究生毕业典礼上寄语毕业..</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>3-31</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6533" title="材料学院80级校友胡丽丽获2016年上海市技术发明奖特等奖" target="_blank" style="color:#333">材料学院80级校友胡丽丽获2016年上海市技术..</a><span>3-29</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6531" title="江苏省浙江大学校友会隆重举行庆祝母校120周年华诞主题报告会" target="_blank" style="color:#333">江苏省浙江大学校友会隆重举行庆祝母校120周年..</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>3-22</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6530" title="绍兴浙大校友会隆重举行 庆祝母校建校120周年大会" target="_blank" style="">绍兴浙大校友会隆重举行 庆祝母校建校120周年..</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>3-21</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6528" title="化学系77级校友丁尼当选为美国医学与生物工程院院士" target="_blank" style="color:#333">化学系77级校友丁尼当选为美国医学与生物工程院..</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>3-12</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6527" title="乌克兰校友会迎接母校120周年献礼活动暨乌克兰留学生座谈会" target="_blank" style="">乌克兰校友会迎接母校120周年献礼活动暨乌克兰..</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>3-09</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6519" title="沉痛哀悼浙大校友谢学锦院士" target="_blank" style="">沉痛哀悼浙大校友谢学锦院士</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>2-26</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6518" title="浙大120周年校庆香港站庆祝活动暨答谢会举行" target="_blank" style="">浙大120周年校庆香港站庆祝活动暨答谢会举行</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>2-24</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6511" title="“缘定浙大”第六届校友集体婚礼报名通知" target="_blank" style="">“缘定浙大”第六届校友集体婚礼报名通知</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>1-20</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6507" title="徐扬生星！又一位浙大校友获小行星命名！" target="_blank" style="">徐扬生星！又一位浙大校友获小行星命名！</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>1-17</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6508" title="浙江大学校友总会微信公众号获教育新媒体创新奖！" target="_blank" style="">浙江大学校友总会微信公众号获教育新媒体创新奖！</a>&nbsp;<font><img src="/static/images/imgs.gif" title="图片新闻"></font><span>1-14</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6503" title="2016年国家科技奖揭晓 浙大9项获奖列全国高校第一" target="_blank" style="">2016年国家科技奖揭晓 浙大9项获奖列全国高..</a><span>1-10</span>
-          </li>
-          <li>
-          	<a href="/news/view?id=6502" title="校领导赴甬调研浙大宁波“五位一体”校区建设" target="_blank" style="">校领导赴甬调研浙大宁波“五位一体”校区建设</a><span>1-10</span>
-          </li>
+      	<ul> 
+      		{if !empty($items_news)}
+      		{foreach $items_news as $k=>$t}
+      			{if $k == 0}     		
+      				<h1><a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank" >{$t['title']}</a></h1>
+      				<div class="des jq">简述：{$t['abstract']}&nbsp;&nbsp;<div><a href="{:url('index/detail',['id'=>$t['articleid']])}" style="color:#666;float: right;">全文</a></div></div> 
+      			{else}         
+		          <li>
+		          	<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank" >{$t['title']}</a>&nbsp;{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}<span>{$t['updatetime']|date="m-d",###}</span>
+		          </li>
+          	{/if}
+          {/foreach}
+          {/if}
         </ul>
-      	<p class="more" style="margin:10px 0"><a href="/news">>>更多</a></p>
+      	<p class="more" style="margin:10px 0"><a href="{:url('index/news')}">>>更多</a></p>
   		</div>
     </div>
     <!--//end news-->  
@@ -125,14 +105,16 @@
     margin-left: 11px;">
     	<p class="sidebar_title" style="border-width:1px 0">主题活动</p>
     	<div style="padding:10px">
-      	<div id="zhutihuodong" style="height:240px;overflow: hidden">
+      	<div id="zhutihuodong" style="overflow: hidden">
           <ul>
-            <li><a href="http://zuaa.zju.edu.cn/wedding/2017" target="_blank"><img src="/static/upload/event_static/20170120094058.jpeg" width="220" height="70" style="margin-bottom:10px"/></a></li>
-            <li><a href="http://zuaa.zju.edu.cn/news/view?id=5556" target="_blank"><img src="/static/upload/event_static/20131031105337.pjpeg" width="220" height="70" style="margin-bottom:10px"/></a></li>
-            <li><a href="http://zuaa.zju.edu.cn/news/view?id=6242" target="_blank"><img src="/static/upload/event_static/20170410161102.x-png" width="220" height="70" style="margin-bottom:10px"/></a></li>
+          	{if !empty($items_activity)}
+      			{foreach $items_activity as $k=>$t}
+            	<li class="jq padding-tb-8"><a href="#" target="_blank">{$t['title']}</a></li>
+            {/foreach}
+          	{/if}
           </ul>
       	</div>
-				<p class="more" style="margin:10px 5px"><a href="/event">>>更多</a></p>
+				<p class="more" style="margin:10px 5px"><a href="#">>>更多</a></p>
     	</div>
 		</div>
 	  <!--//Professor alumni-->
@@ -145,112 +127,43 @@
 	    <!--new alumni-->
 	    <p class="sidebar_title" style="border-width:1px">招聘专区</p>
 	    <div id="new_alumni">
-	      <div class="a_alumni ">
-	        <div class="left">
-	          <a href="/user_home?id=69771" target="'_blank"><div class="user_avatar" style="width:48px" ><img src="/static/upload/avatar/48/face_man.jpg" style="height: 48px;width: 48px;border-width:0"></div></a>
-	        </div>
-	        <div class="right">
-	        	<a href="/user_home?id=69771" target="'_blank">丁哲</a>
-	                        <span class="gray"><br/>2016级艺术博物馆                          <br/>2小时前&nbsp;杭州</span>
-	        </div>
-	      </div>
-	      <div class="a_alumni ">
-	        <div class="left">
-	          <a href="/user_home?id=69770" target="'_blank"><div class="user_avatar" style="width:48px" ><img src="/static/upload/avatar/48/face_madam.jpg" style="height: 48px;width: 48px;border-width:0"></div></a>
-	        </div>
-	        <div class="right">
-	        	<a href="/user_home?id=69770" target="'_blank">张光曦</a>
-	                        <span class="gray"><br/>2003级心理系                          <br/>3小时前&nbsp;杭州</span>
-	        </div>
-	      </div>
-	      <div class="a_alumni ">
-	        <div class="left">
-	          <a href="/user_home?id=69769" target="'_blank"><div class="user_avatar" style="width:48px" ><img src="/static/upload/avatar/48/face_man.jpg" style="height: 48px;width: 48px;border-width:0"></div></a>
-	          </div>
-	        <div class="right">
-	        	<a href="/user_home?id=69769" target="'_blank">李克迪</a>
-	                        <span class="gray"><br/>2014级机械工程                          <br/>17小时前&nbsp;杭州</span>
-	        </div>
-	      </div>
-	      <div class="a_alumni no_line">
-	        <div class="left">
-	          <a href="/user_home?id=69768" target="'_blank"><div class="user_avatar" style="width:48px" ><img src="/static/upload/avatar/48/face_man.jpg" style="height: 48px;width: 48px;border-width:0"></div></a>
-	        </div>
-	        <div class="right">
-	        	<a href="/user_home?id=69768" target="'_blank">张志荣</a>
-	                        <span class="gray"><br/>2009级工商管理                          <br/>20小时前&nbsp;上海</span>
-	        </div>
-	      </div>
-	      <p class="more" style="margin:10px 0"><a href="/alumni">>>更多</a></p>
+	      <ul style="height: 296px">
+      	{if !empty($items_employment)}
+  			{foreach $items_employment as $k=>$t}
+        	<li class="jq padding-tb-4"><a href="#" target="_blank">{$t['title']}</a></li>
+        {/foreach}
+      	{/if}
+      	</ul>	      	      
+	      <p class="more" style="margin:10px 0"><a href="{:url('index/invite')}">>>更多</a></p>
 	    </div>
 			<!--//new alumni-->
   	</div>
 	  <div class="fcenter">
 	    <div id="bbs_tabs">
 	      <ul>
-	        <li><a href="javascript:void(0)" id="bbstab1" class="cur">最新话题</a></li>
-	        <li>/</li>
-	        <li><a href="javascript:void(0)" id="bbstab2">热门话题</a></li>
+	        <li><a href="javascript:void(0)" id="bbstab1" class="cur">热门话题</a></li>
 	      </ul>
 	    </div>
 	    <div id="bbscontent_bbstab1" style="height: 330px">
 	      <table border="0" id="home_bbs" width="100%" cellspacing="0" cellpadding="0">
 	        <tbody>
-	          <tr >
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=28">宁波</a>]</span><a href="/bbs/viewPost?id=16156" target="_blank" title="宁波校友会第二届代表大会暨2016迎新年会暨2015届迎新活动" class="unit_title">宁波校友会第二届代表大会暨2016迎...</a>
-	            </td>
-	            <td class="center">朱楚云</td>
-	          </tr>
-	          <tr class="two">
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=19">无锡</a>]</span><a href="/bbs/viewPost?id=16138" target="_blank" title="五十七年前的元旦一天" class="unit_title">五十七年前的元旦一天</a>
-	            </td>
-	            <td class="center">王巨榛</td>
-	          </tr>
-	          <tr >
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=19">无锡</a>]</span><a href="/bbs/viewPost?id=16137" target="_blank" title="同学会发言" class="unit_title">同学会发言</a>
-	            </td>
-	            <td class="center">王巨榛</td>
-	          </tr>
-	          <tr class="two">
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=1">杭州</a>]</span><a href="/bbs/viewPost?id=16130" target="_blank" title="千人签名｜乙肝药物纳入国家基本药物目录" class="unit_title">千人签名｜乙肝药物纳入国家基本药物目...</a>
-	            </td>
-	            <td class="center">雷闯</td>
-	          </tr>
-	          <tr >
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=1">杭州</a>]</span><a href="/bbs/viewPost?id=16119" target="_blank" title="【黑白剧社】邀请演出——杭州笑海相声大会 11月22日晚笑见紫金港临水报告厅" class="unit_title">【黑白剧社】邀请演出——杭州笑海相声...</a>
-	            </td>
-	            <td class="center">魏铼</td>
-	          </tr>
-	          <tr class="two">
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=1">杭州</a>]</span><a href="/bbs/viewPost?id=15596" target="_blank" title="【第二十二届DMB（登攀）节】文琴舞团“拾•舞”专场演出！" class="unit_title">【第二十二届DMB（登攀）节】文琴舞...</a>
-	            </td>
-	            <td class="center">应小娅</td>
-	          </tr>
-	          <tr >
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=16">江苏(南</a>]</span><a href="/bbs/viewPost?id=15131" target="_blank" title="【老帖重温】做一个真正高手" class="unit_title">【老帖重温】做一个真正高手</a>
-	            </td>
-	            <td class="center">沈春林</td>
-	          </tr>
-	          <tr class="two">
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=1">杭州</a>]</span><a href="/bbs/viewPost?id=15130" target="_blank" title="蚂蚁金服集团急聘财务同学（地点：杭州）" class="unit_title">蚂蚁金服集团急聘财务同学（地点：杭州...</a>
-	            </td>
-	            <td class="center">刘志栋</td>
-	          </tr>
-	          <tr >
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list?aid=1">杭州</a>]</span><a href="/bbs/viewPost?id=15079" target="_blank" title="3.7 “跟随郁达夫”游午潮山•采地木耳" class="unit_title">3.7 “跟随郁达夫”游午潮山•采地...</a>
-	            </td>
-	            <td class="center">储静</td>
-	          </tr>
-	          <tr class="two">
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list">公共</a>]</span><a href="/bbs/viewPost?id=15076" target="_blank" title="陆维钊教授" class="unit_title">陆维钊教授</a>
-	            </td>
-	            <td class="center">顾东东</td>
-	          </tr>
-	          <tr >
-	            <td><span class="aa_bbs">[                  <a href="/bbs/list">公共</a>]</span><a href="/bbs/viewPost?id=14971" target="_blank" title="用自己的经历说说大学的专业，我的一本书再版中" class="unit_title">用自己的经历说说大学的专业，我的一本...</a>
-	            </td>
-	            <td class="center">顾东东</td>
-	          </tr>
+	        	{if !empty($items_topic)}
+  					{foreach $items_topic as $k=>$t}
+  						{if $k%2 == 0}
+	  						<tr>
+			            <td><a href="{:url('forum/topic')}?id={$t['topicid']}" target="_blank" title="{$t['title']}" class="unit_title">{$t['title']}</a>
+			            </td>
+			            <td class="center">{$t['stu']['username']}</td>
+		          	</tr>
+	          	{else}
+	          		<tr class="two">
+			            <td><a href="{:url('forum/topic')}?id={$t['topicid']}" target="_blank" title="{$t['title']}" class="unit_title">{$t['title']}</a>
+			            </td>
+			            <td class="center">{$t['stu']['username']}</td>
+		          	</tr>
+	          	{/if}
+  					{/foreach}
+      			{/if}
 	        </tbody>
 	      </table>
 	    </div>
@@ -260,7 +173,7 @@
 	        </tbody>
 	      </table>
 	    </div>
-	    <p class="more" style="margin:10px"><a href="/bbs/list">>>更多</a></p>
+	    <p class="more" style="margin:10px"><a href="{:url('forum/index')}">>>更多</a></p>
 	    <!--//bbs-->
 	  </div>
 
@@ -269,99 +182,14 @@
 	    <div class="sidebar_box" style="background:#F6FAFB">
 	      <div id="marquee2">
 	        <ul class="donate_tks">
-	          <li>
-	            <a style="float:left">张骏亚</a><span style="float:right;">120元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">浙大比伯</a><span style="float:right;">88.88元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">沈莹</a><span style="float:right;">66元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">匿名</a><span style="float:right;">5元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">匿名</a><span style="float:right;">5元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">潘立彬</a><span style="float:right;">521元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">帅朝晖</a><span style="float:right;">300元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">沈君帅</a><span style="float:right;">21.01元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">彭馨谊</a><span style="float:right;">20元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">林实践</a><span style="float:right;">2017元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">叶大志</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">匿名</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">袁远东</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">匿名</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">建筑设计研究院A</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">杨振璞</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">王国振</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">朱再法</a><span style="float:right;">200元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">王一多大舅</a><span style="float:right;">1元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">王一多他姐</a><span style="float:right;">1元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">馨苒</a><span style="float:right;">1元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">焦金龙</a><span style="float:right;">1987元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">吴秀明</a><span style="float:right;">1897元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">董晓青</a><span style="float:right;">1897元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">程峰</a><span style="float:right;">1897元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">焦金龙</a><span style="float:right;">1688元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">胡慧峰</a><span style="float:right;">166元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">林一</a><span style="float:right;">13.14元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">刘鹏鹏</a><span style="float:right;">13.14元</span>
-	          </li>
-	          <li>
-	            <a style="float:left">王一多</a><span style="float:right;">120元</span>
-	          </li>
+	        	{if !empty($items_info)}
+		  			{foreach $items_info as $k=>$t}
+		        	<li class="jq padding-tb-4"><a href="#" target="_blank">{$t['title']}</a></li>
+		        {/foreach}
+		      	{/if}
 	        </ul>
 	      </div>
-	      <p class="more" style="margin-top:10px"><a href="/donate/thanks">>>更多</a></p>
+	      <p class="more" style="margin-top:10px"><a href="{:url('index/donate')}">>>更多</a></p>
 	    </div>
 	  </div>
 	  <div class="clear"></div>

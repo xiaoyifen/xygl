@@ -149,6 +149,7 @@ class News extends Admin
             if (!empty($info['imagepath']) || $info['categoryname'] == '资料') {
                 $post = $this->GET;
                 $post['top'] = '1';
+                $post['updatetime'] = time();
                 $result = $this->model->allowField(true)->isUpdate(true)->save($post);
                 if(!$result){
                     $this->error($this->model->getError());

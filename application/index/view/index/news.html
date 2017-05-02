@@ -43,13 +43,15 @@
     </div>
     <div class="con_list a14">
 	    <ul>
+	    {if !empty($news)}
 	    {foreach $news as $k=>$t}
-				<li>
-					<a href="{:url('index/detail',['id'=>$t['articleid']])}" target="_blank">{$t['title']}</a>&nbsp;
-					{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}
-					<span>{$t['updatetime']|date="Y-m-d",###}</span>
-				</li>
+			<li>
+				<a href="{:url('index/detail',['id'=>$t['articleid']])}" target="_blank">{$t['title']}</a>&nbsp;
+				{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}
+				<span>{$t['updatetime']|date="Y-m-d",###}</span>
+			</li>
 	    {/foreach}
+	    {/if}
 	    </ul>
     </div>
     <div style=" text-align: center">

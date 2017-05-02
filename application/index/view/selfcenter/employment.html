@@ -3,14 +3,15 @@
 <link rel="stylesheet" href="__STATIC__/css/self.css" type="text/css"  />
 <div class="Nsb_layout_r">
   <div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » {$location} » {$locationNext}</div>        
-  <table class="table table-bordered">
+  <table class="table table-bordered form-top">
     <thead>
       <tr>
         <th>序号</th>
         <th>标题</th>
         <th>点击量</th>
         <th>发布时间</th>
-        <th>状态</th>                                              
+        <th>状态</th>
+        <th>操作</th>                                              
       </tr>
     </thead>
     <tbody>
@@ -29,7 +30,19 @@
           <td><a href="{:url('selfcenter/reason',['id' => $v['articleid']])}" target="_blank">{$v['status']}</a></td>
         {else}
           <td>{$v['status']}</td>
-        {/if}                                           
+        {/if} 
+        <td>
+          <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+            <!-- 查看/修改 -->
+            <a class="blue" href="{:url('selfcenter/show')}?id={$v['articleid']}" target="_blank">
+              <i class="icon-edit bigger-130"></i>
+            </a>                        
+            <!-- 删除 -->
+            <a class="red" href="{:url('selfcenter/del')}?id={$v['articleid']}">
+              <i class="icon-trash bigger-130"></i>
+            </a>
+          </div>
+        </td>                                          
       </tr>
       {/foreach}
       {/if}
