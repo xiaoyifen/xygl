@@ -35,25 +35,49 @@
  		$stu =model('stu'); //实例化Stu模型
  		//获取查找方式，1代表按专业查询，2代表按同学查询,获取入学年份和关键字
  		$findParam=$this->GET;
- 		$findStyle=$findParam['findstyle'];
- 		//将获取的入学年份转换为时间戳
-// 		$start_year=time($findParam['enrollmentdate']);
-// 		$enrollmentdate=['like',"%{$findParam['enrollmentdate']}%"];
- 		$keyWord=$findParam['keyWord'];
+ 		$searchtype=$findParam['searchtype'];
  		//选择按专业查询
- 		if($findStyle==1){
- 			$findParam['major']=['like',"%{$keyWord}%"];
- 			$list=$stu->where(['major'=>$findParam['major']])->whereTime('enrollmentdate','=',$findParam['enrollmentdate'])->select();//分页	
+ 		if($searchtype==1){
+ 			$major=['like',"%{$findParam['keyword']}%"];
+ 			if($findParam['enrollmentdate']==0){
+ 				$list=$stu->where(['major'=>$major])->paginate(50);//分页	
+ 			}else{
+ 				$list=$stu->where(['major'=>$major,'enrollmentdate'=>$findParam['enrollmentdate']])->paginate(50);//分页	
+ 			}
  		}else{
  			//选择按同学查询
- 			$findParam['username']=['like',"%{$keyWord}%"];
- 			$list=$stu->where(['username'=>$findParam['username']])->whereTime('enrollmentdate','=',$findParam['enrollmentdate'])->select();//分页	
+ 			$username=['like',"%{$findParam['keyword']}%"];
+ 			if($findParam['enrollmentdate']==0){
+ 				$list=$stu->where(['username'=>$username])->paginate(50);//分页	
+ 			}else{
+ 				$list=$stu->where(['username'=>$username,'enrollmentdate'=>$findParam['enrollmentdate']])->paginate(50);//分页	
+ 			}
  		}
 // 		echo $list;
 // 		exit;
  		$this->assign('list',$list);
  		return $this->fetch('alumniDetail');
  	}
+ 	/*
+  	   * 查找活动发起人信息
+  	   */
+  	   public function findActLeader($userid){
+  	   	//获取URL传递的参数
+  	   	$leaderParam=$this->GET;
+//  	   	echo $leaderParam['userid'].'<br>';
+  	   	//实例化Stu模型
+  	   	$stu=model('stu');
+  	   	//查找
+  	   	$list=$stu->where(['userid'=>$leaderParam['userid']])->find();
+//  	   	echo $list;
+//  	   	exit;
+  	   	if($list){
+  	   		$this->assign('list',$list);
+  	   		return $this->fetch('alumniInfo');
+  	   	}else{
+  	   		$this->error('系统没有该发起人信息','event');
+  	   	}
+  	   }
  /**
  * 个人中心
  * 1.已收留言

@@ -1,0 +1,115 @@
+{layout name="layout" /}
+<link rel="stylesheet" href="/./xygl/static/css/font-awesome.min.css">
+ <div class="container" id="body">
+  <div class="clear"></div>
+  <!--body -->
+	<!--left --> 
+<div class="row clearfix">
+	<div class="col-md-12 column">
+	<br>
+{if !empty($list)}
+<table class="table nofollow">
+				<thead>
+					<tr>
+						<th>
+							基本信息
+						</th>
+						<th>
+						</th>
+						<th>
+						</th>
+						<th>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							学号
+						</td>
+						<td>
+						{$list['studentid']}
+						</td>
+						<td>
+							姓名：
+						</td>
+						<td>
+						{$list['username']}
+						</td>
+					</tr>
+					<tr>
+						<td>
+						性别：
+						</td>
+						<td>
+						{$list['sex']}
+						</td>
+						<td>
+						籍贯
+						</td>
+						<td>
+						{$list['hometown']}
+						</td>
+					</tr>
+					<tr>
+						<td>
+						出生日期：
+						</td>
+						<td>
+						{$list['birthday']}
+						</td>
+						<td>
+						院系
+						</td>
+						<td>
+						{$list['department']}
+						</td>
+					</tr>
+					<tr>
+						<td>
+						专业：
+						</td>
+						<td>
+						{$list['major']}
+						</td>
+						<td>
+						班级：
+						</td>
+						<td>
+						{$list['class']}
+						</td>
+					</tr>
+					<tr>
+						<td>
+						入学年份：
+						</td>
+						<td>
+						{$list['enrollmentdate']}
+						</td>
+						<td>
+						毕业年份：
+						</td>
+						<td>
+						{$list['graduationdate']}
+						</td>
+					</tr>
+					<tr>
+						<td>
+						毕业方向：
+						</td>
+						<td>
+						{$list['direction']}
+						</td>
+						<td>
+						就业去向：
+						</td>
+						<td>
+						{$list['employment']}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	{/if}
+</div>
+</div>
+</div>

@@ -1,75 +1,10 @@
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/event1.css">
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>浙大校友网 - 母校就在你身边 校友与你心相连</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-         <meta name="renderer" content="webkit" />
-        <meta name="keywords" content="浙江大学校友总会,浙大校友总会,浙大校友,浙江大学校友,浙江大学校友会,浙大校友会" />
-        <meta name="description" content="加入浙大校友网，与校友亲切交流，参与校友会各种活动，从这里您也可以了解到母校最新动态，让我们共同在快乐中进步！" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="css/index.css" type="text/css"  />
-        <link rel="stylesheet" href="css/home.css" type="text/css"  />
-        <script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="/static/artDialog4.1.5/jquery.artDialog.source.js?skin=default"></script>
-        <script type="text/javascript" src="/static/js/tips.js"></script>
-        <script type="text/javascript" src="/static/js/global.js?v=20141117"></script>
-        <script type="text/javascript" src="/static/js/home.js?v=20130712"></script>
-        <script type="text/javascript" src="/static/js/swfobject_source.js"></script>
-                    </head>
-    <body id="htmlbody">
-        <div id="append_parent"></div>
-        <div class="container">
-            <div id="header">
-                <!-- global/header_top:_header_top -->
-<!--top -->
-<div id="zuaa_bg">
-    <div class="logo_tool" >
-        <div class="left"><a href="/" style="display:block;width:250px;height:58px"></a></div>
-        <div class="right"><div class="user_nav">    欢迎回来！<a href="/user/register" >加入校友网</a>&nbsp;&nbsp;
-          <a href="javascript:;" onclick="loginForm('/aa/memorabilia')" id="flogin_btn">登录</a>
-    </div>
-            <div class="site_search">
-                                <form action="/search" method="get" >
-                    <p><input name="q" type="text" class="site_search_input" title="输入新闻、组织、活动、姓名等关键字进行搜索" ></p>
-                    <p><input type="submit" class="site_search_button" value="搜索" ></p>
-                    <input type="hidden" name="for" value="news"  >
-                </form>
-            </div>
-        </div>
-    </div>
-    <div id="nav">
-        <a href="/" class="cur" >首页</a>
-        <a href="file:///C:/Users/dellpc/Desktop/alumni/news.html" >新闻专区</a>
-        <a href="/news" >招聘专区</a>
-        <a href="/news" >资料专区</a>
-        <a href="file:///C:/Users/dellpc/Desktop/alumni/event.html" >校友活动</a>
-        <a href="/bbs/list" >论坛天地</a>
-        <a href="/donate" >校友捐赠</a>
-        <a href="/service" >为您服务</a>
-        <a href="/mail" nonebg >邮箱</a>
-    </div>
-</div>
-<!--//top -->                <div class="clear"></div>
-            </div>
-            <div id="body">
-                <!-- main/index:_body -->
-<!--body -->
-<div id="header">
-  <div class="menu"></div>
-</div>
-
-<div class="row">
-  <!--focus news -->
-  <!--top_topic -->
-  <div id="banner">
-          <div style="color: #999">
-        <img src="/static/images/loading.gif" style="border-width: 0;vertical-align: middle">
-      </div>
-      </div>
-  <!--//focus news -->
-</div>
+<div class="container" id="body">
+  <div class="clear"></div> 
+<!--left -->
         <div id="main">
                         <style type="text/css">
     #comments_list .one_cmt_right{width:780px}
@@ -93,7 +28,7 @@
 	            		{if $list['registerNumber']<$list['number']}
 	            		<input type="button"  value="活动报名"  class="button_disabled"  id="event_finish"/>
 	            		{else}
-	            			<input type="button"  value="人数已满"  class="button_disabled"  id="event_finish"/>
+	            			<input type="button"  value="人数已满"  class="button_disabled"  disabled="disabled" id="event_finish"/>
 	            		{/if}
 	            	{else}
 	            		 <div style="color:#999;font-size:12px; font-weight: normal">您还没有登录，请<a href="javascript:;" onclick="loginForm('/club_home/eventview?id=21&eid=5261')" id="flogin_btn" >登录</a>后报名！
@@ -126,39 +61,9 @@
         <div class="view_title"><span class="middle"><img src="/static/images/ico_morepage.gif"></span>&nbsp;活动介绍</div>
         <div class="view_box event_content">
             <p>{$list['content']}<p><br/></p>        </div>
-        <div id="interested_box" style="margin:10px 15px">    <a href="javascript:;" onclick="interested(5250,5)" class="interested" >感兴趣(5)</a>
-</div>
-        <div class="view_box">
-            <div style="margin:-8px 0 10px 10px; float: right;height:30px">
-                <!-- Baidu Button BEGIN -->
-                <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
-                    <span class="bds_more">分享到：</span>
-                    <a class="bds_qzone"></a>
-                    <a class="bds_tsina"></a>
-                    <a class="bds_tqq"></a>
-                    <a class="bds_renren"></a>
-                    <a class="shareCount"></a>
-                </div>
-                <!-- Baidu Button END -->
-            </div>
-            <div class="clear"></div>
-        </div>
 
-                    <div class="view_title"><span class="middle"><img src="/static/images/ico_pic.gif"></span>&nbsp;活动掠影</div>
-            <div class="view_box">
-                                    <span class="nodata">暂时还没有照片。</span>
-                                <div style=" clear: both;text-align:right;padding:0px 20px"><a href="/album/picIndex?id=6442" >浏览更多及上传...</a></div>
-            </div>
-        
-        <div class="view_title"><span ><img src="/static/images/ico_users.gif"></span>&nbsp;报名信息(已有{$list['registerNumber']}人)</div>
-        <div class="view_box">
+<div class="view_title"><span ><img src="/static/images/ico_users.gif"></span>&nbsp;报名信息(已有{$list['registerNumber']}人)</div>            <div class="view_box">
 
-            
-                
-                <div style="width:100%" id="event_signs">
-<style type="text/css">
-.new_user_avatar .online_verify{border:1px dashed #A2CE4D}
-</style>
 {if !empty($registerlist)}
 <ul style="list-style: none">
 {foreach $registerlist as $k=>$v}
@@ -170,43 +75,9 @@
 </ul>                    <div class="clear"></div>
 {/if}
 
-                </div>
-            
-         <div id="manageGroup" style=" clear: both">
-         </div>
-                
-        </div>
-        <div id="scrollToComment" style="height:5px"></div>
-        <div class="view_title" ><span class="middle"><img src="/static/images/comments.png"></span>&nbsp;评论(3)</div>
-        <div class="view_box">
-
-            <!--回复及评论 -->
-                        <div class="clear"></div>
-<div id="get_comment_list" style="width:99%">
-    <div style="text-align: center"><img src="/static/ico/loading4.gif" style="margin:10px"></div>
-</div>
-    <div class="notice">
-        您还没有注册或登录，请<a href="javascript:;" onclick="loginForm('/aa_home/eventview?id=36&eid=5250')"><b>登录</b></a> 后进行回帖或讨论。
-    </div>
-
-<script type="text/javascript">
-            getCommentJson = {
-                "page":1,
-                'scrollTo': false,
-                'uid': false,
-                'query': 'event_id=5250&bbs_unit_id=16620',
-                'getUrl': '/comment/list'
-            };
-            setTimeout(function() {
-                get_comment(getCommentJson);
-            }, 200);
-</script>
-
-
-            <!--//回复及评论 -->
-        </div>
-        {/if}
-    </div>
+            </div>
+        
+       
 
 <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=600886" ></script>
 <script type="text/javascript" id="bdshell_js"></script>
@@ -245,5 +116,4 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 </script>                <div class="clear"></div>
             </div>
                     </div>
-   </body>
-</html>
+                    </div>

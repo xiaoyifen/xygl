@@ -1,53 +1,75 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>发起活动</title>
-</head>
-<body>
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/self.css">
 
-<form role="form" method="post" action="{:url('activity/setupact')}" enctype="multipart/form-data">
-  <ul>
-    <li>
-      <label>活动类型<b>*</b>：</label>
-      <select class="form-control" name="type" style="width:318px;">
+<div class="container" id="body">
+  <div class="clear"></div> 
+<!--left -->
+
+<form method="post"  class="form-horizontal" action="{:url('activity/setupact')}" enctype="multipart/form-data">
+  <div class="control-group">
+	<label class="control-label" >活动类型</label>
+	<div class="controls">
+	<select class="form-control self_form_control" name="type">
         <option value="运动健身">运动健身</option>
         <option value="吃饭逛街">吃饭逛街</option>
+        <option value="室内娱乐">座谈沙龙</option>
         <option value="室内娱乐">室内娱乐</option>
+        <option value="室内娱乐">户外旅游</option>
+        <option value="室内娱乐">周年聚会</option>
+        <option value="室内娱乐">艺术欣赏</option>
+        <option value="室内娱乐">爱心互助</option>
+        <option value="室内娱乐">创业大赛</option>
+        <option value="室内娱乐">其他</option>
       </select>
-    </li>
-    <li>
-      <label>活动标题<b>*</b>：</label>
-      <input name="title" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>活动开始时间<b>*</b>：</label>
-      <input name="activitytime" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>活动结束时间<b>*</b>：</label>
-      <input name="activityendtime" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>活动地址<b>*</b>：</label>
-      <input name="address" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>活动介绍<b></b></label>
-      <textarea name="content" class="form-control"  value="" style="height:100px; width:318px"></textarea>
-    </li>
-    <li>
-      <label>活动联系人<b>*</b>：</label>
-      <input name="contact" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>活动截止报名时间<b></b></label>
-      <input name="deadline" type="text"  class="form-control" value=""  style="width:318px;"/>
-    </li>
-    <li>
-      <label>&nbsp;</label>
-      <input type="submit" class="btn" value="提交"/>
-    </li>
-  </ul>
-</form></body>
-</html>
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" >活动标题</label>
+	<div class="controls ">
+		<input  name="title" type="text" class="form-control self_form_control" />
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" >活动人数</label>
+	<div class="controls ">
+		<input  name="number" type="text" class="form-control self_form_control" />
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" >活动开始时间</label>
+	<div class="controls">
+		<input  name="activitytime" type="text" class="form-control self_form_control"/>
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" >活动结束时间</label>
+	<div class="controls">
+		<input  name="activityendtime" type="text" class="form-control self_form_control"/>
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" >截止报名时间时间</label>
+	<div class="controls">
+		<input  name="deadline" type="text" class="form-control self_form_control"/>
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" >活动地址</label>
+	<div class="controls">
+		<input  name="address" type="text" class="form-control self_form_control"/>
+	</div>
+</div>
+<div class="control-group">
+	<label class="control-label" >联系方式</label>
+	<div class="controls ">
+		<input  name="contact" type="text" class="form-control self_form_control"/>
+	</div>
+</div>
+<div class="control-group">
+	<div class="controls">
+	<button type="submit" class="btn">提交</button>
+	</div>
+</div>
+</form>
+</div>

@@ -28,10 +28,45 @@
   	  public function findStuList(){
   	  	//实例化模型
   	  	$stu=model('stu');
-  	  	$list=$stu->paginate(10);
+  	  	//获取参数，获取查找方式，1代表按院系查询，2代表按专业查询,3代表按同学，获取入学年份和关键字
+  	  	$param=$this->GET;
+  	  	if(!empty($param)){
+  	  		if($param['searchtype']==1){
+  	  			//按院系查询
+	 			$department=['like',"%{$param['keyword']}%"];
+	 			if($param['enrollmentdate']==0){
+	 				$list=$stu->where(['department'=>$department])->paginate(15);//分页	
+	 			}else{
+	 				$list=$stu->where(['department'=>$department,'enrollmentdate'=>$param['enrollmentdate']])->paginate(15);//分页	
+	 			}
+ 			}else{
+ 				if($param['searchtype']==2){
+ 					//按专业查询
+ 					$major=['like',"%{$param['keyword']}%"];
+ 					if($param['enrollmentdate']==0){
+ 						$list=$stu->where(['major'=>$major])->paginate(15);//分页
+ 					}else{
+ 						$list=$stu->where(['major'=>$major,'enrollmentdate'=>$param['enrollmentdate']])->paginate(15);//分页
+ 					}
+ 				}else{
+ 					//选择按同学查询
+		 			$username=['like',"%{$param['keyword']}%"];
+		 			if($param['enrollmentdate']==0){
+		 				$list=$stu->where(['username'=>$username])->paginate(15);//分页
+		 			}else{
+		 				$list=$stu->where(['username'=>$username,'enrollmentdate'=>$param['enrollmentdate']])->paginate(15);//分页
+		 			}
+ 				}	
+ 			}
+  	  	}else{
+  	  		$list=$stu->paginate(15);
+  	  	}
   	  	$this->assign('list',$list);
-  	  	return$this->fetch('stuList');
+  	  	return $this->fetch('stuList');
   	  }
+  	  /*
+  	   * 
+  	   */
   	  /*
   	   * 管理员查看或者修改学生信息
   	   */

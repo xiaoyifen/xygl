@@ -1,0 +1,50 @@
+.event_title{ margin-top: 20px; padding-left:20px; height: 30px; /*background:url(../images/dotted_line_bg.gif) repeat-x bottom;*/}
+.event_filter{ display: block; float: left; width: 11%; padding: 50px 5px 5px 5px; text-align: center }
+#event_list{ margin-bottom:30px}
+.event_one{ clear:both;height:100px; padding: 5px; background:url(../images/dotted_line_bg.gif) repeat-x bottom;}
+.bg2{background:#F4F7FA url(../images/dotted_line_bg.gif) repeat-x bottom}
+.event_one p{float:left;margin:0}
+.event_one .p1{width:80px; text-align:center; padding-top:17px}
+.event_one .p2{width:400px; padding:8px 0px;line-height:1.6em; overflow:hidden}
+.event_one .p3{width:95px;text-align:center; padding-top:35px}
+.event_one .p4{width:50px;padding-top:35px;float: right}
+.clear{ clear:both; line-height:1px;}
+/*深蓝文字及链接*/
+.deep_blue_14:link,.deep_blue_14:visited{font-size:14px; font-weight:bold; }
+.deep_blue_14:hover{ text-decoration:underline;}
+
+/*侧边照片*/
+.sidebar_photo{ margin: 0; padding: 0}
+.sidebar_photo  li{ float: left; width: 85px; height: 60px; margin:10px;*margin:5px}
+
+/*view*/
+.view_name{ margin: 10px 0; font-weight: bold; height: 45px; line-height: 45px; color: #CC0000; position: relative;font-family:'Microsoft YaHei','Microsoft JhengHei';font-size: 18px}
+.view_name .join{ position: absolute;right: 10px; top: 0}
+.view_title{ border-top: 1px solid #DCE8F3; height: 35px; background: #F3F8FA; font-weight: bold; color: #0D529F; line-height:35px; padding-left: 20px;font-family:'Microsoft YaHei','Microsoft JhengHei';font-size: 16px}
+.view_box{ margin: 10px 0; padding: 10px 15px; line-height: 1.8em;}
+.event_content{ font-size: 14px; line-height: 1.7em}
+.event_content img{ margin: 15px 0}
+.event_content p{margin:0px; padding: 0}
+.event_content a{ font-size: 14px;}
+
+.pbox{ float:left; text-align: center; padding: 3px; margin:5px; height: 90px; }
+.pbox img{ border:1px solid #ccc; padding:2px; }
+#album_title{ padding:5px; background:#eee; color:#999; margin-top:10px; }
+
+.face_box{ width: 58px; height: 78px; float: left; margin-right: 5px;  text-align: center}
+.face{ background: #F5F5F5; margin-bottom:2px; padding: 3px}
+
+
+#event_form{}
+#event_type a:link,#event_type a:visited{display: block; width:70px; padding: 50px 0px 10px 0;float: left; text-align: center}
+#event_form label{ font-weight: bold;}
+
+#event_tags a:link,#event_tags a:visited{ padding:2px 4px;}
+#event_tags a:hover{ padding: 2px 4px;background: #01478F; color: #fff; text-decoration: none}
+
+.signeventbutton{background:url(/static/images/signevent.gif) no-repeat;width:132px;height: 40px; border-width: 0; cursor: pointer}
+.signeventbutton:hover{ background-position: 0 -51px}
+
+#interested_box{width:82px; height: 32px; padding-left:34px; line-height: 32px; color: #f60;text-decoration: none; background: url(/static/images/interested_bg.gif) no-repeat;}
+a.interested:link,a.interested:visited{ color: #f60;}
+a.interested:hover{ background-position: 0 -35px; color: #f70}

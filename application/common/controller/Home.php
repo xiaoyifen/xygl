@@ -10,7 +10,7 @@ use app\common\controller\Base;
 class Home EXTENDS Base{
 	function __construct(){
 		parent::__construct();
-		$this->check_login();
+//		$this->check_login();
 	}
 
 	/** 

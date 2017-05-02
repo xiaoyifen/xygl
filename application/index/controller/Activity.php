@@ -70,6 +70,12 @@
 	  		}
   	  }
   	 /*
+  	  * 渲染我要发起活动的方法
+  	  */
+  	  public function promotionAct(){
+  	 	return $this->fetch('setupAct');
+  	 }
+  	 /*
   	 * 发起活动的方法
   	 * 1.获取用户提交的表单参数
   	 * 2.将参数保存到数据库对应的活动表中，此时的审核状态为0表示未审核
@@ -102,6 +108,7 @@
 	  		//将用户输入的字符串类型的时间转换为时间戳
 	  		$actParam['activitytime']=strtotime($actParam['activitytime']);
 	  	    $actParam['activityendtime']=strtotime($actParam['activityendtime']);//活动结束时间
+	  	    $actParam['deadline']=strtotime($actParam['deadline']);//活动结束时间
 //	  		echo $actParam['activitytime'];
 //	  		echo echo $actParam['activitytime'];
 	  		//活动日期为星期几
@@ -140,15 +147,15 @@
 	  		$actParam['createtime']=time();
 	  		$actParam['updatetime']=time();
 	  		$actParam['status']=0;
-	  		var_dump($actParam['type']);
+//	  		var_dump($actParam['type']);
 	  		//将获取到的参数保存到数据表activity中
 	  		//$activity=new Activity();//实例化Activity模型
 	  		$activity=model('activity');
 	  		$result=$activity->save($actParam);
 	  		if($result){
-	  			$this->success('提交成功，正在等待管理员审核','event');
+	  			$this->success('提交成功，正在等待管理员审核');
 	  		}else{
-	  			$this->error('提交失败','event');
+	  			$this->error('提交失败');
 	  		}
   		}
   		
@@ -277,10 +284,10 @@
 //  	  		}
   	  		//echo $registerlist['username'].'<br>';
 //  	  		echo $list;
-				foreach($registerlist as $k){
-					echo $k->registe_to_stu->username;
-					echo '<br>'.$k->registe_to_stu->userid;
-				}
+//				foreach($registerlist as $k){
+//					echo $k->registe_to_stu->username;
+//					echo '<br>'.$k->registe_to_stu->userid;
+//				}
 //  	  		exit;
   				$list['remainday']=$this->updateAct($list['activitytime'],$list['activityendtime']);
   	  			$this->assign('list',$list);
@@ -344,7 +351,7 @@
  	 }
  	 
   	 /*
- 	 * 查找本账户已报名的活动
+ 	 * 个人中心：查找本账户已报名的活动
  	 */
  	 public function hasJoinAct($applicantid){
  	 	//首先获取本账户的账号
@@ -364,7 +371,7 @@
  	 	}
  	 }
  	 /*
- 	  * 查找已发起的活动
+ 	  * 个人中心：查找已发起的活动
  	  */
  	  public function hasSetupAct(){
  	  	//首先获取本账户的账号

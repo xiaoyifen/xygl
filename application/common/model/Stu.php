@@ -42,6 +42,10 @@ class Stu extends Model{
     public function stuToRegister(){
         return $this->hasOne('Registration','applicantid','userid');
     }
+    public function getSexAttr($value){
+        $status = [0=>'男',1=>'女'];
+        return $status[$value];
+    }
 }
 ?>
 
