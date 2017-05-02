@@ -1,106 +1,73 @@
 {layout name="layout" /}
-<<<<<<< HEAD
-<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
-<link rel="stylesheet" href="__STATIC__/css/event1.css">
-
+<link rel="stylesheet" href="__STATIC__/css/event.css">
+<style type="text/css">
+  #comments_list .one_cmt_right{width:780px}
+  #comment_form_box .comment_form{width:700px;_width:600px}
+  #cmt_content{width:790px}
+.left-30 {
+  margin-left: 30px;
+}
+</style>
 <div class="container" id="body">
   <div class="clear"></div> 
-<!--left -->
-        <div id="main">
-                        <style type="text/css">
-    #comments_list .one_cmt_right{width:780px}
-    #comment_form_box .comment_form{width:700px;_width:600px}
-    #cmt_content{width:790px}
-</style>
-<div id="admin950">
-    <!-- event/view:_body -->
-        {if !empty($list)}
-            <div class="view_name">
-            <img src="/static/images/event/undefined.png" align="absmiddle"  style="margin-right: 10px"  />
-            {$list['title']}            
-            <div class="join">
-            {if $list['remainday']=="结束"}
-                <input type="button"  value="活动已结束"  class="button_disabled"  disabled="disabled" id="event_finish"/>
-            {else}
-	            {if $list['remainday']=="进行中"}
-	            	<input type="button"  value="活动正在进行"  class="button_disabled"  disabled="disabled" id="event_finish"/>
-	            {else}
-	            	{if !empty(id)} 
-	            		{if $list['registerNumber']<$list['number']}
-	            		<input type="button"  value="活动报名"  class="button_disabled"  id="event_finish"/>
-	            		{else}
-	            			<input type="button"  value="人数已满"  class="button_disabled"  disabled="disabled" id="event_finish"/>
-	            		{/if}
-	            	{else}
-	            		 <div style="color:#999;font-size:12px; font-weight: normal">您还没有登录，请<a href="javascript:;" onclick="loginForm('/club_home/eventview?id=21&eid=5261')" id="flogin_btn" >登录</a>后报名！
-	            		 </div>
-            		 {/if}
-            	{/if}
-            {/if}
-            </div>
-        </div>
-      </div>
-      <div class="view_title"><span class="middle"><img src="/static/images/ico_page.gif"></span>&nbsp;基本信息</div>
-      <div class="view_box" >
-        <b>发起：</b><a href="{:url('activity/findActLeader',['userid'=>$list->stus->userid])}">{$list->stus->username} </a><br>
-        <b>时间：</b>{$list['activitytime']|date="Y-m-d H:i",###}&nbsp;~{$list['activityendtime']|date="Y-m-d H:i",###}<br>
-        <!-- <b>所属：</b><a href="/aa_home?id=36" title="进入校友会主页">绍兴浙江大学校友会</a><br> -->
-        <b>地址：</b>{$list['address']}<br>
-        <b>人数：</b>{$list['number']}人 已有{$list['registerNumber']}人报名<br>
+  <!-- event/view:_body -->
+  {if !empty($list)}
+    <div class="view_name">
+      <span class="left-30">{$list['title']}</span>            
+      <div class="join">
         {if $list['remainday']=="结束"}
-        <b>状态：</b><span style="color:#999">活动已结束，欢迎下次参加～</span><br>
-		{else}
-			{if $list['remainday']=="进行中"}
-				<b>状态：</b><span style="color:#999">正在进行中</span><br>
-			{else}
-				<b>状态：</b><span style="color:#999">{$list['remainday']}活动开始</span><br>
-			{/if}
-		{/if}
-            <!-- <b>体验：</b><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle"><img src="/static/images/knewstuff.png" style="margin-right:2px;vertical-align: middle">&nbsp;&nbsp;<span style="color:#999">1人评分</span><br> -->                    
-      </div>
-
-
-        <div class="view_title"><span class="middle"><img src="/static/images/ico_morepage.gif"></span>&nbsp;活动介绍</div>
-        <div class="view_box event_content">
-            <p>{$list['content']}<p><br/></p>        </div>
-
-<div class="view_title"><span ><img src="/static/images/ico_users.gif"></span>&nbsp;报名信息(已有{$list['registerNumber']}人)</div>            <div class="view_box">
-
-{if !empty($registerlist)}
-<ul style="list-style: none">
-{foreach $registerlist as $k=>$v}
-    <li id="sign_user_72610" class="new_user_avatar" >
-                    <span class="face"><a href="/user_home?id=31078" title="报名1人,03月06日加入" target="_blank"><img src="/static/upload/avatar/48/face_man.jpg"></a></span>
-            <span class="name"><a href="/user_home?id=31078" title="报名1人" target="_blank">{$v['registe_to_stu']['username']}</a></span>
-            </li>
-{/foreach}
-</ul>                    <div class="clear"></div>
-{/if}
-
-                </div>
-            
-         <div id="manageGroup" style=" clear: both">
-         </div>
-                
-        </div>
-        <div id="scrollToComment" style="height:5px"></div>
-        <div class="view_title" ><span class="middle"><img src="/static/images/comments.png"></span>&nbsp;评论(3)</div>
-        <div class="view_box">
-
-            <!--回复及评论 -->
-                        <div class="clear"></div>
-<div id="get_comment_list" style="width:99%">
-    <div style="text-align: center"><img src="/static/ico/loading4.gif" style="margin:10px"></div>
-</div>
-    <div class="notice">
-        您还没有注册或登录，请<a href="javascript:;" onclick="loginForm('/aa_home/eventview?id=36&eid=5250')"><b>登录</b></a> 后进行回帖或讨论。
-    </div>
-
-
-
-            <!--//回复及评论 -->
-        </div>
+          <input type="button"  value="活动已结束"  class="btn red"  disabled="disabled" id="event_finish"/>
+        {else}
+          {if $list['remainday']=="进行中"}
+      	    <input type="button"  value="活动正在进行"  class="btn green"  disabled="disabled" id="event_finish"/>
+          {else}
+          	{if !empty($userid)} 
+          		{if $list['registerNumber']<$list['number']}
+          		  <input type="button"  value="活动报名"  class="btn green"  id="event_finish"/>
+          		{else}
+          			<input type="button"  value="人数已满"  class="btn red"  disabled="disabled" id="event_finish"/>
+          		{/if}
+          	{else}
+          		<div style="color:#999;font-size:12px; font-weight: normal">您还没有登录，请<a href="javascript:;" onclick="loginForm('/club_home/eventview?id=21&eid=5261')" id="flogin_btn" >登录</a>后报名！
+          		</div>
+        		{/if}
+      	  {/if}
         {/if}
+      </div>
     </div>
-</div>
+    <div class="view_title"><span class="middle"><i class="icon-file bigger-120"></i></span>&nbsp;基本信息</div>
+    <div class="view_box">
+      <b>发起：</b><a href="{:url('activity/findActLeader',['userid'=>$list->stus->userid])}">{$list->stus->username} </a><br>
+      <b>时间：</b>{$list['activitytime']|date="Y-m-d H:i",###}&nbsp;~{$list['activityendtime']|date="Y-m-d H:i",###}<br>
+      <!-- <b>所属：</b><a href="/aa_home?id=36" title="进入校友会主页">绍兴浙江大学校友会</a><br> -->
+      <b>地址：</b>{$list['address']}<br>
+      <b>人数：</b>{$list['number']}人 已有{$list['registerNumber']}人报名<br>
+      {if $list['remainday']=="结束"}
+        <b>状态：</b><span style="color:#999">活动已结束，欢迎下次参加～</span><br>
+  		{else}
+  			{if $list['remainday']=="进行中"}
+  				<b>状态：</b><span style="color:#999">正在进行中</span><br>
+  			{else}
+  				<b>状态：</b><span style="color:#999">{$list['remainday']}活动开始</span><br>
+  			{/if}
+	    {/if}                 
+    </div>
+    <div class="view_title"><span class="middle"><i class="icon-file-alt bigger-120"></i></span>&nbsp;活动介绍</div>
+    <div class="view_box event_content">
+      <p>{$list['content']}<p><br/></p>        
+    </div>
+    <div class="view_title"><span ><i class="icon-group bigger-120"></i></span>&nbsp;报名信息(已有{$list['registerNumber']}人)</div>            
+    <div class="view_box">
+    {if !empty($registerlist)}
+      <ul style="list-style: none">
+      {foreach $registerlist as $k=>$v}
+        <li id="sign_user_72610" class="new_user_avatar" >
+          <span class="name"><a href="/user_home?id=31078" title="报名1人" target="_blank">{$v['registe_to_stu']['username']}</a></span>
+        </li>
+      {/foreach}
+      </ul>                    
+      <div class="clear"></div>
+    {/if}
+    </div> 
+  {/if}                          
 </div>

@@ -93,7 +93,7 @@ class Base EXTENDS Controller{
 	* @param
 	* @return  
 	*/
-	private function check_login(){
+	private function check_login1(){
 		// $_auth = cookie('member_auth');
 		$_auth = session('member_auth');
 		if (!$_auth) {

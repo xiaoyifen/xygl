@@ -1,7 +1,7 @@
 <!-- 列表页 -->
 {layout name="layout" /}
-<link rel="stylesheet" href="/./xygl/static/css/font-awesome.min.css">
-<link rel="stylesheet" href="/./xygl/static/css/admin-table.css">
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-table.css">
 
 <div class="panel-body" style="padding-bottom:0px;">
 <div class="panel panel-default">
@@ -16,7 +16,7 @@
              </tr>
              <tr>
                  <td style="text-align:right">入学年份：</td>
-                 <td>		<select name="enrollmentdate" style="padding:1px 2px;">
+                 <td>		<select name="enrollmentdate" style="padding:1px 2px;" >
        <option value="">年份不限</option>
 		        		    <option value="2017" >2017</option>
 		        		    <option value="2016" >2016</option>
@@ -146,7 +146,7 @@
                  <td>
                  </td>
                  <td>
-                     <input type="submit" value="查找"  class="button_blue"/>
+                     <input type="submit" value="查找"  class="btn"/>
                  </td>
              </tr>
          </table>
@@ -154,7 +154,8 @@
     	    </div>
     	</div>
     	</div>
-<div class="col-md-12 column">
+<div class="col-xs-12">
+	<div class="table-responsive">
 		<form class="form-horizontal" method="post" action="{:url('stu/del')}">
 			<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 				<thead>
