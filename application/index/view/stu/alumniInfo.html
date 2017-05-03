@@ -1,115 +1,184 @@
 {layout name="layout" /}
 <link rel="stylesheet" href="/./xygl/static/css/font-awesome.min.css">
- <div class="container" id="body">
+<style type="text/css">
+.pos {
+	margin-top: 20px;
+  padding-left: 30px;
+}
+.right {
+  float: right;
+}
+.table-color>tbody>tr>td {
+  border: 1px solid #D1E5ED;
+}
+.table {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.minheight {
+  height: 100px;
+}
+p{ 
+  text-indent: 2em; 
+}
+.cyan {
+  background-color: #F6FAFB;
+}
+.top-10 {
+  margin-top: 10px;
+}
+.top-20 {
+  margin-top: 20px;
+}
+</style>
+<script type="text/javascript">
+$(function(){ 
+  // 表单验证
+  $("#formtips").submit(function(){
+    // 留言内容不为空
+    if ($("#message").val() == "" ) {  
+      $("#message1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写留言内容！");  
+      $("#message").focus();  
+    }
+    // 验证为空，禁止提交
+    if ($("#message").val() == "") {
+      return false;
+    } 
+  });
+  // 表单验证
+  $(".formtips").submit(function(){
+    // 回复内容不为空
+    if ($(".text").val() == "" ) {  
+      $("  .text1",this).html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写回复内容！");  
+      $(".text").focus();  
+    }
+    // 验证为空，禁止提交
+    if ($(".text").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
+<div class="container" id="body">
   <div class="clear"></div>
   <!--body -->
-	<!--left --> 
-<div class="row clearfix">
-	<div class="col-md-12 column">
-	<br>
-{if !empty($list)}
-<table class="table nofollow">
-				<thead>
-					<tr>
-						<th>
-							基本信息
-						</th>
-						<th>
-						</th>
-						<th>
-						</th>
-						<th>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							学号
-						</td>
-						<td>
-						{$list['studentid']}
-						</td>
-						<td>
-							姓名：
-						</td>
-						<td>
-						{$list['username']}
-						</td>
-					</tr>
-					<tr>
-						<td>
-						性别：
-						</td>
-						<td>
-						{$list['sex']}
-						</td>
-						<td>
-						籍贯
-						</td>
-						<td>
-						{$list['hometown']}
-						</td>
-					</tr>
-					<tr>
-						<td>
-						出生日期：
-						</td>
-						<td>
-						{$list['birthday']}
-						</td>
-						<td>
-						院系
-						</td>
-						<td>
-						{$list['department']}
-						</td>
-					</tr>
-					<tr>
-						<td>
-						专业：
-						</td>
-						<td>
-						{$list['major']}
-						</td>
-						<td>
-						班级：
-						</td>
-						<td>
-						{$list['class']}
-						</td>
-					</tr>
-					<tr>
-						<td>
-						入学年份：
-						</td>
-						<td>
-						{$list['enrollmentdate']}
-						</td>
-						<td>
-						毕业年份：
-						</td>
-						<td>
-						{$list['graduationdate']}
-						</td>
-					</tr>
-					<tr>
-						<td>
-						毕业方向：
-						</td>
-						<td>
-						{$list['direction']}
-						</td>
-						<td>
-						就业去向：
-						</td>
-						<td>
-						{$list['employment']}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-	{/if}
-</div>
-</div>
+  <div class="row clearfix">
+		<div class="col-md-12 column pos">
+			<ul class="nav nav-tabs">
+			  <li class="active"><a href="#tab1" data-toggle="tab">个人信息</a></li>
+			  <li><a href="#tab2" data-toggle="tab">留言板</a></li>
+			</ul>
+			<div class="tab-content">
+			  <div class="active tab-pane" id="tab1">
+			  	{if !empty($list)}
+					<table class="table nofollow">
+						<thead>
+							<tr>
+								<th>{$list['username']}</th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>学号</td>
+								<td>{$list['studentid']}</td>
+								<td>姓名：</td>
+								<td>{$list['username']}</td>
+							</tr>
+							<tr>
+								<td>性别：</td>
+								<td>{$list['sex']}</td>
+								<td>籍贯</td>
+								<td>{$list['hometown']}</td>
+							</tr>
+							<tr>
+								<td>出生日期：</td>
+								<td>{$list['birthday']}</td>
+								<td>院系</td>
+								<td>{$list['department']}</td>
+							</tr>
+							<tr>
+								<td>专业：</td>
+								<td>{$list['major']}</td>
+								<td>班级：</td>
+								<td>{$list['class']}</td>
+							</tr>
+							<tr>
+								<td>入学年份：</td>
+								<td>{$list['enrollmentdate']}</td>
+								<td>毕业年份：</td>
+								<td>{$list['graduationdate']}</td>
+							</tr>
+							<tr>
+								<td>毕业方向：</td>
+								<td>{$list['direction']}</td>
+								<td>就业去向：</td>
+								<td>{$list['employment']}</td>
+							</tr>
+						</tbody>
+					</table>
+					{/if}
+			  </div>
+			  <div class="tab-pane" id="tab2">
+			  	<form role="form" method="post" action="{:url('message/add')}" enctype="multipart/form-data" id="formtips">
+		        <input type="hidden" name="senderid" value="{$userid}">
+		        <input type="hidden" name="ownerid" value="{$list['userid']}">
+		        <input type="hidden" name="receiverid" value="{$list['userid']}">
+		        <ul>
+	            <li>
+	              <label>&nbsp;</label>
+	              <textarea name="content" class="form-control editor" value="" id="message"></textarea>
+	            </li>
+	            <li>
+	              <label style="float: left;" id="message1" class="top-10"></label>
+	              <input name="submit" type="submit" class="btn info white" value="留言" style="float: right;margin-top:5px;margin-bottom:5px;" />
+	            </li>
+		        </ul>
+			    </form>
+			    {if !empty($item)}
+          {foreach $item as $k=>$t}
+          	<table class="table table-bordered table-color">
+          		<tr class="cyan">
+          			<td><span>{$t['message']['sender']['username']}&nbsp;&nbsp;于&nbsp;{$t['message']['time']|date="Y-m-d H:i",###}&nbsp;留言</span><span class="right"> <a class="message" data-toggle="collapse" data-parent="#accordion" href="#demo{$t['message']['messageid']}">回复</a></span></td>
+          		</tr>
+          		<tr class="minheight">
+          			<td><p>{$t['message']['content']}</p></td>
+          		</tr>
+          		{foreach $t['reply'] as $key=>$v}
+        			<tr>
+        				<td><span>{$v['sender']['username']}&nbsp;</span>回复<span>&nbsp;{$v['receiver']['username']}</span>：<span>&nbsp;{$v['content']}</span></td>
+          		</tr>
+          		{/foreach}
+          	</table>
+          	<div id="demo{$t['message']['messageid']}" class="panel-collapse collapse">
+              <div class="panel-body">
+                <form role="form" method="post" action="{:url('message/reply')}" enctype="multipart/form-data" class="formtips">
+                  <input type="hidden" name="senderid" value="{$userid}">
+                  <input type="hidden" name="ownerid" value="{$t['message']['ownerid']}">
+                  <input type="hidden" name="receiverid" value="{$t['message']['senderid']}">
+                  <input type="hidden" name="replyid" value="{$t['message']['messageid']}">
+                  <ul>
+                    <li>
+                      <label>&nbsp;</label>
+                      <textarea name="content" class="form-control editor text" value="" placeholder="回复{$t['message']['sender']['username']}：" id="reply"></textarea>
+                    </li>
+                    <li>
+                      <label id="reply1" style="float: left;" class="top-10 text1">&nbsp;</label>
+                      <input name="submit" type="submit" class="btn info white right top-10" value="提交回复" />
+                    </li>
+                  </ul>
+                </form>
+              </div>
+          	</div>
+          {/foreach}
+          {/if}
+          {if !empty($items)}
+          <div>{$items->render()}</div>
+          {/if}
+			  </div>
+			</div>			
+		</div>
+	</div>
 </div>

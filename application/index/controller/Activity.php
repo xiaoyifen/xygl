@@ -266,6 +266,7 @@
   	  * 点击活动标题的链接时根据传递过来的活动ID查询获得详情
   	  */
   	  public function findActDetail($activityid){
+        $this->check_login();
   	  		$param=$this->GET;
   	  		//获取活动详细信息
   	  		$activity=model('activity');

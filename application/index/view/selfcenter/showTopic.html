@@ -81,7 +81,7 @@ $(function(){
 });
 </script>
 <div class="Nsb_layout_r">
-  <div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » {$location} » {$locationNext}</div> 
+  <div class="Nsb_r_title"><a href="{:url('selfcenter/message',['id' => $userid])}">个人中心</a> » {$location} » {$locationNext}</div> 
   <div class="col-sm-12 form-top">
     <?php extract($info); ?>
     <form role="form" method="post" action="{:url('selfcenter/showTopic',['id'=>$topicid])}" enctype="multipart/form-data" id="formtips">

@@ -10,6 +10,7 @@ class Forum extends Admin
 {
     function __construct(){
 		parent::__construct();
+        $this->check_login();
         $this->view->location = '交流专区';
         $this->view->title = '交流专区';
         $this->model = model('topic');    
@@ -57,6 +58,7 @@ class Forum extends Admin
 
     //删除主题帖
     public function del($id){
+        $this->check_auth();
         // 删除回复
         $num = model('note')->where(['topicid'=>$id])->count();
         if ($num) {
@@ -76,6 +78,7 @@ class Forum extends Admin
 
     //删除回复帖
     public function del_reply($id){
+        $this->check_auth();
         // 删除回复
         $item = model('note')->where(['noteid'=>$id])->find() or $this->error('数据不存在...'); 
         $info = $item->toArray($item);       

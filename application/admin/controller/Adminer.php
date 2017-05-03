@@ -11,6 +11,7 @@ class Adminer extends Admin
 {
     function __construct(){
 		parent::__construct();
+        $this->check_login();
         $this->view->location = '管理员管理';
         $this->view->title = '管理员管理';
         $this->model = model('admin');    
@@ -24,11 +25,12 @@ class Adminer extends Admin
 
     // 添加
     public function add(){
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;
             $post['createtime'] = time();//添加时间
-            $post['authority'] = 1;//权限设置
+            $post['authority'] = 2;//权限设置
             $result = $this->model->validate(true)->allowField(true)->save($post);
             if(!$result){
                 $this->error($this->model->getError());
@@ -43,7 +45,8 @@ class Adminer extends Admin
     // 查看/修改
     public function show($id){
         // 修改
-        if(request()->isPost()){            
+        if(request()->isPost()){
+            $this->check_auth();            
             $post = $this->GET;
             $result = $this->model->validate(true)->allowField(true)->isUpdate(true)->save($post);
             if(!$result){
@@ -61,6 +64,7 @@ class Adminer extends Admin
 
     //删除
     public function del($id){
+        $this->check_auth();
         $item = $this->model->where(['adminid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);       
         $this->model->destroy(['adminid'=>$id]) or $this->error('删除失败');       

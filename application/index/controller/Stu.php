@@ -71,6 +71,19 @@
   	   	$list=$stu->where(['userid'=>$leaderParam['userid']])->find();
 //  	   	echo $list;
 //  	   	exit;
+        $message = model('message');
+        $items = $message->with('sender')->where(['ownerid'=>$leaderParam['userid'],'replyid'=>0])->order('time DESC')->paginate(50);
+        // var_dump($this->model->getLastSql());
+        // var_dump($items);
+        foreach ($items as $k => $v) {
+            $item[$k]['message'] = $v;
+            $item[$k]['reply'] = $message->with(['sender','receiver'])->where(['ownerid'=>$leaderParam['userid'],'replyid'=>$v['messageid']])->order('time')->select();
+            // var_dump($this->model->getLastSql());   
+        }
+        // var_dump($item);
+        // exit;
+        $this->assign('item',$item);
+        $this->assign('items',$items);
   	   	if($list){
   	   		$this->assign('list',$list);
   	   		return $this->fetch('alumniInfo');

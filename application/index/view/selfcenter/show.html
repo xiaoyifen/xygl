@@ -107,12 +107,13 @@ $(function(){
 });
 </script>
 <div class="Nsb_layout_r">
-  <div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » {$location} » {$locationNext}</div> 
+  <div class="Nsb_r_title"><a href="{:url('selfcenter/message',['id' => $userid])}">个人中心</a> » {$location} » {$locationNext}</div> 
   <div class="col-sm-12 form-top">
     <?php extract($info); ?>
     <form role="form" method="post" action="{:url('selfcenter/show',['id'=>$articleid])}" enctype="multipart/form-data" class="form-horizontal">
       <input type="hidden" name="articleid" value="{$articleid}">
       <input type="hidden" name="authorid" value="{$authorid}">
+      <input type="hidden" name="categoryid" value="{$categoryid}">
         <div class="form-group">
           <label for="categoryid" class="col-sm-2 control-label">类别<b class="lab">*</b>：</label>
           <div class="col-sm-9">

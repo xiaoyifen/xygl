@@ -11,6 +11,7 @@ class Logout extends Admin
 {
     function __construct(){
 		parent::__construct();  
+		$this->check_login();
 	}
 
 	public function logout(){

@@ -8,7 +8,7 @@
 }
 </style>
 <div class="Nsb_layout_r">
-  <div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » {$location} » {$locationNext}</div>
+  <div class="Nsb_r_title"><a href="{:url('selfcenter/message',['id' => $userid])}">个人中心</a> » {$location} » {$locationNext}</div>
   <div style="margin:0px 0;height: 30px">
     {if !empty($items)}
       <label class="col-md-2 num">共{$num}条话题</label>

@@ -4,9 +4,9 @@
  * @author lfn
  */
 namespace app\index\controller;
-use app\common\controller\Base;
+use app\common\controller\Home;
 
-class Message extends Base
+class Message extends Home
 {
     function __construct(){
 		parent::__construct();
@@ -36,6 +36,8 @@ class Message extends Base
 
     // 留言
     public function add(){
+        $this->check_login_user();
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;
@@ -49,13 +51,15 @@ class Message extends Base
             if(!$result){
                 $this->error($this->model->getError());
             }
-            $this->success('留言成功...','message/index?id='.$post['ownerid']);
+            $this->success('留言成功...');
             exit;
         }
     }
 
     // 回复留言
     public function reply(){
+        $this->check_login_user();
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;
@@ -68,13 +72,15 @@ class Message extends Base
             if(!$result){
                 $this->error($this->model->getError());
             }
-            $this->success('回复成功...','message/index?id='.$post['ownerid']);
+            $this->success('回复成功...');
             exit;
         }
     }
 
     //删除留言
     public function del($id){
+        $this->check_login_user();
+        $this->check_auth();
         $num = $this->model->where(['replyid'=>$id])->count();
         // 删除留言
         $this->model->destroy(['messageid'=>$id]) or $this->error('删除失败');     

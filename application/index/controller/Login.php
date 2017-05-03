@@ -4,9 +4,9 @@
  * @author lfn
  */
 namespace app\index\controller;
-use app\common\controller\Base;
+use app\common\controller\Home;
 
-class Login extends Base
+class Login extends Home
 {
     function __construct(){
 		parent::__construct();

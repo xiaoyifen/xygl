@@ -160,7 +160,7 @@ $(document).ready(function() {
     <!-- global/header_top:_header_top -->
 		<!--top -->
 		<div class="logo_tool">
-			<div class="col-md-2 col-md-offset-2"><a href="/" style="display:block;width:250px;height:58px"></a></div>
+			<div class="col-md-2 col-md-offset-2"><a href="#" style="display:block;width:250px;height:58px"><img src="__STATIC__/image/logo.png" style="height:55px"></a></div>
   		<div class="col-md-offset-2 col-md-4" style="padding-right: 0px;margin-top: 10px;">
   			<div class="user_nav">
   				<div class="col-md-3 col-md-offset-7" style="padding-right: 0px;"><span style="float:right;color: #DBEBFB;">欢迎回来！</span></div>
@@ -258,9 +258,11 @@ $(document).ready(function() {
 					        <span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                  {if $role == 1}
 					        <li role="presentation">
-					            <a role="menuitem" tabindex="-1" href="#"><span class="text-info">个人中心</span></a>
+					            <a role="menuitem" tabindex="-1" href="{:url('selfcenter/message',['id' => $userid])}"><span class="text-info">个人中心</span></a>
 					        </li>
+                  {/if}
 					        <li role="presentation">
 					            <a role="menuitem" tabindex="-1" href="{:url('login/logout')}"><span class="text-info">退出</span></a>
 					        </li>
@@ -269,9 +271,9 @@ $(document).ready(function() {
           {/if}
 				</div>
       	<div class="site_search">
-          <form action="/search" method="get" >
+          <form action="{:url('index/search')}" method="get" >
           	<div class="input-group">
-              <input type="text" class="form-control" title="输入新闻、活动等关键字进行搜索" style="height: 24px;">
+              <input type="text" class="form-control" title="输入新闻、招聘、资料等关键字进行搜索" style="height: 24px;" name="kw">
               <span class="input-group-btn">
                 <button class="btn btn-primary search-btn" type="submit">
                 	<i class="icon-search"></i>
@@ -293,7 +295,6 @@ $(document).ready(function() {
 		    <a href="{:url('activity/findActByType')}" >校友活动</a>
 		    <a href="{:url('forum/index')}" target="_blank">论坛天地</a>
 		    <a href="{:url('index/donate')}" >校友捐赠</a>
-		    <a href="/service" >为您服务</a>
 			</div>
 			<div class="col-md-2"></div>
 		</div>

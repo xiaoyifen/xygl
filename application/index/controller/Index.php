@@ -4,9 +4,9 @@
  * @author lfn
  */
 namespace app\index\controller;
-use app\common\controller\Base;
+use app\common\controller\Home;
 
-class Index extends Base
+class Index extends Home
 {
     function __construct(){
 		parent::__construct();
@@ -31,16 +31,19 @@ class Index extends Base
 
     // 首页
     public function index(){
+        $this->check_login();
         $map['categoryid'] = '1';
         $items = $this->model->where($map)->order('updatetime desc')->limit(16)->select();
         $items = $this->img($items);
         $this->view->items_news = $items;
 
         $map['categoryid'] = '2';
+        $map['status'] = '1';
         $items = $this->model->where($map)->order('updatetime desc')->limit(10)->select();
         $this->view->items_employment = $items;
 
         $map['categoryid'] = '3';
+        $map['status'] = '1';
         $items = $this->model->where($map)->order('updatetime desc')->limit(10)->select();
         $this->view->items_info = $items;
 
@@ -60,6 +63,7 @@ class Index extends Base
 
     // 新闻专区
     public function news(){
+        $this->check_login();
         $map['menuid'] = '1';
         $map['categoryid'] = '1';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
@@ -78,6 +82,7 @@ class Index extends Base
 
     // 资料专区
     public function info(){
+        $this->check_login();
         $map['status'] = '1';
         $map['categoryid'] = '3';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
@@ -96,6 +101,7 @@ class Index extends Base
 
     // 招聘专区
     public function invite(){
+        $this->check_login();
         $map['status'] = '1';
         $map['categoryid'] = '2';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
@@ -114,6 +120,7 @@ class Index extends Base
 
     // 校友捐赠
     public function donate(){
+        $this->check_login();
         $map['menuid'] = '2';
         $map['categoryid'] = '1';
         $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
@@ -132,6 +139,7 @@ class Index extends Base
 
     // 新闻详细内容
     public function detail($id){
+        $this->check_login();
         // 点击量+1
         $this->model->where(['articleid'=>$id])->setInc('hits');
         $item = $this->model->where(['articleid'=>$id])->find() or $this->error('数据不存在...');
@@ -144,6 +152,8 @@ class Index extends Base
 
     // 添加
     public function add(){
+        $this->check_login_user();
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;
@@ -187,8 +197,27 @@ class Index extends Base
         }      
     }
 
+    // 查询
+    public function search(){
+        $this->check_login();
+        $map['status'] = '1';
+        $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
+        if(!empty($this->kw)){          
+            $map['title'] = ['like',"%{$this->kw}%"];//标题
+        }
+        $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
+        $num = $this->model->where($map)->count();        
+        // var_dump($items);
+        // exit;
+        $this->view->num = $num;
+        $this->view->news = $news;
+        $this->view->hits = $hits;
+        return $this->fetch();
+    }
+
     // 登录错误跳转页面
     public function errorLogin(){
+        $this->view->title = '登录跳转';
         return $this->fetch('common/error');
     }
 

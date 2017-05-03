@@ -17,6 +17,7 @@ class Forum extends Home
 
     // 主题帖列表界面
     public function index(){
+        $this->check_login();
         $map = [];
         //查询
         if(!empty($this->kw)){
@@ -34,6 +35,7 @@ class Forum extends Home
 
     // 帖子详细界面
     public function topic($id){
+        $this->check_login();
         // 点击量+1
         $this->model->where(['topicid'=>$id])->setInc('hits');
         $item = $this->model->with(['stu','note.stu'])->where(['topicid'=>$id])->find() or $this->error('数据不存在...');
@@ -53,6 +55,8 @@ class Forum extends Home
 
     // 发布新帖
     public function add(){
+        $this->check_login_user();
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;
@@ -75,6 +79,8 @@ class Forum extends Home
 
     // 回复
     public function reply($id){
+        $this->check_login_user();
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;

@@ -1,168 +1,354 @@
 {layout name="layout" /}
 <link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
 <link rel="stylesheet" href="__STATIC__/css/admin-form.css">
+<script type="text/javascript">
+(function($){
+$(function(){
+	// 学号
+  $("#studentid").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#studentid1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：学号必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#studentid1").html(" ");  
+      }  
+  });
+  // 姓名
+  $("#username").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#username1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：姓名必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#username1").html(" ");  
+      }  
+  });
+//籍贯
+  $("#hometown").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#hometown1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：籍贯必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#hometown1").html(" ");  
+      }  
+  });
+//出生日期
+  $("#birthday").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#birthday1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：出生日期必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#birthday1").html(" ");  
+      }  
+  });
+//院系
+  $("#department").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#department1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：院系必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#department1").html(" ");  
+      }  
+  });
+//专业
+  $("#major").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#major1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：专业必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#major1").html(" ");  
+      }  
+  });
+//班级
+  $("#class").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#class1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：班级必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#class1").html(" ");  
+      }  
+  });
+//入学年份
+  $("#enrollmentdate").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#enrollmentdate1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：入学年份必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#enrollmentdate1").html(" ");  
+      }  
+  });
+//毕业年份
+  $("#graduationdate").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#graduationdate1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：毕业年份必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#graduationdate1").html(" ");  
+      }  
+  });
+//手机号码
+  $("#cellphone").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#cellphone1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：手机号码必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#cellphone1").html(" ");  
+      }  
+  });
+//表单验证
+  $("#formtips").submit(function(){ 
+  // 学号不为空
+    if ($("#studentid").val() == "") {
+      $("#studentid1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写学号！"); 
+      $("#studentid").focus();
+    }  
+    // 姓名不为空
+    if ($("#username").val() == "") {
+      $("#username1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写姓名！"); 
+      $("#username").focus();
+    }
+ // 籍贯不为空
+    if ($("#hometown").val() == "") {
+      $("#hometown1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写籍贯！"); 
+      $("#hometown").focus();
+    }
+    // 出生日期不为空
+    if ($("#birthday").val() == "") {
+      $("#birthday1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写出生日期！"); 
+      $("#birthday").focus();
+    }
+    //院系
+    if ($("#department").val() == "") {
+        $("#department1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写院系"); 
+        $("#department").focus();
+      }
+    //专业
+    if ($("#major").val() == "") {
+        $("#major1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写专业！"); 
+        $("#major").focus();
+      }
+    //班级
+    if ($("#class").val() == "") {
+        $("#class1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写班级！"); 
+        $("#class").focus();
+      }
+    //入学年份
+    if ($("#enrollmentdate").val() == "") {
+        $("#enrollmentdate1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写入学年份！"); 
+        $("#enrollmentdate").focus();
+      }
+    //毕业年份
+    if ($("#graduationdate").val() == "") {
+        $("#graduationdate1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写毕业年份！"); 
+        $("#graduationdate").focus();
+      }
+    //手机号码
+    if ($("#cellphone").val() == "") {
+        $("#cellphone1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写手机号码！"); 
+        $("#cellphone").focus();
+      }
+    // 验证为空，禁止提交
+    if ($("#studentid").val() == "" || $("#username").val() == "" || $("#hometown").val() == "" || $("#birthday").val() == "" || $("#department").val() == "" ||$("#major").val() == ""||$("#class").val() == "" ||$("#enrollmentdate").val() == "" ||$("#graduationdate").val() == "" ||$("#cellphone").val() == "") {
+      return false;
+    } 
+  });
+});
+})(jQuery);
+ </script>
 <style type="text/css">
 .lab-left {
-	margin-left: 55px;
+	margin-left: 165px;
+}
+.cen {
+	margin-top: 10px;
 }
 </style>
 <div class="panel-body" style="padding-bottom:0px;">
   <div class="panel panel-default">
     <div class="panel-heading">添加学生信息</div>
     <div class="panel-body body">
-	<form class="form-horizontal" method="post" action="{:url('stu/add')}">
+	<form class="form-horizontal" method="post" action="{:url('stu/add')}" id="formtips">
 		<div class="Nsb_r_title">
-			<label class="lab-left">*基本信息-------------------------------------------</label>
+			<label class="lab-left">*基本信息--------------------------------------------------------------</label>
 		</div>
 		<br>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">学号</label>
-					<div class="col-sm-10">
-						<input type="text" name="studentid" class="form-control" style="width:200px;"  />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">学号<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="studentid" class="form-control" id="studentid" />
+					</div>
+					<div class="col-sm-5 cen" id="studentid1"></div>
+				</div>
+				<div class="form-group">
+					 <label class="col-sm-offset-1 col-sm-2 control-label">姓名<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="username" class="form-control self_form_control" id="username"  />
+					</div>
+					<div class="col-sm-5 cen" id="username1"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-offset-1 col-sm-2 control-label">性别<b>*</b></label>
+					<div class="col-sm-9">
+					<input type="radio" value="0" name="sex" checked>男
+					<input type="radio" value="1" name="sex">女
 					</div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">姓名</label>
-					<div class="col-sm-10">
-						<input type="text" name="username" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">籍贯<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="hometown" class="form-control self_form_control" id="hometown"  />
 					</div>
+					<div class="col-sm-5 cen" id="hometown1"></div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">性别</label>
-					<div class="col-sm-10">
-					<input type="checkbox" value="1">男
-					<input type="checkbox" value="2">女
+					 <label class="col-sm-offset-1 col-sm-2 control-label">出生日期<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="birthday" class="form-control self_form_control" id="birthday"  />
 					</div>
+					<div class="col-sm-5 cen" id="birthday1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">籍贯</label>
-					<div class="col-sm-10">
-						<input type="text" name="hometown" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">院系<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="department" class="form-control self_form_control" id="department"   />
 					</div>
+					<div class="col-sm-5 cen" id="department1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">出生日期</label>
-					<div class="col-sm-10">
-						<input type="text" name="birthday" class="form-control self_form_control" style="width:200px;"  />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">专业<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="major" class="form-control self_form_control" id="major"  />
 					</div>
+					<div class="col-sm-5 cen" id="major1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">院系</label>
-					<div class="col-sm-10">
-						<input type="text" name="department" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">班级<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="class" class="form-control self_form_control" id="class"   />
 					</div>
+					<div class="col-sm-5 cen" id="class1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">专业</label>
-					<div class="col-sm-10">
-						<input type="text" name="major" class="form-control self_form_control" style="width:200px;"  />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">入学年份<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="enrollmentdate" class="form-control self_form_control" id="enrollmentdate"   />
 					</div>
+					<div class="col-sm-5 cen" id="enrollmentdate1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">班级</label>
-					<div class="col-sm-10">
-						<input type="text" name="class" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">毕业年份<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="graduationdate" class="form-control self_form_control" id="graduationdate"   />
 					</div>
-				</div>
-				<div class="form-group">
-					 <label class="col-sm-2 control-label">入学年份</label>
-					<div class="col-sm-10">
-						<input type="text" name="enrollmentdate" class="form-control self_form_control" style="width:200px;"   />
-					</div>
-				</div>
-				<div class="form-group">
-					 <label class="col-sm-2 control-label">毕业年份</label>
-					<div class="col-sm-10">
-						<input type="text" name="graduationdate" class="form-control self_form_control" style="width:200px;"   />
-					</div>
+					<div class="col-sm-5 cen" id="graduationdate1"></div>
 				</div>
 		<div class="Nsb_r_title">
-			<label class="lab-left">*联系方式-------------------------------------------</label>
+			<label class="lab-left">*联系方式--------------------------------------------------------------</label>
 		</div>
 		<br>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">手机号码</label>
-					<div class="col-sm-10">
-						<input type="text" name="cellphone" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">手机号码<b>*</b></label>
+					<div class="col-sm-4">
+						<input type="text" name="cellphone" class="form-control self_form_control" id="cellphone"   />
 					</div>
+					<div class="col-sm-5 cen" id="cellphone1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">QQ账号</label>
-					<div class="col-sm-10">
-						<input type="text" name="qq" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">QQ账号</label>
+					<div class="col-sm-4">
+						<input type="text" name="qq" class="form-control self_form_control" id="qq"   />
 					</div>
+					<div class="col-sm-5 cen" id="qq1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">微信账号</label>
-					<div class="col-sm-10">
-						<input type="text" name="weixin" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">微信账号</label>
+					<div class="col-sm-4">
+						<input type="text" name="weixin" class="form-control self_form_control" id="weixin"   />
 					</div>
+					<div class="col-sm-5 cen" id="weixin1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">现地址</label>
-					<div class="col-sm-10">
-						<input type="text" name="address" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">现地址</label>
+					<div class="col-sm-4">
+						<input type="text" name="address" class="form-control self_form_control" id="address"   />
 					</div>
+					<div class="col-sm-5 cen" id="address1"></div>
 				</div>
 		<div class="Nsb_r_title">
-			<label class="lab-left">*附加信息-------------------------------------------</label>
+			<label class="lab-left">*附加信息--------------------------------------------------------------</label>
 		</div>
 		<br>
 				<div class="form-group" >
-					<label class="col-sm-2 control-label">毕业去向</label>
-					<div class="col-sm-10">
-					<select class="form-control self_form_control" style="width:200px;">
-						<option >就业</option>
-						<option>继续深造</option>
-						<option>创业</option>
+					<label class="col-sm-offset-1 col-sm-2 control-label">毕业去向</label>
+					<div class="col-sm-4">
+					<select class="form-control self_form_control" name="direction">
+						<option value="1">就业</option>
+						<option value="2">继续深造</option>
+						<option value="3">创业</option>
 					</select>
 					</div>
+					<div class="col-sm-5 cen"></div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">就业方向</label>
-					<div class="col-sm-10">
-					<select class="form-control self_form_control" style="width:200px;">
-						<option></option>
-						<option></option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
+					<label class="col-sm-offset-1 col-sm-2 control-label">就业方向</label>
+					<div class="col-sm-4">
+					<select class="form-control self_form_control" name="employment">
+						<option value="1">IT</option>
+						<option value="2">管理类</option>
+						<option value="3">营销类</option>
+						<option value="4">工程类</option>
+						<option value="5">金融</option>
 					</select>
 					</div>
+					<div class="col-sm-5 cen"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">学习或工作单位</label>
-					<div class="col-sm-10">
-						<input type="text" name="workplace" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">学习或工作单位</label>
+					<div class="col-sm-4">
+						<input type="text" name="workplace" class="form-control self_form_control" id="workplace"   />
 					</div>
+					<div class="col-sm-5 cen" id="workplace1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">工作职位</label>
-					<div class="col-sm-10">
-						<input type="text" name="workpost" class="form-control self_form_control" style="width:200px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">工作职位</label>
+					<div class="col-sm-4">
+						<input type="text" name="workpost" class="form-control self_form_control" id="workpost"   />
 					</div>
+					<div class="col-sm-5 cen" id="workpost1"></div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">个人爱好</label>
-					<div class="col-sm-10">
-						<input type="text" name="hobby" class="form-control self_form_control" style="width:200px;"   />
+					<label class="col-sm-offset-1 col-sm-2 control-label">个人爱好</label>
+					<div class="col-sm-4">
+						<input type="text" name="hobby" class="form-control self_form_control" id="hobby"   />
 					</div>
+					<div class="col-sm-5 cen" id="hobby1"></div>
 				</div>
 				<div class="form-group">
-					 <label class="col-sm-2 control-label">个人签名</label>
-					<div class="col-sm-10">
-						<input type="text" name="sign" class="form-control self_form_control" style="width:400px;"   />
+					 <label class="col-sm-offset-1 col-sm-2 control-label">个人签名</label>
+					<div class="col-sm-4">
+						<input type="text" name="sign" class="form-control self_form_control" id="sign" />
 					</div>
+					<div class="col-sm-5 cen" id="sign1"></div>
 				</div>
 				<div class="form-group">
-    				<label class="col-sm-2 control-label">个人简介</label>
-    				<div class="col-sm-10">
-    					<textarea name="introduction" class="form-control" style="width:300px;" rows="3" ></textarea>
+    				<label class="col-sm-offset-1 col-sm-2 control-label">个人简介</label>
+    				<div class="col-sm-4">
+    					<textarea name="introduction" class="form-control" rows="3" id="introduction"></textarea>
     				</div>
+    				<div class="col-sm-5 cen" id="introduction1"></div>
   				</div>
 				
 				<div class="form-group form-actions">
-					<div class="col-sm-offset-2 col-sm-10">
+					<div class="col-sm-offset-5 col-sm-7">
 						 <button type="submit" class="btn btn-info">添加</button>
 						 <button type="reset" class="btn btn-info">重置</button>
 					</div>

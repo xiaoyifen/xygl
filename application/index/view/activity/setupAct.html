@@ -87,6 +87,16 @@ $(function(){
           $("#title1").html(" ");  
       }  
   });
+//最大活动人数
+  $("#number").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#number1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：最大活动人数必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#number1").html(" ");  
+      }  
+  });
   // 活动开始时间
   $("#activitytime").blur(function() {
     if ($(this).val() == "" ) {  
@@ -135,6 +145,11 @@ $(function(){
       $("#title1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写标题！"); 
       $("#title").focus();
     }
+ // 最大活动人数不为空
+    if ($("#number").val() == "") {
+      $("#number1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写最大活动人数！"); 
+      $("#number").focus();
+    }
     // 活动开始时间不为空
     if ($("#activitytime").val() == "") {
       $("#activitytime1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写活动开始时间！"); 
@@ -156,7 +171,7 @@ $(function(){
       $("#contact").focus();
     }
     // 验证为空，禁止提交
-    if ($("#type").val() == "" || $("#title").val() == "" || $("#activitytime").val() == "" || $("#activityendtime").val() == "" || $("#contact").val() == "" || $("#editor1").val() == "") {
+    if ($("#type").val() == "" || $("#title").val() == "" || $("#number").val() == "" ||$("#activitytime").val() == "" || $("#activityendtime").val() == "" || $("#contact").val() == "" || $("#editor1").val() == "") {
       return false;
     } 
   });
@@ -167,13 +182,21 @@ $(function(){
     <div style="font-size: 16px; color: #2e6da4">&nbsp;<i class="icon-th-large blue bigger-130"></i><b style="color: inherit;">&nbsp;&nbsp;发布活动</b></div>    
   </div>
 <form role="form" method="post" action="{:url('activity/setupact')}" enctype="multipart/form-data" id="formtips" class="form-horizontal">
+  <ul>
       <div class="form-group">
         <label class="col-sm-2 control-label">活动类型<b class="lab">*</b>：</label>
         <div class="col-sm-4">
-          <select class="form-control" name="type id="type">
+          <select class="form-control" name="type" id="type">
             <option value="运动健身">运动健身</option>
             <option value="吃饭逛街">吃饭逛街</option>
+            <option value="座谈沙龙" >座谈沙龙</option>
             <option value="室内娱乐">室内娱乐</option>
+            <option value="户外旅游" >户外旅游</option>
+            <option value="周年聚会" >周年聚会</option>
+            <option value="艺术欣赏" >艺术欣赏</option>
+            <option value="爱心互助" >爱心互助</option>
+            <option value="创业大赛" >创业大赛</option>
+            <option value="其他" >其他</option>
           </select>
         </div>
         <div class="col-sm-6" id="type1"></div>
@@ -184,6 +207,13 @@ $(function(){
         <input name="title" type="text"  class="form-control" value="" id="title" />
       </div>
       <div class="col-sm-6 cen" id="title1"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">最大活动人数<b class="lab">*</b>：</label>
+      <div class="col-sm-4">
+        <input name="number" type="text"  class="form-control" value="" id="number" />
+      </div>
+      <div class="col-sm-6 cen" id="number1"></div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">活动开始时间<b class="lab">*</b>：</label>
@@ -234,5 +264,6 @@ $(function(){
       </div>
       <div class="col-sm-1"></div>
     </div>
+  </ul>
 </form>
 </div>

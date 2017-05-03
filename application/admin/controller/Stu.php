@@ -9,6 +9,7 @@
  class Stu EXTENDS Admin{
  	function __construct(){
  		parent::__construct();
+ 		$this->check_login();
  		$this->view->location = '学生信息管理';
     	$this->view->title = '学生信息管理';
 // 		$stu=new Stu();

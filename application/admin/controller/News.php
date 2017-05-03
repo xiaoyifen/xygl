@@ -11,6 +11,7 @@ class News extends Admin
 {
     function __construct(){
 		parent::__construct();
+        $this->check_login();
         $this->view->location = '新闻管理';
         $this->view->title = '新闻管理';
         $this->model = model('article');    
@@ -98,11 +99,13 @@ class News extends Admin
 
     // 添加
     public function add(){
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;
             $post['createtime'] = time();//发布时间
-            $post['updatetime'] = time();//修改时间              
+            $post['updatetime'] = time();//修改时间 
+            $post['status'] = 1;             
             // var_dump($post);
             $result = $this->model->allowField(true)->save($post);
             if(!$result){
@@ -119,7 +122,8 @@ class News extends Admin
     // 查看/修改
     public function show($id){
         // 修改
-        if(request()->isPost()){            
+        if(request()->isPost()){
+            $this->check_auth();            
             $post = $this->GET;
             $post['updatetime'] = time();
             $result = $this->model->allowField(true)->isUpdate(true)->save($post);
@@ -140,13 +144,14 @@ class News extends Admin
     //置顶
     public function top($id){
         //判断是否通过审核，未过审核无法置顶
-        //判断是否为资料，资料不需要图片，其余，有图片，可置顶，无图片，不可
+        //判断是否有图片，有图片，可置顶，无图片，不可
         //top置1，表示置顶
+        $this->check_auth();
         $item = $this->model->has('category',['article.articleid'=>$id])->field('category.*,article.articleid')->find() or $this->error('数据不存在...');
         $status = $item->getData('status');
         $info = $item->toArray($item);
         if($status == 1) {
-            if (!empty($info['imagepath']) || $info['categoryname'] == '资料') {
+            if (!empty($info['imagepath'])) {
                 $post = $this->GET;
                 $post['top'] = '1';
                 $post['updatetime'] = time();
@@ -166,6 +171,7 @@ class News extends Admin
 
     //删除
     public function del($id){
+        $this->check_auth();
         $item = $this->model->where(['articleid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);       
         $this->model->destroy(['articleid'=>$id]) or $this->error('删除失败');
@@ -229,7 +235,8 @@ class News extends Admin
     // 审核功能
     public function audit($id){
         // 审核
-        if(request()->isPost()){            
+        if(request()->isPost()){
+            $this->check_auth();            
             $post = $this->GET;
             // 写入审核未通过理由（日志表）
             if ($post['status'] == 2) {

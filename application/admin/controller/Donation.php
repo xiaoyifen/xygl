@@ -11,6 +11,7 @@ class Donation extends Admin
 {
     function __construct(){
 		parent::__construct();
+        $this->check_login();
         $this->view->location = '捐赠管理';
         $this->view->title = '捐赠管理';
         $this->model = model('donation');    
@@ -37,6 +38,7 @@ class Donation extends Admin
 
     // 添加
     public function add(){
+        $this->check_auth();
         // 功能
         if(request()->isPost()){
             $post = $this->GET;
@@ -55,7 +57,8 @@ class Donation extends Admin
     // 查看/修改
     public function show($id){
         // 修改
-        if(request()->isPost()){            
+        if(request()->isPost()){
+            $this->check_auth();            
             $post = $this->GET;
             $result = $this->model->validate(true)->allowField(true)->isUpdate(true)->save($post);
             if(!$result){
@@ -73,6 +76,7 @@ class Donation extends Admin
 
     //删除
     public function del($id){
+        $this->check_auth();
         $item = $this->model->where(['donationid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);       
         $this->model->destroy(['donationid'=>$id]) or $this->error('删除失败');       

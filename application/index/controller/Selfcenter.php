@@ -4,12 +4,14 @@
  * @author lfn
  */
 namespace app\index\controller;
-use app\common\controller\Base;
+use app\common\controller\Home;
 
-class Selfcenter extends Base
+class Selfcenter extends Home
 {
     function __construct(){
 		parent::__construct();
+        $this->check_login_user();
+        $this->check_auth();
         $this->view->location = '个人中心';
         $this->view->title = '个人中心';    
 	}
@@ -55,16 +57,18 @@ class Selfcenter extends Base
         // 修改
         if(request()->isPost()){            
             $post = $this->GET;
+            // var_dump($post);
+            // exit;
             $post['updatetime'] = time();
             $post['status'] = 0;
             $result = $this->model->allowField(true)->isUpdate(true)->save($post);
             if(!$result){
                 $this->error($this->model->getError());
             }
-            if ($post['categoryid'] == 2) {
-                $this->success('修改成功...','Selfcenter/employment?id='.$userid);// 待修改
+            if ($post['categoryid'] == '2') {
+                $this->success('修改成功...','Selfcenter/employment?id='.$post['authorid']);
             }else{
-                $this->success('修改成功...','Selfcenter/data?id='.$userid);// 待修改
+                $this->success('修改成功...','Selfcenter/data?id='.$post['authorid']);
             }            
             exit;
         }
@@ -160,7 +164,7 @@ class Selfcenter extends Base
             if(!$result){
                 $this->error($this->model->getError());
             }            
-            $this->success('修改成功...','Selfcenter/topic?id='.$userid);// 待修改           
+            $this->success('修改成功...','Selfcenter/topic?id='.$post['authorid']);           
             exit;
         }
         // 查看
@@ -199,7 +203,7 @@ class Selfcenter extends Base
             if(!$result){
                 $this->error($this->model->getError());
             }            
-            $this->success('修改成功...','Selfcenter/message?id='.$userid);// 待修改           
+            $this->success('回复成功...');        
             exit;
         }
         // 查看

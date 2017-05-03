@@ -11,6 +11,7 @@
   class Activity EXTENDS Admin{
   	function __construct(){
  		parent::__construct();
+    $this->check_login();
     $this->view->location = '活动管理';
     $this->view->title = '活动管理';
  		//$activity=new Activity();
