@@ -20,25 +20,25 @@
       <tr>
         <td>{$v['articleid']}</td>
         {if $v['status'] == '已通过'}                                               
-          <td><a href="{:url('index/detail',['id' => $v['articleid']])}" target="_blank">{$v['title']}</a></td>
+          <td><a href="{:url('index/detail',['id' => $v['articleid']])}">{$v['title']}</a></td>
         {else}
           <td>{$v['title']}</td>
         {/if}
         <td>{$v['hits']}</td>
         <td>{$v['createtime']|date="Y-m-d",###}</td>
         {if $v['status'] == '未通过'}                                               
-          <td><a href="{:url('selfcenter/reason',['id' => $v['articleid']])}" target="_blank">{$v['status']}</a></td>
+          <td><a href="{:url('selfcenter/reason',['id' => $v['articleid']])}">{$v['status']}</a></td>
         {else}
           <td>{$v['status']}</td>
         {/if} 
         <td>
           <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
             <!-- 查看/修改 -->
-            <a class="blue" href="{:url('selfcenter/show')}?id={$v['articleid']}" target="_blank">
+            <a class="blue" href="{:url('selfcenter/show')}?id={$v['articleid']}" title="查看/修改">
               <i class="icon-edit bigger-130"></i>
             </a>                        
             <!-- 删除 -->
-            <a class="red" href="{:url('selfcenter/del')}?id={$v['articleid']}">
+            <a class="red" href="{:url('selfcenter/del')}?id={$v['articleid']}" title="删除">
               <i class="icon-trash bigger-130"></i>
             </a>
           </div>

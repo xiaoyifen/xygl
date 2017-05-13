@@ -1,11 +1,24 @@
 <!-- 左侧栏 -->
+<script type="text/javascript">
+(function($){ //定义匿名函数并设置形参为$
+$(function(){   
+    //导航切换
+    $("ul li").each(function(){
+        if ($(this).attr("id") == $(".ad-list").attr("id")) {
+            $("ul li").removeClass("over over2");
+            $(this).addClass("over over2");
+        }
+    });    
+});
+})(jQuery);
+</script>
 <div class="col-md-2 column ad-menu" id="ad-menu">
     <div class="ad-logo" style="padding-bottom: 30px;padding-top: 20px;"><!-- <img src="__STATIC__/image/m-logo.png" height="103" width="130"> -->
         <span style="font-size: 25px;color:white;">校友之窗<br/>管理平台</span>
     </div>
-    <div class="ad-list">
+    <div class="ad-list" id="{$_c}">
         <ul>
-            <li>
+            <li id="News">
                 <div class="li-item"><em class="scm li-ico ic1"></em>首页管理<span class="scm arrow"></span></div>
                 <dl>
                     <dd>
@@ -16,7 +29,7 @@
                     </dd>
                 </dl>
             </li>
-            <li>
+            <li id="Stu">
                 <div class="li-item"><em class="scm li-ico ic2"></em>校友信息管理<span class="scm arrow"></span></div>
                 <dl>
                     <dd>
@@ -28,9 +41,12 @@
                     <dd>
                         <a href="{:url('stu/importStu')}" class="dd-item">批量上传信息<span class="scm dd-ar"></span></a>
                     </dd>
+                    <dd>
+                        <a href="{:url('stu/check')}" class="dd-item">注册信息审核<span class="scm dd-ar"></span></a>
+                    </dd>
                 </dl>
             </li>
-            <li>
+            <li id="Admin">
                 <div class="li-item"><em class="scm li-ico ic3"></em>管理员管理<span class="scm arrow"></span></div>
                 <dl>
                     <dd>
@@ -38,7 +54,7 @@
                     </dd>
                 </dl>
             </li>
-            <li>
+            <li id="Activity">
                 <div class="li-item"><em class="scm li-ico ic4"></em>活动管理<span class="scm arrow"></span></div>
                 <dl>
                     <dd>
@@ -46,7 +62,7 @@
                     </dd>
                 </dl>
             </li>
-            <li>
+            <li id="Forum">
                 <div class="li-item"><em class="scm li-ico ic5"></em>论坛管理<span class="scm arrow"></span></div> 
                 <dl>
                     <dd>
@@ -54,7 +70,7 @@
                     </dd>
                 </dl>                          
             </li>
-            <li>
+            <li id="Donation">
                 <div class="li-item"><em class="scm li-ico ic6"></em>捐赠管理<span class="scm arrow"></span></div>
                 <dl>
                     <dd>

@@ -1,4 +1,4 @@
-{layout name="layout" /}
+﻿{layout name="layout" /}
 <link rel="stylesheet" href="__STATIC__/css/event.css">
 <style type="text/css">
   #comments_list .one_cmt_right{width:780px}
@@ -22,13 +22,33 @@
       	    <input type="button"  value="活动正在进行"  class="btn green"  disabled="disabled" id="event_finish"/>
           {else}
           	{if !empty($userid)} 
+          		
           		{if $list['registerNumber']<$list['number']}
-          		  <input type="button"  value="活动报名"  class="btn green"  id="event_finish"/>
+          			{if count($registerlist)==0}
+          				<button type="button"  value="活动报名"  class="btn btn-info btn-default"  id="event_finish" style="width:80px;"><a href="{:url('activity/joinActivity',['activityid'=>$list['activityid'],'userid'=>$userid])}">活动报名</a></button>
+          		 	{else}
+          		 		<?php $flag = 0; ?>
+          		 		{foreach $registerlist as $k=>$v}
+	            			 {if $v['applicantid']==$userid}
+	            			 	<?php $flag = 1; ?>
+		            			
+		            			<?php break; ?>
+		            		{else}
+		            			<?php $flag = 0; ?>
+		            			
+	            			{/if}
+	             		{/foreach}
+	             		{if $flag}
+	             			<input type="button"  value="您已报名"  class="btn red"  disabled="disabled" id="event_finish"/>
+	             		{else}
+	             			<button type="button"  value="活动报名"  class="btn btn-info btn-default"  id="event_finish" style="width:80px;"><a href="{:url('activity/joinActivity',['activityid'=>$list['activityid'],'userid'=>$userid])}">活动报名</a></button>
+	             		{/if}	
+	             	{/if}
           		{else}
           			<input type="button"  value="人数已满"  class="btn red"  disabled="disabled" id="event_finish"/>
           		{/if}
           	{else}
-          		<div style="color:#999;font-size:12px; font-weight: normal">您还没有登录，请<a href="javascript:;" onclick="loginForm('/club_home/eventview?id=21&eid=5261')" id="flogin_btn" >登录</a>后报名！
+          		<div style="color:#999;font-size:12px; font-weight: normal">您还没有登录，请<a href="#modal-container-879035" data-toggle="modal" id="flogin_btn">登录</a>后报名！
           		</div>
         		{/if}
       	  {/if}
@@ -37,7 +57,7 @@
     </div>
     <div class="view_title"><span class="middle"><i class="icon-file bigger-120"></i></span>&nbsp;基本信息</div>
     <div class="view_box">
-      <b>发起：</b><a href="{:url('activity/findActLeader',['userid'=>$list->stus->userid])}">{$list->stus->username} </a><br>
+      <b>发起：</b><a href="{:url('stu/findActLeader',['userid'=>$list->stus->userid])}">{$list->stus->username} </a><br>
       <b>时间：</b>{$list['activitytime']|date="Y-m-d H:i",###}&nbsp;~{$list['activityendtime']|date="Y-m-d H:i",###}<br>
       <!-- <b>所属：</b><a href="/aa_home?id=36" title="进入校友会主页">绍兴浙江大学校友会</a><br> -->
       <b>地址：</b>{$list['address']}<br>
@@ -62,7 +82,7 @@
       <ul style="list-style: none">
       {foreach $registerlist as $k=>$v}
         <li id="sign_user_72610" class="new_user_avatar" >
-          <span class="name"><a href="/user_home?id=31078" title="报名1人" target="_blank">{$v['registe_to_stu']['username']}</a></span>
+          <span class="name"><a href="{:url('stu/findActLeader',['userid'=>$v['registe_to_stu']['userid']])}" title="报名1人">{$v['registe_to_stu']['username']}</a></span>
         </li>
       {/foreach}
       </ul>                    

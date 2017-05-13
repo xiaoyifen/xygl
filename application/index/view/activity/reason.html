@@ -1,0 +1,42 @@
+<!-- 发布的招聘/资料 -->
+{layout name="layoutself" /}
+<link rel="stylesheet" href="__STATIC__/css/self.css" type="text/css"  />
+<style type="text/css">
+.right {
+  float: right;
+}
+.table>tbody>tr>td {
+  border: 1px solid #D1E5ED;
+}
+.table {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.minheight {
+  height: 100px;
+}
+p{ 
+  text-indent: 2em; 
+} 
+</style>
+<div class="Nsb_layout_r">
+  <div class="Nsb_r_title"><a href="{:url('selfcenter/message',['id' => $userid])}">个人中心</a> » {$location} » {$locationNext}</div>   
+  {if !empty($items)}
+  {foreach $items as $k => $v}     
+  <table class="table">
+    <tbody>
+      <tr class="minheight">
+        <td><p>{$v['reason']}</p></td>                      
+      </tr>
+      <tr>
+        <td><span class="right">----&nbsp;&nbsp;{$v['time']|date="Y-m-d H:i:s",###}</span></td>                      
+      </tr>
+    </tbody>
+  </table>
+  {/foreach}
+  {/if}
+  {if !empty($items)}
+    <div>{$items->render()}</div>
+  {/if}
+</div>
+

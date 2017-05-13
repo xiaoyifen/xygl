@@ -78,7 +78,7 @@ class Admin EXTENDS Base{
 				if($user['password'] != $passwd){
 					$this->redirect('index/index/errorLogin');
 				}
-				if($user['authority'] != 1){
+				if($user['authority'] != '超级管理员'){
 					$this->error('您没有操作权限！');
 				}
 				$this->view->username = $user['adminname'];

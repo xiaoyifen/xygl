@@ -1,5 +1,6 @@
 {layout name="layout" /}
 <link rel="stylesheet" href="__STATIC__/css/admin-form.css">
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
 <script type="text/javascript">
 (function($){ //定义匿名函数并设置形参为$
 $(function(){ //匿名函数内部的$均为jQuery
@@ -57,17 +58,60 @@ $(function(){ //匿名函数内部的$均为jQuery
       }
     });
   }
+
+  // 审核理由
+  $("#reason").blur(function() {
+    if ($(this).val() == "" ) {  
+      $("#reason1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：审核理由必须填写！");  
+      $(this).focus();  
+    }else{  
+      $("#reason1").html(" ");  
+    }  
+  });
+
+  // 是否显示审核理由
+  $("input[name='status']").click(function () {
+    if ($("input[name='status']:checked").val()==2) {
+      $("#beWork").css("display","block");
+      $("#reason1").html(" "); 
+    }else{
+      $("#beWork").css("display","none");
+      $("#reason1").html(" ");
+    }
+  });
+
+  // 表单验证
+  $("form").submit(function(){
+    if ($("#beWork").css("display") == "block") {
+      // 审核理由不为空
+      if ($("#reason").val() == "" ) {  
+        $("#reason1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：审核理由必须填写！");  
+        $("#reason").focus();  
+      }
+      // 验证为空，禁止提交
+      if ($("#reason").val() == "") {
+        return false;
+      } 
+    } 
+  });
+
 });
 })(jQuery); 
 </script>
-
+<style type="text/css">
+.cen {
+  margin-top:35px;
+}
+</style>
 
 <div class="panel-body" style="padding-bottom:0px;">
   <div class="panel panel-default">
     <div class="panel-heading">审核活动</div>
     <div class="panel-body body">
 		{if !empty($list)}
-		<form role="form" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+		<form role="form" method="post" action="{:url('activity/audit',['id'=>$list['activityid']])}" enctype="multipart/form-data" class="form-horizontal">
+    <input type="hidden" name="activityid" value="{$list['activityid']}">
+    <input type="hidden" name="adminid" value="{$userid}">
 		<div class="form-group">
 			<label class="col-sm-2 control-label">活动标题</label>
 			<div class="col-sm-9">
@@ -111,19 +155,40 @@ $(function(){ //匿名函数内部的$均为jQuery
 			<div class="col-sm-1"></div>
 		</div>
 		<div class="form-group">
-          <label for="editor" class="col-sm-2 control-label">活动介绍</label>
-          <div class="col-sm-9">
-            <textarea name="content" id="editor" class="form-control"  value="" style="height:100px;" disabled>{$list['content']}</textarea>
-          </div>
-          <div class="col-sm-1"></div>
+      <label for="editor" class="col-sm-2 control-label">活动介绍</label>
+      <div class="col-sm-9">
+        <textarea name="content" id="editor" class="form-control"  value="" style="height:100px;" disabled>{$list['content']}</textarea>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="form-group">
+      <label for="check" class="col-sm-2 control-label">审核：</label>
+      <div class="col-sm-9">
+        <div class="checkbox-inline">
+          <label>
+            <input type="radio" name="status" id="status2" value="2" checked>未通过
+          </label>
         </div>
-		<div class="form-group form-actions">
-			<div class="col-sm-offset-8 col-sm-3" style="padding-left: 60px;">
-				<button type="submit" class="btn btn-default active btn-success"><a href="{:url('activity/pass',['activityid'=>$list['activityid']])}" style="color:white">通过审核</a></button>
-				<button type="submit" class="btn btn-default active btn-danger"><a href="{:url('activity/passnot',['activityid'=>$list['activityid']])}" style="color:white">不通过审核</a></button>	
-			</div>
-			<div class="col-sm-1"></div>
-		</div>
+        <div class="checkbox-inline">
+          <label>
+            <input type="radio" name="status" id="status1" value="1">通过
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="form-group" id="beWork">
+      <label for="reason" class="col-sm-2 control-label">理由<b>*</b>：</label>
+      <div class="col-sm-6">
+        <textarea name="reason" id="reason" class="form-control" value="" style="height:100px;" ></textarea>
+      </div>
+      <div class="col-sm-4 cen" id="reason1"></div>
+    </div>
+    <div class="form-group form-actions">
+      <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+      <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn btn-info" value="提交" /></div>
+      <div class="col-sm-1"> </div>
+    </div>
 		</form>
 		{/if}	
 	</div>

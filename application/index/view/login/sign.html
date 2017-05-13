@@ -1,0 +1,368 @@
+<!-- 查看/修改页面 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+
+<style type="text/css">
+.cen {
+  margin-top: 3px;
+}
+.info {
+  background: #A2C6EA;
+}
+.white {
+  color: white;
+}
+.info.focus, .info:focus, .info:hover {
+  color: #478fca;
+  text-decoration: none;
+}
+b {
+  color: #dd5a43;
+}
+.red {
+    color: #dd5a43!important;
+}
+.bigger-120 {
+    font-size: 120%;
+}
+.bigger-130 {
+    font-size: 130%;
+}
+label {
+  font-size: 14px;
+}
+#body {
+  background: #E7F1FD;
+  margin: 0 auto;
+}
+#reg {
+  width: 950px;
+  margin: 10px auto;
+  border: 1px solid #BBDBEF;
+  border-radius: 8px;
+  background: white;
+}
+.gray {
+  color:#eee;
+}
+.wid-110 {
+  width: 110px;
+}
+</style>
+
+<script type="text/javascript">
+$(function(){ 
+  // 真实姓名
+  $("#realname").blur(function() {
+    if ($(this).val() == "" ) {  
+        $("#realname1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：真实姓名必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#realname1").html(" ");  
+    }  
+  });
+
+  // 入学年份
+  $("#enrollmentdate").blur(function() {
+    if ($(this).val() == "") {  
+        $("#enrollmentdate1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：入学年份必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#enrollmentdate1").html(" ");  
+    }  
+  });
+
+  // 就读院系
+  $("#department").blur(function() {
+    if ($(this).val() == "") {  
+        $("#department1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：就读院系必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#department1").html(" ");  
+    }  
+  });
+
+  // 就读专业
+  $("#major").blur(function() {
+    if ($(this).val() == "") {  
+        $("#major1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：就读专业必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#major1").html(" ");  
+    }  
+  });
+
+  // 籍贯
+  $("#hometown").blur(function() {
+    if ($(this).val() == "") {  
+        $("#hometown1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：籍贯必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#hometown1").html(" ");  
+    }  
+  });
+
+  // 性别
+  $("#sex").blur(function() {
+    if ($(this).val() == "") {  
+        $("#sex1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：性别必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#sex1").html(" ");  
+    }  
+  });
+
+  // 邮箱
+  $("#email").blur(function() {
+    if ($(this).val() == "") {  
+        $("#email1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：邮箱必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#email1").html(" ");  
+    }  
+  });
+
+  // 手机号码
+  $("#cellphone").blur(function() {
+    if ($(this).val() == "") {  
+        $("#cellphone1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：手机号码必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#cellphone1").html(" ");  
+    }  
+  });
+
+  // 登录密码
+  $("#pw").blur(function() {
+    if ($(this).val() == "") {  
+        $("#pw1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：登录密码必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#pw1").html(" ");  
+    }  
+  });
+
+  // 确认密码
+  $("#pwr").blur(function() {
+    if ($(this).val() == "") {  
+        $("#pwr1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：确认密码必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#pwr1").html(" ");  
+    }  
+  });
+
+  // 所在城市
+  $("#address").blur(function() {
+    if ($(this).val() == "") {  
+        $("#address1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：所在城市必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#address1").html(" ");  
+    }  
+  });
+
+  // 所属行业
+  $("#employment").blur(function() {
+    if ($(this).val() == "") {  
+        $("#employment1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：所属行业必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#employment1").html(" ");  
+    }  
+  });
+
+  // 单位名称
+  $("#workplace").blur(function() {
+    if ($(this).val() == "") {  
+        $("#workplace1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：单位名称必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#workplace1").html(" ");  
+    }  
+  });
+
+  // 职务
+  $("#workpost").blur(function() {
+    if ($(this).val() == "") {  
+        $("#workpost1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：职务必须填写！");  
+        $(this).focus();  
+    }else{  
+        $("#workpost1").html(" ");  
+    }  
+  });
+
+  // 表单验证
+  $("#formnews").submit(function(){
+    // 真实姓名不为空
+    if ($("#realname").val() == "" ) {  
+      $("#realname1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：真实姓名必须填写！");  
+      $("#realname").focus();  
+    }
+    // 入学年份不为空
+    if ($("#enrollmentdate").val() == "" ) {  
+      $("#enrollmentdate1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：入学年份必须填写！");  
+      $("#enrollmentdate").focus();  
+    }
+    // 就读院系不为空
+    if ($("#department").val() == "" ) {  
+      $("#department1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：就读院系必须填写！");  
+      $("#department").focus();  
+    }
+    // 就读专业不为空
+    if ($("#major").val() == "" ) {  
+      $("#major1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：就读专业必须填写！");  
+      $("#major").focus();  
+    }
+    // 籍贯不为空
+    if ($("#hometown").val() == "" ) {  
+      $("#hometown1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：籍贯必须填写！");  
+      $("#hometown").focus();  
+    }
+    // 邮箱不为空
+    if ($("#email").val() == "" ) {  
+      $("#email1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：邮箱必须填写！");  
+      $("#email").focus();  
+    }
+    // 手机号码不为空
+    if ($("#cellphone").val() == "" ) {  
+      $("#cellphone1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：手机号码必须填写！");  
+      $("#cellphone").focus();  
+    }
+    // 登录密码不为空
+    if ($("#pw").val() == "" ) {  
+      $("#pw1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：登录密码必须填写！");  
+      $("#pw").focus();  
+    }
+    // 确认密码不为空
+    if ($("#pwr").val() == "" ) {  
+      $("#pwr1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：确认密码必须填写！");  
+      $("#pwr").focus();  
+    }
+    // 所在城市不为空
+    if ($("#address").val() == "" ) {  
+      $("#address1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：所在城市必须填写！");  
+      $("#address").focus();  
+    }
+    // 单位名称不为空
+    if ($("#workplace").val() == "" ) {  
+      $("#workplace1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：单位名称必须填写！");  
+      $("#workplace").focus();  
+    }
+    // 职务不为空
+    if ($("#workpost").val() == "" ) {  
+      $("#workpost1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：职务必须填写！");  
+      $("#workpost").focus();  
+    }
+    // 验证为空，禁止提交
+    if ($("#realname").val() == "" || $("#enrollmentdate").val() == "" || $("#department").val() == "" || $("#major").val() == "" || $("#hometown").val() == "" || $("#email").val() == "" || $("#cellphone").val() == "" || $("#pw").val() == "" || $("#pwr").val() == "" || $("#address").val() == "" || $("#workplace").val() == "" || $("#workpost").val() == "") {
+      return false;
+    } 
+  });
+});
+</script>
+<div class="container" id="body">
+  <div id="reg">
+    <div style="border-bottom:1px solid #efefef; font-size: 16px; color: #2e6da4; height: 60px;margin-bottom: 10px;">
+      <div style="font-size: 25px; color: #2e6da4;padding-top: 10px;padding-left: 20px;">&nbsp;<i class="icon-user bigger-130 gray"></i><b style="color: #888;font-size:25px">&nbsp;&nbsp;用户注册</b></div>    
+    </div>
+    <form role="form" method="post" action="{:url('login/sign')}" enctype="multipart/form-data" class="form-horizontal" id="formnews">
+      <div class="form-group">
+        <label for="realname" class="col-sm-2 control-label">真实姓名<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="username" type="text" class="form-control" id="realname" value="" />
+          <div id="realname1" class="cen"></div>
+        </div>
+        <label for="enrollmentdate" class="col-sm-2 control-label wid-110">入学年份<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="enrollmentdate" type="text" class="form-control" id="enrollmentdate" value="" />
+          <div id="enrollmentdate1" class="cen"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="department" class="col-sm-2 control-label">就读院系<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="department" type="text" class="form-control" id="department" value="" />
+          <div id="department1" class="cen"></div>
+        </div>
+        <label for="major" class="col-sm-2 control-label wid-110">就读专业<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="major" type="text" class="form-control" id="major" value="" />
+          <div id="major1" class="cen"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="hometown" class="col-sm-2 control-label">籍贯<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="hometown" type="text" class="form-control" id="hometown" value="" />
+          <div id="hometown1" class="cen"></div>
+        </div>
+        <label for="sex" class="col-sm-2 control-label wid-110">性别<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input type="radio" value="0" name="sex" checked>男
+          <input type="radio" value="1" name="sex">女
+          <div id="sex1" class="cen"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">邮箱<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="email" type="text" class="form-control" id="email" value="" />
+          <div id="email1" class="cen"></div>
+        </div>
+        <label for="cellphone" class="col-sm-2 control-label wid-110">手机号码<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="cellphone" type="text" class="form-control" id="cellphone" value="" />
+          <div id="cellphone1" class="cen"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pw" class="col-sm-2 control-label">登录密码<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="password" type="text" class="form-control" id="pw" value="" />
+          <div id="pw1" class="cen"></div>
+        </div>
+        <label for="pwr" class="col-sm-2 control-label wid-110">确认密码<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="password1" type="text" class="form-control" id="pwr" value="" />
+          <div id="pwr1" class="cen"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address" class="col-sm-2 control-label">所在城市<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="address" type="text" class="form-control" id="address" value="" />
+          <div id="address1" class="cen"></div>
+        </div>
+        <label for="employment" class="col-sm-2 control-label wid-110">所属行业<b>*</b>：</label>
+        <div class="col-sm-4">
+          <select class="form-control self_form_control" name="employment" >
+            <option value="1" selected>IT</option>
+            <option value="2">管理类</option>
+            <option value="3">营销类</option>
+            <option value="4">工程类</option>
+            <option value="5">金融</option>
+          </select>
+          <div id="employment1" class="cen"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="workplace" class="col-sm-2 control-label">单位名称<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="workplace" type="text" class="form-control" id="workplace" value="" />
+          <div id="workplace1" class="cen"></div>
+        </div>
+        <label for="workpost" class="col-sm-2 control-label wid-110">职务<b>*</b>：</label>
+        <div class="col-sm-4">
+          <input name="workpost" type="text" class="form-control" id="workpost" value="" />
+          <div id="workpost1" class="cen"></div>
+        </div>
+      </div>
+      <div class="form-group form-actions">
+        <label for="submit" class="col-sm-1 control-label">&nbsp;</label>
+        <div class="col-sm-offset-9 col-sm-1"><input name="submit" id="submit" type="submit" class="btn info white" value="提交" /></div>
+        <div class="col-sm-1"> </div>
+      </div>
+    </form>
+  </div>
+</div>    

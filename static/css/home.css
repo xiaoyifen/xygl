@@ -118,7 +118,7 @@
   color: #A2C6EA;
 }
 .num {
-  width: 75px;
+  width: 105px;
   line-height: 1.42857143;
   color: #337ab7;
   text-decoration: none;
@@ -127,6 +127,7 @@
   padding: 4px 8px;
   border-radius: 4px;
   margin-top: 10px;
+  text-align: center;
 }
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     background-color: #A2C6EA;

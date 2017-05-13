@@ -39,7 +39,7 @@
   padding: 4px 8px;
 }
 .num {
-  width: 75px;
+  width: 105px;
   line-height: 1.42857143;
   color: #337ab7;
   text-decoration: none;
@@ -48,6 +48,7 @@
   padding: 4px 8px;
   border-radius: 4px;
   margin-top: 10px;
+  text-align: center;
 }
 </style>
 
@@ -78,7 +79,7 @@
           <tr>
             <td style="font-size: 1.1em; color:#999; text-align: left;">&nbsp;
               <span class="blue"><i class="icon-file bigger-150"></i></span>&nbsp;
-              <a href="{:url('forum/topic')}?id={$t['topicid']}" target="_blank" class="title">{$t['title']}</a>
+              <a href="{:url('forum/topic')}?id={$t['topicid']}" class="title">{$t['title']}</a>
             </td>
             <td class="center">{$t['username']}<br><span style="color:#777;font-size: 11px">{$t['pubtime']|date="m-d H:i",###}</span></td>
             <td class="center bigger-130"><span style="color:green">{$t['reply']}</span>/{$t['hits']}</td>
@@ -100,7 +101,7 @@
       <div class="col-md-10" style="height:60px;padding:0px"></div>
     {/if}
     <div class="col-md-2" style="float: right;text-align:right; padding-right:5px;padding-top: 10px;right:10px;">
-      <a href="{:url('forum/add')}" target="_blank"><button class="unit_post">发布新帖</button></a>
+      <a href="{:url('forum/add')}"><button class="unit_post">发布新帖</button></a>
     </div>    
   </div>
   <div class="clear"></div>

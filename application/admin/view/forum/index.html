@@ -40,7 +40,7 @@
             {if !empty($items)}
             {foreach $items as $k=>$t}
               <tr>
-                <td><a href="{:url('forum/topic')}?id={$t['topicid']}" target="_blank">{$t['title']}</a></td>
+                <td><a href="{:url('forum/topic')}?id={$t['topicid']}">{$t['title']}</a></td>
                 <td>{$t['username']}</td>
                 {if $t['pubtime']}
                 <td>{$t['pubtime']|date="Y-m-d H:i",###}</td>
@@ -56,7 +56,7 @@
                 <td>
                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                         <!-- 删除 -->
-                        <a class="red" href="{:url('forum/del')}?id={$t['topicid']}">
+                        <a class="red" href="{:url('forum/del')}?id={$t['topicid']}" title="删除">
                             <i class="icon-trash bigger-140"></i>
                         </a>
                     </div>

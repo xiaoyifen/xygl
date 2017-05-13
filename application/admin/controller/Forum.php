@@ -11,8 +11,8 @@ class Forum extends Admin
     function __construct(){
 		parent::__construct();
         $this->check_login();
-        $this->view->location = '交流专区';
-        $this->view->title = '交流专区';
+        $this->view->location = '论坛管理';
+        $this->view->title = '论坛管理';
         $this->model = model('topic');    
 	}
 
@@ -23,7 +23,7 @@ class Forum extends Admin
         if(!empty($this->kw)){
             $map['title'] = ['like',"%{$this->kw}%"];//标题
         }        
-        $items = $this->model->view('Topic','*')->view('Note','time','Note.topicid = Topic.topicid','LEFT')->view('Stu','username','Stu.userid = Topic.authorid','LEFT')->field(['Topic.topicid','IFNULL(max(time),pubtime)'=>'lasttime'])->where($map)->group('Topic.topicid')->order('lasttime desc')->paginate(50);
+        $items = $this->model->view('Topic','*')->view('Note','time','Note.topicid = Topic.topicid','LEFT')->view('Stu','username','Stu.userid = Topic.authorid','LEFT')->field(['Topic.topicid','IFNULL(max(time),pubtime)'=>'lasttime'])->where($map)->group('Topic.topicid')->order('lasttime desc')->paginate(10);
         // var_dump($this->model->getLastSql());
         // var_dump($items);
         // exit;

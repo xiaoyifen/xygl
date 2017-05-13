@@ -112,6 +112,7 @@ $(function(){ //匿名函数内部的$均为jQuery
       <?php extract($info); ?>
       <form role="form" method="post" action="{:url('news/audit',['id'=>$articleid])}" enctype="multipart/form-data" class="form-horizontal">
         <input type="hidden" name="articleid" value="{$articleid}">
+        <input type="hidden" name="adminid" value="{$userid}">
         <div class="form-group">
           <label for="categoryid" class="col-sm-1 control-label">类别：</label>
           <div class="col-sm-4">
@@ -129,7 +130,7 @@ $(function(){ //匿名函数内部的$均为jQuery
         <div class="form-group">
           <label for="author" class="col-sm-1 control-label">作者：</label>
           <div class="col-sm-4">
-            <input type="text" id="author" class="form-control" value="{$author}" readonly />
+            <input type="text" id="author" class="form-control" value="{$stu['username']}" readonly />
           </div>
           <div class="col-sm-7"></div>
         </div>
@@ -169,7 +170,7 @@ $(function(){ //匿名函数内部的$均为jQuery
         <div class="form-group">
           <label for="file" class="col-sm-1 control-label">文件：</label>
           <div class="col-sm-4">
-            <p style="margin-top: 7px;"><b><a style="color: #337ab7;" href="__STATIC__/uploads/{$filepath}" target="_blank" id="file">{$filename}</a></b></p>
+            <p style="margin-top: 7px;"><b><a style="color: #337ab7;" href="__STATIC__/uploads/{$filepath}" id="file">{$filename}</a></b></p>
           </div>
           <div class="col-sm-7"></div>
         </div>

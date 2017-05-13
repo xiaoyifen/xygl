@@ -6,6 +6,11 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.jq {
+  overflow:hidden;;/* 内容超出宽度时隐藏超出部分的内容 */
+  text-overflow:ellipsis;;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+  white-space:nowrap;/* 不换行 */
+}
 </style>
 <div class="Nsb_layout_r">
   <div class="Nsb_r_title"><a href="{:url('selfcenter/message',['id' => $userid])}">个人中心</a> » {$location} » {$locationNext}</div>
@@ -21,6 +26,7 @@
     <thead class="newtopic">
       <tr>
         <th style="text-align: left;"><span>发送人</span></th>
+        <th style="text-align: center"><span>留言内容</span></th>
         <th style="text-align: center"><span>发送时间</span></th>
         <th style="text-align: center"><span>操作</span></th>
       </tr>
@@ -31,13 +37,14 @@
         <tr>
           <td style="font-size: 1.1em; color:#999; text-align: left;">&nbsp;
             <span class="blue"><i class="icon-file bigger-150"></i></span>&nbsp;
-            <a href="#" class="title">{$t['sender']['username']}</a>
+            <a href="{:url('stu/findActLeader',['userid'=>$t['sender']['userid']])}" class="title">{$t['sender']['username']}</a>
           </td>
+          <td class="jq">{$t['content']|mb_substr=###,0,10,"utf-8"}{if mb_strlen($t['content'],"utf-8")>10}...{/if}</td>
           <td class="center"><span style="color:#777;font-size: 11px">{$t['time']|date="Y-m-d H:i",###}</span></td>
           <td>
             <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
               <!-- 查看/回复 -->
-              <a class="blue" href="{:url('selfcenter/showMessage')}?id={$t['messageid']}" target="_blank" title="回复">
+              <a class="blue" href="{:url('selfcenter/showMessage')}?id={$t['messageid']}" title="查看/回复">
                 <i class="icon-edit bigger-130"></i>
               </a>                        
               <!-- 删除 -->

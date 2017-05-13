@@ -8,7 +8,7 @@ use think\Db;
 use think\Model;
 class Admin extends Model{
     public function getauthorityAttr($value){
-        $status = [0=>'超级管理员',1=>'管理员'];
+        $status = [1=>'超级管理员',2=>'管理员'];
         return $status[$value];
     }
 }

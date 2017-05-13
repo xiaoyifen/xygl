@@ -33,7 +33,7 @@
           <tr>
             <td style="font-size: 1.1em; color:#999; text-align: left;">&nbsp;
               <span class="blue"><i class="icon-file bigger-150"></i></span>&nbsp;
-              <a href="{:url('forum/topic')}?id={$t['topicid']}" target="_blank" class="title">{$t['title']}</a>
+              <a href="{:url('forum/topic')}?id={$t['topicid']}" class="title">{$t['title']}</a>
             </td>
             <td class="center"><span style="color:#777;font-size: 11px">{$t['pubtime']|date="Y-m-d H:i",###}</span></td>
             <td class="center bigger-130"><span style="color:green">{$t['reply']}</span>/{$t['hits']}</td>
@@ -45,11 +45,11 @@
             <td>
 	          <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
 	            <!-- 查看/修改 -->
-	            <a class="blue" href="{:url('selfcenter/showTopic')}?id={$t['topicid']}">
+	            <a class="blue" href="{:url('selfcenter/showTopic')}?id={$t['topicid']}" title="查看/修改">
 	              <i class="icon-edit bigger-130"></i>
 	            </a>                        
 	            <!-- 删除 -->
-	            <a class="red" href="{:url('selfcenter/delTopic')}?id={$t['topicid']}">
+	            <a class="red" href="{:url('selfcenter/delTopic')}?id={$t['topicid']}" title="删除">
 	              <i class="icon-trash bigger-130"></i>
 	            </a>
 	          </div>

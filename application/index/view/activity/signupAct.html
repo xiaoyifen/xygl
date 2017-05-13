@@ -1,42 +1,8 @@
-{layout name="layout" /}
-<div id="body" class="container">
-
-<div id="LeftMenu1_divChildMenu" class="Nsb_layout_l Nsb_l_list">
-	<div class="Nsb_l_list_top"></div>
-	
-			<h4 class="exam_user_exam">留言帖子</h4>
-			<ul>			
-	
-				<li><a  href="/jsxsd/ggly/ysgg_query{:url('index/index')}">已收留言</a></li>
-	
-				<li><a  href="/jsxsd/ggly/ysly_query">已发帖子</a></li>
-	
-			</ul>
-	
-			<h4 class="exam_user_exam">个人信息</h4>
-			<ul>			
-	
-				<li><a  href="{:url('stu/changeSelf',['userid'=>1])}">修改个人信息</a></li>
-	
-				<li><a class='Nsb_l_list_now' href="{:url('stu/changePwd')}">修改密码</a></li>
-	
-			</ul>
-	
-			<h4 class="exam_user_exam">活动信息</h4>
-			<ul>			
-				<li><a  href="{:url('activity/hasJoinAct',['applicantid'=>1])}">已报名活动</a></li>
-				<li><a  href="{:url('activity/hasSetupAct',['userid'=>1])}">已发起活动</a></li>
-			</ul>
-			<h4 class="exam_user_exam">招聘资料</h4>
-			<ul>			
-				<li><a  href="/jsxsd/jxzl/jxzl_query">已发布招聘信息</a></li>
-				<li><a  href="/jsxsd/jxzl/jxzl_query">已发资料</a></li>
-	
-			</ul>
-	
-</div>
+{layout name="layoutself" /}
+<link rel="stylesheet" href="__STATIC__/css/self.css" type="text/css"  />
+<!-- <link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css"> -->
 <div class="Nsb_layout_r">
-	<div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » 活动信息 » 已发起活动</div>
+	<div class="Nsb_r_title"><a href="/jsxsd/framework/main.jsp">个人中心</a> » 活动信息 » 已报名活动</div>
 <!-- 已参加活动 --> 
 <br>
 <table class="table table-bordered">
@@ -60,9 +26,7 @@
 						<th>
 							结束时间
 						</th>
-						<th>
-							活动状态
-						</th>
+						
 					</tr>
 				</thead>
 				{if !empty($activities)}
@@ -87,15 +51,20 @@
 						<td>
 							{$v->registeToAct->activityendtime|date="Y-m-d H:i",###}
 						</td>
-						<td>
-							{$v->registeToAct->remainday}
-						</td>
+						
 					</tr>
 				</tbody>
 				{/foreach}
+				{else}
+				<tbody>
+				  <tr>
+				  <td colspan="6">
+				  <center>很抱歉，您没有发起任何活动</center>
+				  </td>
+				  </tr>
+				</tbody>
 				{/if}
 			</table> 	
 	
 </div>
-</div>
-</div>
+

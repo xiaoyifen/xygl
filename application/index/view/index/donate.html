@@ -1,21 +1,55 @@
 {layout name="layout" /}
 <link type="text/css" href="__STATIC__/css/donate.css" rel="stylesheet">
+<!-- <script type="text/javascript">
+$(function(){
+	$('#donation').click(function(){
+		alert('联系方式：地址：湖南省湘潭大学教育基金会（办公楼401）  工作人员：易山峰 、申慧  E-mail：xtuef@xtu.edu.cn  电话：（0731）58292888  （0731）58292888（传真）');
+	});
+})
+</script> -->
 <div class="container" id="body">
   <div class="clear"></div>
   <!-- publication/index:_body -->
 	<div id="main_left">
-    <p style="font-size: 18px;">&nbsp;&nbsp;校友捐赠</p>
+    <p style="font-size: 18px;">&nbsp;&nbsp;校友捐赠<a style="float: right;" class="btn info white" id="donation" href="#donate" data-toggle="modal">我要捐赠</a></p>
     <div class="donate_intro">
 			湘潭大学教育基金会是经湖南省教育厅同意，于2007年12月经湖南省民政厅批准成立的具有独立法人资格的非公募基金会，主要为学校的建设和发展募集资金。其宗旨是为适应国家教育事业发展与改革的需要，接受和管理社会各界的捐赠，服务湘潭大学的建设和发展。本基金会遵守宪法、法律、法规和国家政策，遵守社会道德风尚，为社会公益事业服务。
     </div>
-
+	<div class="modal fade left1" id="donate" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="col-md-11 column" id="tips">
+                <span class="headsize" style="color:#c00;font-size: 15px">我要捐赠</span>
+              </div>
+              <button type="button" class="col-md-1 close" data-dismiss="modal" aria-hidden="true">×</button>                            
+            </div>
+            <div class="modal-body" style="font-size: 15px">
+              <h5 style="color:#337ab7;">联系方式</h5>
+              <p>地址：湖南省湘潭大学教育基金会（办公楼401）</p>  
+              <p>工作人员：易山峰 、申慧</p>
+              <p>E-mail：xtuef@xtu.edu.cn</p>  
+              <p>电话：（0731）58292888  
+              <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（0731）58292888（传真）</p>
+              <h5 style="color:#337ab7;">捐赠指南</h5>
+              <p>银行账户：湖南省湘潭大学教育基金会</p>  
+              <p>开户银行：湖南省湘潭市建设银行湘大支行</p>
+              <p>账号：4300 1510 2630 5250 0155</p>  
+              
+            </div>
+            <div class="modal-footer">
+            	<button data-dismiss="modal" class="btn btn-info" style="width:auto;">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <p class="donate_title">相关报道</p>
     <div>
 			<ul class="con_list">
 				{if !empty($news)}
 		    {foreach $news as $k=>$t}
 				<li>
-					<a href="{:url('index/detail',['id'=>$t['articleid']])}" target="_blank">{$t['title']}</a>&nbsp;
+					<a href="{:url('index/detail',['id'=>$t['articleid']])}">{$t['title']}</a>&nbsp;
 					{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}
 					<span>{$t['updatetime']|date="Y-m-d",###}</span>
 				</li>

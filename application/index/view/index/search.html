@@ -70,7 +70,7 @@
 			<ul class="ranking">
 				{foreach $hits as $k=>$t}
 					<li class="maxlength">
-						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank">{$t['title']}</a>
+						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}">{$t['title']}</a>
 					</li>
 		    {/foreach}				    
 			</ul>

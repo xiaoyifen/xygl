@@ -82,9 +82,46 @@ function filter($keyword,$text){
         $keyname .= $vv.'\s*';
     }
     $key = $keyname;
-    // var_dump($key);
-    // $text = '色 情史蒂芬你妈 的大师法萨芬第三方王 八 蛋';
     $text = preg_replace("/$key/i",'**',$text);
-    // var_dump($text);
     return $text;
+}
+//发送邮件
+function send_mail($to,$from,$password,$subject,$body){
+	//标题不能带换行
+	$subject=str_replace("\r\n",' ',$subject);
+	//行首的“.”是SMTP预留的格式，需要用“..”转意
+	$body=preg_replace('/(=?^|\r\n)\./','..',$body);
+	//从发信邮箱中找到用户名和服务器域名
+	$u=explode('@',$from);
+	//连接邮箱SMTP服务器的25端口
+	$s=fsockopen('smtp.'.$u[1],25);
+	fgets($s);
+	//构造邮件内容数据
+	$data=array(
+	'MIME-Version: 1.0',
+	'Content-Type: text/html',
+	'Charset: utf-8',
+	"From: 管理员<$from>","To: $to",
+	"Subject: $subject",
+	"\r\n$body",'.'
+	);
+	//根据SMTP协议与邮件服务器做一些应答
+	foreach(array(
+	'HELO sb',
+	'AUTH LOGIN',
+	base64_encode($u[0]),
+	base64_encode($password),
+	"MAIL FROM: <$from>",
+	"RCPT TO: <$to>",
+	'DATA',implode("\r\n",$data)
+	) as $i){
+	//发送消息
+	fwrite($s,"$i\r\n");
+	//等待返回并获取返回信息
+	$m=fgets($s);
+	//如果返回的是错误信息则结束函数
+	if($m[0]>3)return $m;
+	};
+	//关闭sock
+	fclose($s);
 }

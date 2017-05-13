@@ -54,7 +54,7 @@
                     <td>{$t['articleid']}</td>
                     <td>{$t['categoryname']}</td>
                     <td>{$t['title']}</td>
-                    <td>{$t['author']}</td>
+                    <td>{$t['stu']['username']}</td>
                     {if $t['createtime']}
                     <td>{$t['createtime']|date="Y-m-d",###}</td>
                     {else}
@@ -69,7 +69,7 @@
                     <td>
                         <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                             <!-- 审核 -->
-                            <a class="blue" href="{:url('news/audit')}?id={$t['articleid']}">
+                            <a class="blue" href="{:url('news/audit')}?id={$t['articleid']}" title="审核">
                                 <i class="icon-check bigger-140"></i>
                             </a>
                         </div>

@@ -1,43 +1,61 @@
 {layout name="layout" /}
 <style type="text/css">
-	.row {
-		margin-right: 0px;
-		margin-left: 0px;
-	}
-	.margin {
-		padding-right: 0px;
-    padding-left: 0px;
-	}
-	.carousel-img {
-		height: 245px;
-		width: 100%;
-	}
-	.carousel-inner>.item>a>img, .carousel-inner>.item>img {
-    height: 245px;
-	}
-	.carousel-control {    
+.row {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+.margin {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+.carousel-img {
+	height: 245px;
+	width: 100%;
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>img {
+	height: 245px;
+}
+.carousel-control {    
     width: 7%;
     filter: alpha(opacity=30);
     opacity: .3;
-	}	
-	.carousel-indicators {
-     bottom: 0px; 
-     margin-bottom: 0px;
-  }
-  .jq {
-	  overflow:hidden;;/* 内容超出宽度时隐藏超出部分的内容 */
-		text-overflow:ellipsis;;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
-		white-space:nowrap;/* 不换行 */
-  }
-  .padding-tb-8 {
+}	
+.carousel-indicators {
+	bottom: 0px; 
+	margin-bottom: 0px;
+}
+.des {
+	height: 45px;
+}
+.jq {
+	overflow:hidden;;/* 内容超出宽度时隐藏超出部分的内容 */
+	text-overflow:ellipsis;;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+	white-space:nowrap;/* 不换行 */
+}
+.padding-tb-8 {
   	padding: 8px 0px;
-  }
-  .padding-tb-4 {
+}
+.padding-tb-4 {
   	padding: 4px 0px;
-  }
+}
+#flt{
+	width:200px;
+	height:50px;
+	position:fixed;
+	right:0px;
+}
 </style>
-
 <div class="container" id="body">
+	{if empty($userid)}
+	<div id="flt">
+	  <table width="100%" height="50" border="0" cellpadding="0" cellspacing="0">
+	    <tr>
+	      <td width="50" bgcolor="#e20b0b" style="color:white;font-size: 16px;text-align: center;border-radius: 4px;"><b>注册</b></td>
+	      <td bgcolor="#ffffff" style="font-size:16px;text-align: center;border-radius: 4px;color:red;">欢迎您<a href="{:url('login/sign')}" style="font-size:15px;color:red;"><b>加入</b></a><br>湘大校友之窗！</td>
+	    </tr>
+	  </table>
+	</div>
+	{/if}
   <!-- main/index:_body -->
 	<!--body -->
 	<div class="row">
@@ -87,11 +105,11 @@
       		{if !empty($items_news)}
       		{foreach $items_news as $k=>$t}
       			{if $k == 0}     		
-      				<h1><a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank" >{$t['title']}</a></h1>
-      				<div class="des jq">简述：{$t['abstract']}&nbsp;&nbsp;<div><a href="{:url('index/detail',['id'=>$t['articleid']])}" style="color:#666;float: right;">全文</a></div></div> 
+      				<h1><a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" >{$t['title']}</a></h1>
+      				<div class="des"><div class="jq">简述：{if !empty($t['abstract'])}{$t['abstract']}{else}{:strip_tags($t['content'])}{/if}&nbsp;&nbsp;</div><div><a href="{:url('index/detail',['id'=>$t['articleid']])}" style="color:#666;float: right;">全文</a></div></div> 
       			{else}         
 		          <li>
-		          	<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank" >{$t['title']}</a>&nbsp;{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}<span>{$t['updatetime']|date="m-d",###}</span>
+		          	<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}">{$t['title']}</a>&nbsp;{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}<span>{$t['updatetime']|date="m-d",###}</span>
 		          </li>
           	{/if}
           {/foreach}
@@ -109,12 +127,12 @@
           <ul>
           	{if !empty($items_activity)}
       			{foreach $items_activity as $k=>$t}
-            	<li class="jq padding-tb-8"><a href="#" target="_blank">{$t['title']}</a></li>
+            	<li class="jq padding-tb-8"><a href="{:url('activity/findActDetail',['activityid'=>$t['activityid']])}">{$t['title']}</a></li>
             {/foreach}
           	{/if}
           </ul>
       	</div>
-				<p class="more" style="margin:10px 5px"><a href="#">>>更多</a></p>
+				<p class="more" style="margin:10px 5px"><a href="{:url('activity/allact')}">>>更多</a></p>
     	</div>
 		</div>
 	  <!--//Professor alumni-->
@@ -125,12 +143,12 @@
 	<div id="row4" style="margin-top:10px">
 	  <div class="left">
 	    <!--new alumni-->
-	    <p class="sidebar_title" style="border-width:1px">招聘专区</p>
+	    <p class="sidebar_title" style="border-width:1px">校友招聘</p>
 	    <div id="new_alumni">
 	      <ul style="height: 296px">
       	{if !empty($items_employment)}
   			{foreach $items_employment as $k=>$t}
-        	<li class="jq padding-tb-4"><a href="#" target="_blank">{$t['title']}</a></li>
+        	<li class="jq padding-tb-4"><a href="{:url('index/detail',['id'=>$t['articleid']])}">{$t['title']}</a></li>
         {/foreach}
       	{/if}
       	</ul>	      	      
@@ -151,13 +169,13 @@
   					{foreach $items_topic as $k=>$t}
   						{if $k%2 == 0}
 	  						<tr>
-			            <td><a href="{:url('forum/topic')}?id={$t['topicid']}" target="_blank" title="{$t['title']}" class="unit_title">{$t['title']}</a>
+			            <td><a href="{:url('forum/topic')}?id={$t['topicid']}" title="{$t['title']}" class="unit_title">{$t['title']}</a>
 			            </td>
 			            <td class="center">{$t['stu']['username']}</td>
 		          	</tr>
 	          	{else}
 	          		<tr class="two">
-			            <td><a href="{:url('forum/topic')}?id={$t['topicid']}" target="_blank" title="{$t['title']}" class="unit_title">{$t['title']}</a>
+			            <td><a href="{:url('forum/topic')}?id={$t['topicid']}" title="{$t['title']}" class="unit_title">{$t['title']}</a>
 			            </td>
 			            <td class="center">{$t['stu']['username']}</td>
 		          	</tr>
@@ -178,18 +196,18 @@
 	  </div>
 
 	  <div class="fright">
-	    <p class="sidebar_title" style="border-width:1px">资料专区</p>
+	    <p class="sidebar_title" style="border-width:1px">学习共享</p>
 	    <div class="sidebar_box" style="background:#F6FAFB">
 	      <div id="marquee2">
 	        <ul class="donate_tks">
 	        	{if !empty($items_info)}
 		  			{foreach $items_info as $k=>$t}
-		        	<li class="jq padding-tb-4"><a href="#" target="_blank">{$t['title']}</a></li>
+		        	<li class="jq padding-tb-4"><a href="{:url('index/detail',['id'=>$t['articleid']])}">{$t['title']}</a></li>
 		        {/foreach}
 		      	{/if}
 	        </ul>
 	      </div>
-	      <p class="more" style="margin-top:10px"><a href="{:url('index/donate')}">>>更多</a></p>
+	      <p class="more" style="margin-top:10px"><a href="{:url('index/info')}">>>更多</a></p>
 	    </div>
 	  </div>
 	  <div class="clear"></div>
@@ -200,9 +218,9 @@
 	<div id="more_links">
   	<div class="text">
     	校内链接：      
-    	<a href="http://www.xtu.edu.cn" title="湘潭大学" target="blank"> 湘潭大学</a>&nbsp;|&nbsp;      <a href="http://fund.xtu.edu.cn/" title="教育基金会" target="blank">教育基金会</a>&nbsp;|&nbsp;      <a href="http://zwxxg.xtu.edu.cn/" title="政务信息港" target="blank"> 政务信息港</a>&nbsp;|&nbsp;      <a href="http://fuwu.xtu.edu.cn/web/index.jsp" title="教育服务中心" target="blank">教育服务中心</a>&nbsp;|&nbsp;      <a href="http://yjsc.xtu.edu.cn/indexs.aspx" title="湘大研究生院" target="blank"> 湘大研究生院</a>&nbsp;|&nbsp;      <a href="http://news.xtu.edu.cn/" title="湘大新闻网" target="blank"> 湘大新闻网</a>&nbsp;|&nbsp;      <a href="http://zhaosh.xtu.edu.cn/" title="湘大招生网" target="blank"> 湘大招生网</a>&nbsp;|&nbsp;      <a href="http://rsc.xtu.edu.cn/" title="湘大人事处" target="blank"> 湘大人事处</a>    <br/>
+    	<a href="http://www.xtu.edu.cn" title="湘潭大学" target="_blank"> 湘潭大学</a>&nbsp;|&nbsp;      <a href="http://fund.xtu.edu.cn/" title="教育基金会" target="_blank">教育基金会</a>&nbsp;|&nbsp;      <a href="http://zwxxg.xtu.edu.cn/" title="政务信息港" target="_blank"> 政务信息港</a>&nbsp;|&nbsp;      <a href="http://fuwu.xtu.edu.cn/web/index.jsp" title="教育服务中心" target="_blank">教育服务中心</a>&nbsp;|&nbsp;      <a href="http://news.xtu.edu.cn/" title="湘大新闻网" target="_blank"> 湘大新闻网</a>&nbsp;|&nbsp;      <a href="http://zhaosh.xtu.edu.cn/" title="湘大招生网" target="_blank"> 湘大招生网</a>&nbsp;|&nbsp;      <a href="http://rsc.xtu.edu.cn/" title="湘大人事处" target="_blank"> 湘大人事处</a>    <br/>
     	校外链接：      
-    	<a href="http://www.chinanpo.gov.cn/" target="_blank">中国社会组织网</a>&nbsp;|&nbsp;      <a href="http://www.alumni-cn.org/" target="_blank">中国高等教育学会校友工作研究分会</a>&nbsp;|&nbsp;      <a href="http://www.pku.org.cn/" title="北京大学校友网" target="blank">北京大学校友网</a>&nbsp;|&nbsp;      <a href="http://www.tsinghua.edu.cn/publish/xyh/" title="清华大学校友总会" target="blank">清华大学校友总会</a>&nbsp;|&nbsp;      <a href="http://www.fudan.edu.cn/" target="_blank">复旦大学</a>&nbsp;|&nbsp;      <a href="http://www.nankai.edu.cn/" target="_blank">南开大学</a>&nbsp;|&nbsp;      <a href="http://xyzh.hnu.edu.cn/" title="湖南大学校友总会" target="blank">湖南大学校友总会</a>&nbsp;|&nbsp;      <a href="http://xyh.its.csu.edu.cn/lhsoft/index.html" title="中南大学校友总会" target="blank">中南大学校友总会</a>&nbsp;|&nbsp;      <a href="http://www.tju.edu.cn/" target="_blank">天津大学</a>&nbsp;|&nbsp;      <a href="http://www.nju.edu.cn/" target="_blank">南京大学</a>&nbsp;|&nbsp;      <a href="http://www.sdu.edu.cn/" target="_blank">山东大学</a>&nbsp;|&nbsp;      <a href="http://www.sysu.edu.cn/" target="_blank">中山大学</a>&nbsp;|&nbsp;  
+    	<a href="http://www.chinanpo.gov.cn/" target="_blank">中国社会组织网</a>&nbsp;|&nbsp;      <a href="http://www.alumni-cn.org/" target="_blank">中国高等教育学会校友工作研究分会</a>&nbsp;|&nbsp;      <a href="http://www.pku.org.cn/" title="北京大学校友网" target="_blank">北京大学校友网</a>&nbsp;|&nbsp;      <a href="http://www.tsinghua.edu.cn/publish/xyh/" title="清华大学校友总会" target="blank">清华大学校友总会</a>&nbsp;|&nbsp;      <a href="http://www.fudan.edu.cn/" target="_blank">复旦大学</a>&nbsp;|&nbsp;      <a href="http://www.nankai.edu.cn/" target="_blank">南开大学</a>&nbsp;|&nbsp;      <a href="http://www.tju.edu.cn/" target="_blank">天津大学</a>&nbsp;|&nbsp;      <a href="http://www.nju.edu.cn/" target="_blank">南京大学</a>&nbsp;|&nbsp;      <a href="http://www.sdu.edu.cn/" target="_blank">山东大学</a>&nbsp;|&nbsp;      <a href="http://www.sysu.edu.cn/" target="_blank">中山大学</a>&nbsp; 
     </div>
 	</div>
 	<!--//more links-->

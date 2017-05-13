@@ -12,8 +12,8 @@ class News extends Admin
     function __construct(){
 		parent::__construct();
         $this->check_login();
-        $this->view->location = '新闻管理';
-        $this->view->title = '新闻管理';
+        $this->view->location = '首页管理';
+        $this->view->title = '首页管理';
         $this->model = model('article');    
 	}
 
@@ -39,7 +39,7 @@ class News extends Admin
             }
         }
         $map['categoryid'] = '1';
-        $items = $this->model->where($map)->order('articleid desc')->paginate(2);
+        $items = $this->model->where($map)->order('articleid desc')->paginate(10);
         $this->view->items = $items;
         $this->view->location = '新闻公告管理';
     	return $this->fetch();
@@ -105,7 +105,8 @@ class News extends Admin
             $post = $this->GET;
             $post['createtime'] = time();//发布时间
             $post['updatetime'] = time();//修改时间 
-            $post['status'] = 1;             
+            $post['status'] = 1;
+            $post['categoryid'] = 1;             
             // var_dump($post);
             $result = $this->model->allowField(true)->save($post);
             if(!$result){
@@ -155,6 +156,7 @@ class News extends Admin
                 $post = $this->GET;
                 $post['top'] = '1';
                 $post['updatetime'] = time();
+                $post['articleid'] = $id;
                 $result = $this->model->allowField(true)->isUpdate(true)->save($post);
                 if(!$result){
                     $this->error($this->model->getError());
@@ -224,7 +226,7 @@ class News extends Admin
             }
         }
         $map['categoryid'] = ['>',1];
-        $items = $this->model->has('category',$map)->field('category.*,article.articleid')->order('status asc,article.articleid desc')->paginate(2);
+        $items = $this->model->has('category',$map)->with('stu')->field('category.*,article.articleid')->order('status asc,article.articleid desc')->paginate(10);
         // var_dump($items);
         // exit;
         $this->view->items = $items;
@@ -243,7 +245,7 @@ class News extends Admin
                 $info['articleid'] = $post['articleid'];
                 $info['reason'] = $post['reason'];
                 $info['time'] = time();
-                $info['adminid'] = 1;//待修改
+                $info['adminid'] = $post['adminid'];
                 $log = model('log');
                 $result = $log->validate(true)->allowField(true)->save($info);
                 if(!$result){
@@ -267,7 +269,7 @@ class News extends Admin
         // 查看
         // 一对多关联
         // $item = model('category')->has('article',['article.id'=>14])->field('article.*')->select() or $this->error('数据不存在...');
-        $item = $this->model->has('category',['article.articleid'=>$id])->field('category.*,article.articleid')->find() or $this->error('数据不存在...');
+        $item = $this->model->has('category',['article.articleid'=>$id])->with('stu')->field('category.*,article.articleid')->find() or $this->error('数据不存在...');
         $status = $item->getData('status');
         $info = $item->toArray($item);
         $info['status'] = $status;

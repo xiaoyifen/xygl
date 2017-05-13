@@ -32,7 +32,7 @@
 </div>
 <div>
 <div class="col-md-2">
-<label><a href="{:url('news/add')}" target="_blank" class="btn btn-info look">发布新闻</a></label>
+<label><a href="{:url('news/add')}" class="btn btn-info look">发布新闻</a></label>
 </div> 
 <div class="col-md-10"></div>
 </div>
@@ -72,15 +72,15 @@
                 <td>
                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                         <!-- 查看/修改 -->
-                        <a class="blue" href="{:url('news/show')}?id={$t['articleid']}">
+                        <a class="blue" href="{:url('news/show')}?id={$t['articleid']}" title="查看/修改">
                             <i class="icon-edit bigger-140"></i>
                         </a>
                         <!-- 置顶 -->
-                        <a class="green" href="{:url('news/top')}?id={$t['articleid']}">
+                        <a class="green" href="{:url('news/top')}?id={$t['articleid']}" title="置顶">
                             <i class="icon-pushpin bigger-140"></i>
                         </a>
                         <!-- 删除 -->
-                        <a class="red" href="{:url('news/del')}?id={$t['articleid']}">
+                        <a class="red" href="{:url('news/del')}?id={$t['articleid']}" title="删除">
                             <i class="icon-trash bigger-140"></i>
                         </a>
                     </div>

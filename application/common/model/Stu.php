@@ -46,6 +46,16 @@ class Stu extends Model{
         $status = [0=>'男',1=>'女'];
         return $status[$value];
     }
+    // 就业方向
+    public function getEmploymentAttr($value){
+        $status = [1=>'IT',2=>'管理类',3=>'营销类',4=>'工程类',5=>'金融类'];
+        return $status[$value];
+    }
+    // 毕业去向
+    public function getDirectionAttr($value){
+        $status = [1=>'就业',2=>'继续深造',3=>'创业'];
+        return $status[$value];
+    }
 }
 ?>
 

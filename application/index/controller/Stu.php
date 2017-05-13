@@ -10,6 +10,7 @@
  class Stu EXTENDS Home{
  	 function __construct(){
  		parent::__construct();
+ 		$this->view->title = '校友查询';
  	}
  	/*
  	 * 渲染个人中心界面
@@ -21,6 +22,7 @@
   * 渲染查找校友界面
   */
   	  public function findAlumni(){
+  	  	$this->check_login();
   	  	//查找全部校友
   	  	$stu =model('stu');
   	  	$list=$stu->paginate(50);
@@ -31,6 +33,7 @@
  	 * 查找校友的方法，首先获取用户选择的查找校友的方式，是通过专业还是通过同学来查询
  	 */
  	public function findStu(){
+ 		$this->check_login_user();
  		//$where=[];
  		$stu =model('stu'); //实例化Stu模型
  		//获取查找方式，1代表按专业查询，2代表按同学查询,获取入学年份和关键字
@@ -40,7 +43,7 @@
  		if($searchtype==1){
  			$major=['like',"%{$findParam['keyword']}%"];
  			if($findParam['enrollmentdate']==0){
- 				$list=$stu->where(['major'=>$major])->paginate(50);//分页	
+ 				$list=$stu->where(['major'=>$major])->paginate(20);//分页	
  			}else{
  				$list=$stu->where(['major'=>$major,'enrollmentdate'=>$findParam['enrollmentdate']])->paginate(50);//分页	
  			}
@@ -48,7 +51,7 @@
  			//选择按同学查询
  			$username=['like',"%{$findParam['keyword']}%"];
  			if($findParam['enrollmentdate']==0){
- 				$list=$stu->where(['username'=>$username])->paginate(50);//分页	
+ 				$list=$stu->where(['username'=>$username])->paginate(20);//分页	
  			}else{
  				$list=$stu->where(['username'=>$username,'enrollmentdate'=>$findParam['enrollmentdate']])->paginate(50);//分页	
  			}
@@ -62,6 +65,7 @@
   	   * 查找活动发起人信息
   	   */
   	   public function findActLeader($userid){
+        $this->check_login_user();
   	   	//获取URL传递的参数
   	   	$leaderParam=$this->GET;
 //  	   	echo $leaderParam['userid'].'<br>';
@@ -88,7 +92,7 @@
   	   		$this->assign('list',$list);
   	   		return $this->fetch('alumniInfo');
   	   	}else{
-  	   		$this->error('系统没有该发起人信息','event');
+  	   		$this->error('错误');
   	   	}
   	   }
  /**
@@ -101,6 +105,8 @@
  	 * 渲染修改个人信息界面
  	 */
  	 public function changeSelf($userid){
+ 	 	$this->check_login();
+    $this->check_auth();
  	 	//获取参数
  	 	$userid=$this->GET;
 	 	// var_dump($userid);
@@ -108,13 +114,18 @@
  	 	//查询账户的个人信息
  	 	$stu=model('stu');
  	 	$list=$stu->where('userid',$userid['userid'])->find();
+    	$list=$list->getData();
  	 	$this->assign('list',$list);
+ 	 	$this->view->title = '个人中心';
  		return $this->fetch('changeSelf');
  	 }
  	/*
  	 * 修改个人信息的方法
  	 */
  	 public function modifyInfo(){
+ 	 	$this->view->title = '个人中心';
+ 	 	$this->check_login();
+//    $this->check_auth();
  	 	//获取参数
  	 	$param=$this->GET;
 // 	 	var_dump($param);
@@ -132,18 +143,27 @@
  	 * 渲染修改密码页面
  	 */
  	public function changePwd(){
+ 		$this->check_login();
+    	$this->check_auth();
+ 		$this->view->title = '个人中心';
+ 		$stu=model('stu');
+ 		$data=$this->GET;
+ 		//查找登陆者的账号
+ 		$list=$stu->where('userid',$data['userid'])->find();
+ 		$this->assign('list',$list);
   	 	return $this->fetch('changePwd');
   	 }
  	 /*
  	 * 修改密码
  	 */
  	 public function updatePwd(){
+ 	 	$this->check_login();
+//    	$this->check_auth();
  	 	//获取参数
  	 	$stu=model('stu');
- 	 		$data=$this->GET;
+ 	 	$data=$this->GET;
 // 	 		var_dump($data);
 // 	 		exit;
- 	 		$data['studentid']=2013190412;
  	 		$user=$stu->where('studentid',$data['studentid'])->find();
  	 		if(!empty($user)){
  	 			if(!empty($data['oldpwd']) && !empty($data['newpwd']) && !empty($data['confirmpwd'])){

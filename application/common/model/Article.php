@@ -25,5 +25,9 @@ class Article extends Model{
     public function category(){
         return $this->belongsTo('Category','categoryid','categoryid');
     }
+
+    public function stu(){
+        return $this->belongsTo('Stu','authorid','userid')->field('userid,username');
+    }
 }
 ?>

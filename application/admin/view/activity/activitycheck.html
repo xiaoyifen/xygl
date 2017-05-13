@@ -34,7 +34,7 @@
 					</th>
 				</tr>
 			</thead>
-			{if !empty($list)}
+			{if $num}
 			{foreach $list as $k=>$v}
 			<tbody>
 				<tr>
@@ -42,7 +42,7 @@
 						{$v['activityid']}
 					</td>
 					<td>
-						<a href="{:url('activity/showAct',['activityid'=>$v['activityid']])}" class="deep_blue_14"  target="_blank" style="">{$v['title']}</a> <br />
+						<a href="{:url('activity/showAct',['activityid'=>$v['activityid']])}" class="deep_blue_14" style="">{$v['title']}</a> <br />
 					</td>
 					<td>
 						{$v->stus->username}
@@ -58,14 +58,10 @@
 					</td>
 					<td>	
 						<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-	                        <!-- 通过审核 -->
-	                        <a class="green" href="{:url('activity/pass',['activityid'=>$v['activityid']])}" title="通过审核">
-	                            <i class="icon-ok bigger-140"></i>
-	                        </a>
-	                        <!-- 不通过审核 -->
-	                        <a class="red" href="{:url('activity/passnot',['activityid'=>$v['activityid']])}" title="不通过审核">
-	                            <i class="icon-remove bigger-140"></i>
-	                        </a>
+	                        <!-- 审核 -->
+                            <a class="blue" href="{:url('activity/showAct',['activityid'=>$v['activityid']])}" title="审核">
+                                <i class="icon-check bigger-140"></i>
+                            </a>
 	                    </div>			
 					</td>
 				</tr>
@@ -74,10 +70,8 @@
 			<!-- <div>{$list->render()}</div>-->
 			{else}
 			<tbody>
-				<tr>
-					
-					很抱歉，没有待审核活动！	
-					
+				<tr>					
+					<td colspan = "7"><center>很抱歉，没有待审核活动！</center></td>	
 				</tr>
 			</tbody>
 			{/if}

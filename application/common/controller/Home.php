@@ -38,7 +38,7 @@ class Home EXTENDS Base{
 				$userid = $user['adminid'];
 				$username = $user['adminname'];
 			}else{
-				$user = model('stu')->where('userid',$userid)->find();
+				$user = model('stu')->where(['status'=>1,'userid'=>$userid])->find();
 				$userid = $user['userid'];
 				$username = $user['username'];
 			}
@@ -76,7 +76,7 @@ class Home EXTENDS Base{
 					$userid = $user['adminid'];
 					$username = $user['adminname'];
 				}else{
-					$user = model('stu')->where('userid',$userid)->find();
+					$user = model('stu')->where(['status'=>1,'userid'=>$userid])->find();
 					$userid = $user['userid'];
 					$username = $user['username'];
 				}				
@@ -113,7 +113,7 @@ class Home EXTENDS Base{
 				if ($role == 2) { //管理员
 					$this->redirect('index/errorLogin');
 				}else{
-					$user = model('stu')->where('userid',$userid)->find();
+					$user = model('stu')->where(['status'=>1,'userid'=>$userid])->find();
 					$userid = $user['userid'];
 					$username = $user['username'];
 				}				

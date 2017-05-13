@@ -14,7 +14,7 @@
   <?php extract($info); ?>
 	<div id="main_left" style="background-color:#F8FCFF;">   
     <h1 style="">{$title}</h1>
-    <div class="news_info">发布：{$updatetime|date="Y-m-d H:i:s",###}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击：{$hits}</div>
+    <div class="news_info">发布：{$updatetime|date="Y-m-d H:i:s",###}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{if $categoryid != 1}作者：{$stu['username']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{elseif !empty($author)}作者：{$author}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/if}点击：{$hits}</div>
     <div class=" dotted_line" style="margin:0px 15px"></div>
     <div class="news_content" id="content">
 			{$content}
@@ -34,7 +34,7 @@
       <ul class="con_small_list">
       	{foreach $hit as $k=>$t}
 					<li class="maxlength">
-						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank">{$t['title']}</a>
+						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}">{$t['title']}</a>
 					</li>
 		    {/foreach}		
       </ul>

@@ -46,7 +46,7 @@
 	    {if !empty($news)}
 	    {foreach $news as $k=>$t}
 			<li>
-				<a href="{:url('index/detail',['id'=>$t['articleid']])}" target="_blank">{$t['title']}</a>&nbsp;
+				<a href="{:url('index/detail',['id'=>$t['articleid']])}">{$t['title']}</a>&nbsp;
 				{if $t['img']}<font><i class="icon-picture blue"></i></font>{/if}
 				<span>{$t['updatetime']|date="Y-m-d",###}</span>
 			</li>
@@ -57,8 +57,8 @@
     <div style=" text-align: center">
       <div class="comment_pager">
       	{if !empty($news)}
-		      <label class="col-md-1 col-md-offset-3 num">共{$num}条记录</label>
-		      <div class="col-md-7" style="height:60px;padding:0px;left:15px;">{$news->render()}</div>
+		      <label class="col-md-2 col-md-offset-3 num">共{$num}条记录</label>
+		      <div class="col-md-6" style="height:60px;padding:0px;left:15px;">{$news->render()}</div>
 		    {else}
 		      <div class="col-md-11" style="height:60px;padding:0px"></div>
 		    {/if}
@@ -76,7 +76,7 @@
 			<ul class="ranking">
 				{foreach $hits as $k=>$t}
 					<li class="maxlength">
-						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}" target="_blank">{$t['title']}</a>
+						<a href="{:url('index/detail',['id'=>$t['articleid']])}" title="{$t['title']}">{$t['title']}</a>
 					</li>
 		    {/foreach}				    
 			</ul>

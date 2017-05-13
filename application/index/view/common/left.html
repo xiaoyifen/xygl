@@ -7,13 +7,13 @@
   </ul>
   <h4 class="exam_user_exam">个人信息</h4>
   <ul>                    
-    <li><a class='Nsb_l_list_now' href="{:url('stu/changeSelf',['userid'=>1])}">修改个人信息</a></li>
-    <li><a class='Nsb_l_list_now' href="{:url('stu/changePwd')}">修改密码</a></li>
+    <li><a class='Nsb_l_list_now' href="{:url('stu/changeSelf',['userid'=>$userid])}">修改个人信息</a></li>
+    <li><a class='Nsb_l_list_now' href="{:url('stu/changePwd',['userid'=>$userid])}">修改密码</a></li>
   </ul>        
   <h4 class="exam_user_exam">活动信息</h4>
   <ul>                    
-    <li><a href="{:url('activity/hasJoinAct',['applicantid'=>1])}">已报名活动</a></li>
-    <li><a href="{:url('activity/hasSetupAct',['userid'=>1])}">已发起活动</a></li>
+    <li><a href="{:url('activity/hasJoinAct',['applicantid'=>$userid])}">已报名活动</a></li>
+    <li><a href="{:url('activity/hasSetupAct',['userid'=>$userid])}">已发起活动</a></li>
   </ul>
   <h4 class="exam_user_exam">招聘资料</h4>
   <ul>                    

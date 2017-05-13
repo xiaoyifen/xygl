@@ -1,0 +1,80 @@
+<!-- 审核列表页 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-table.css">
+
+<div class="panel-body" style="padding-bottom:0px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <form id="formSearch" class="form-horizontal" role="form" action="{:url('news/check')}" method="get">
+                <div class="form-group" style="margin-top:15px">
+                    <label class="control-label col-sm-1" for="txt_search_departmentname">查询</label>
+                    <div class="col-sm-4">
+                        <input name="kw" type="text" class="form-control" value="" style="width: 250px;"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-control" name="search" style="width: 120px;">
+                            <option value="1">标题</option>
+                            <option value="2">作者</option>
+                            <option value="3">摘要</option>
+                            <option value="4">文章内容</option>
+                            <option value="5">审核状态</option>
+                            <option value="6">类别</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4" style="text-align:left;">
+                        <button type="submit" class="btn button-pill" style="margin-left:350px;" id="btn_query"  >查询</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12">
+    <div class="table-responsive">
+        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>入学年份</th>
+                    <th>就读专业</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {if !empty($items)}
+                {foreach $items as $k=>$t}
+                  <tr>
+                    <td>{$t['userid']}</td>
+                    <td>{$t['username']}</td>
+                    <td>{$t['enrollmentdate']}</td>
+                    <td>{$t['major']}</td>
+                    {if $t['createtime']}
+                    <td>{$t['createtime']|date="Y-m-d",###}</td>
+                    {else}
+                    <td></td>
+                    {/if}
+                    <td>
+                        <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                            <!-- 审核 -->
+                            <a class="blue" href="{:url('stu/audit')}?id={$t['userid']}" title="审核">
+                                <i class="icon-check bigger-140"></i>
+                            </a>
+                        </div>
+                    </td>
+                  </tr>
+                {/foreach}
+                {/if}
+            </tbody>
+        </table>
+    </div>
+    {if !empty($items)}
+    <div id="page">{$items->render()}</div>
+    {/if}
+</div>  
+
+

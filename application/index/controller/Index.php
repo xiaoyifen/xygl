@@ -39,12 +39,12 @@ class Index extends Home
 
         $map['categoryid'] = '2';
         $map['status'] = '1';
-        $items = $this->model->where($map)->order('updatetime desc')->limit(10)->select();
+        $items = $this->model->where($map)->order('updatetime desc')->limit(12)->select();
         $this->view->items_employment = $items;
 
         $map['categoryid'] = '3';
         $map['status'] = '1';
-        $items = $this->model->where($map)->order('updatetime desc')->limit(10)->select();
+        $items = $this->model->where($map)->order('updatetime desc')->limit(12)->select();
         $this->view->items_info = $items;
 
         $map['categoryid'] = '1';
@@ -52,10 +52,10 @@ class Index extends Home
         $items = $this->model->where($map)->order('updatetime desc')->limit(3)->select();
         $this->view->items_pic = $items;
 
-        $items = model('activity')->order('updatetime desc')->limit(15)->select();
+        $items = model('activity')->where('status',1)->order('updatetime desc')->limit(14)->select();
         $this->view->items_activity = $items;
 
-        $items = model('topic')->with('stu')->order('hits desc')->limit(15)->select();
+        $items = model('topic')->with('stu')->order('hits desc')->limit(11)->select();
         $this->view->items_topic = $items;
 
         return $this->fetch();
@@ -66,7 +66,7 @@ class Index extends Home
         $this->check_login();
         $map['menuid'] = '1';
         $map['categoryid'] = '1';
-        $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
+        $news = $this->model->where($map)->order('updatetime desc')->paginate(10);
         $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
@@ -75,8 +75,9 @@ class Index extends Home
         $this->view->num = $num;
         $this->view->news = $news;
         $this->view->hits = $hits;
-        $this->view->category = '新闻专区';
+        $this->view->category = '校友新闻';
         $this->view->categoryid = '1';
+        $this->view->title = '校友新闻';
         return $this->fetch();
     }
 
@@ -85,7 +86,7 @@ class Index extends Home
         $this->check_login();
         $map['status'] = '1';
         $map['categoryid'] = '3';
-        $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
+        $news = $this->model->where($map)->order('updatetime desc')->paginate(10);
         $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
@@ -94,8 +95,9 @@ class Index extends Home
         $this->view->num = $num;
         $this->view->news = $news;
         $this->view->hits = $hits;
-        $this->view->category = '资料专区';
+        $this->view->category = '学习共享';
         $this->view->categoryid = '3';
+        $this->view->title = '学习共享';
         return $this->fetch('news');
     }
 
@@ -104,7 +106,7 @@ class Index extends Home
         $this->check_login();
         $map['status'] = '1';
         $map['categoryid'] = '2';
-        $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
+        $news = $this->model->where($map)->order('updatetime desc')->paginate(10);
         $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
@@ -113,8 +115,9 @@ class Index extends Home
         $this->view->num = $num;
         $this->view->news = $news;
         $this->view->hits = $hits;
-        $this->view->category = '招聘专区';
+        $this->view->category = '校友招聘';
         $this->view->categoryid = '2';
+        $this->view->title = '校友招聘';
         return $this->fetch('news');
     }
 
@@ -123,7 +126,7 @@ class Index extends Home
         $this->check_login();
         $map['menuid'] = '2';
         $map['categoryid'] = '1';
-        $news = $this->model->where($map)->order('updatetime desc')->paginate(2);
+        $news = $this->model->where($map)->order('updatetime desc')->paginate(10);
         $news = $this->img($news);
         $num = $this->model->where($map)->count();
         $hits = $this->model->where($map)->order('hits desc')->limit(9)->select();
@@ -134,6 +137,7 @@ class Index extends Home
         $this->view->hits = $hits;
         $this->view->category = '校友捐赠';
         $this->view->categoryid = '1';
+        $this->view->title = '校友捐赠';
         return $this->fetch();
     }
 
@@ -142,11 +146,12 @@ class Index extends Home
         $this->check_login();
         // 点击量+1
         $this->model->where(['articleid'=>$id])->setInc('hits');
-        $item = $this->model->where(['articleid'=>$id])->find() or $this->error('数据不存在...');
+        $item = $this->model->with('stu')->where(['articleid'=>$id])->find() or $this->error('数据不存在...');
         $info = $item->toArray($item);
-        $hit = $this->model->order('hits desc')->limit(9)->select();
+        $hit = $this->model->where(['status'=>1])->order('hits desc')->limit(9)->select();
         $this->view->hit = $hit;
         $this->view->info = $info;
+        $this->view->title = $info['title'];
         return $this->fetch();
     }
 
@@ -189,6 +194,32 @@ class Index extends Home
                 $filein = $info->getInfo();
                 $file_info['filename'] = $filein['name'];//获取原文件名
                 $file_info['filepath'] = $info->getSaveName();//获取文件路径
+                return $file_info;
+            } else {
+                // 上传失败获取错误信息
+                $this->error($file->getError());
+            }
+        }      
+    }
+
+    // 上传图片
+    public function upload_img(){
+        // 获取表单上传图片
+        $file = request()->file('image');
+        // 判断是否有上传图片
+        if (!empty($file)) {
+            // 上传图片验证
+            $result = $this->validate(['image' => $file],'Article');
+            if(true !== $result){
+                // 验证失败 输出错误信息
+                $this->error($result);
+            }
+            // 移动到目录/static/uploads/ 目录下
+            $info = $file->move(ROOT_PATH . 'static' . DS . 'uploads');
+            if ($info) {
+                $filein = $info->getInfo();
+                $file_info['imagename'] = $filein['name'];//获取原图片名
+                $file_info['imagepath'] = $info->getSaveName();//获取图片路径
                 return $file_info;
             } else {
                 // 上传失败获取错误信息

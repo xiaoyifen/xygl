@@ -61,15 +61,15 @@ $(function(){
     $.ajax({
       data: formData,
       type: "POST",
-      url: "{:url('news/upload_img')}",
+      url: "{:url('index/upload_img')}",
       cache: false,
       contentType: false,
       processData: false,
       success: function(data) {
-        $('#editor').summernote('editor.insertImage','__STATIC__/uploads/' + data.imagepath);
+        $('#editor1').summernote('editor.insertImage','__STATIC__/uploads/' + data.imagepath);
       },
       error: function() {
-        alert("上传文件失败！");
+        alert("上传图片失败！");
       }
     });
   }  
@@ -87,7 +87,7 @@ $(function(){
           $("#title1").html(" ");  
       }  
   });
-//最大活动人数
+//标题
   $("#number").blur(function() {
     if ($(this).val() == "" ) {  
           $("#number1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：最大活动人数必须填写！");  
@@ -137,6 +137,16 @@ $(function(){
           $("#contact1").html(" ");  
       }  
   });
+  // 活动截止时间
+  $("#deadline").blur(function() {
+    if ($(this).val() == "" ) {  
+          $("#deadline1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：活动截止时间必须填写！");  
+          $(this).focus();  
+      }  
+      else{  
+          $("#deadline1").html(" ");  
+      }  
+  });
   
   // 表单验证
   $("#formtips").submit(function(){   
@@ -170,8 +180,13 @@ $(function(){
       $("#contact1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写活动联系人！"); 
       $("#contact").focus();
     }
+    // 活动截止时间不为空
+    if ($("#deadline").val() == "") {
+      $("#deadline1").html("<i class=\"icon-remove-sign bigger-120 red\"></i>&nbsp;&nbsp;提示：请填写活动截止时间！"); 
+      $("#deadline").focus();
+    }
     // 验证为空，禁止提交
-    if ($("#type").val() == "" || $("#title").val() == "" || $("#number").val() == "" ||$("#activitytime").val() == "" || $("#activityendtime").val() == "" || $("#contact").val() == "" || $("#editor1").val() == "") {
+    if ($("#type").val() == "" || $("#title").val() == "" || $("#number").val() == "" ||$("#activitytime").val() == "" || $("#activityendtime").val() == "" || $("#contact").val() == "" || $("#editor1").val() == "" || $("deadline").val() == "") {
       return false;
     } 
   });
@@ -182,6 +197,7 @@ $(function(){
     <div style="font-size: 16px; color: #2e6da4">&nbsp;<i class="icon-th-large blue bigger-130"></i><b style="color: inherit;">&nbsp;&nbsp;发布活动</b></div>    
   </div>
 <form role="form" method="post" action="{:url('activity/setupact')}" enctype="multipart/form-data" id="formtips" class="form-horizontal">
+  <input name="userid" type="text"  class="form-control" value="{$userid}" id="userid" />
   <ul>
       <div class="form-group">
         <label class="col-sm-2 control-label">活动类型<b class="lab">*</b>：</label>
@@ -251,11 +267,11 @@ $(function(){
       <div class="col-sm-6 cen" id="contact1"></div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">活动截止报名时间<b></b>：</label>
+      <label class="col-sm-2 control-label">活动截止报名时间<b class="lab">*</b>：</label>
       <div class="col-sm-4">
         <input name="deadline" type="text"  class="form-control" value="" id="deadline" />
       </div>
-      <div class="col-sm-6"></div>
+      <div class="col-sm-6" id="deadline1"></div>
     </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">&nbsp;</label>

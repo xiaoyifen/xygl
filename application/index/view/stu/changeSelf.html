@@ -1,4 +1,3 @@
-
 {layout name="layoutself" /}
 <link rel="stylesheet" href="__STATIC__/css/self.css" type="text/css"  />
 <script type="text/javascript">
@@ -149,12 +148,12 @@ $(function(){
  </script>
 <div id="body" class="container">
 <div class="Nsb_layout_r">
-	<div class="Nsb_r_title"><a href="">个人中心</a> » 留言信息 » 已收留言</div>
+	<div class="Nsb_r_title"><a href="">个人中心</a> » 个人信息 » 修改个人信息</div>
 	<!-- 修改个人信息 -->
 	<div class="row clearfix">
 	<div class="col-md-12 column">
 	<br>
-	<form class="form-horizontal" method="post" action="{:url('stu/modifyInfo',['userid'=>1])}" id="formtips">
+	<form class="form-horizontal" method="post" action="{:url('stu/modifyInfo',['userid'=>$userid])}" id="formtips">
 	{if !empty($list)}
 		<div class="Nsb_r_title">
 			<label>*基本信息-------------------------------------------</label>
@@ -163,7 +162,7 @@ $(function(){
 				<div class="form-group">
 					 <label class="col-sm-2 control-label">学号</label>
 					<div class="col-sm-10">
-						<input type="text" name="studentid" class="form-control self_form_control" id="disabledInput" value="{$list['studentid']}" disabled />
+						<input type="text" name="studentid" class="form-control self_form_control" id="disabledInput" value="{$list['studentid']}" readonly />
 					</div>
 				</div>
 				<div class="form-group">
@@ -176,8 +175,8 @@ $(function(){
 				<div class="form-group">
 					<label class="col-sm-2 control-label">性别</label>
 					<div class="col-sm-10">
-					<input type="radio" value="0">男
-					<input type="radio" value="1">女
+					<input type="radio" value="0" name="sex" {if $list['sex'] == 0}checked{/if}>男
+					<input type="radio" value="1" name="sex" {if $list['sex'] == 1}checked{/if}>女
 					</div>
 				</div>
 				<div class="form-group">
@@ -265,22 +264,22 @@ $(function(){
 				<div class="form-group" >
 					<label class="col-sm-2 control-label">毕业去向</label>
 					<div class="col-sm-10">
-					<select class="form-control self_form_control">
-						<option >就业</option>
-						<option>继续深造</option>
-						<option>创业</option>
+					<select class="form-control self_form_control" name="direction">
+						<option value="1" {if $list['direction'] == '1'}selected{/if}>就业</option>
+						<option value="2" {if $list['direction'] == '2'}selected{/if}>继续深造</option>
+						<option value="3" {if $list['direction'] == '3'}selected{/if}>创业</option>
 					</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">就业方向</label>
 					<div class="col-sm-10">
-					<select class="form-control self_form_control" >
-						<option>IT</option>
-						<option>管理类</option>
-						<option>营销类</option>
-						<option>工程类</option>
-						<option>金融</option>
+					<select class="form-control self_form_control" name="employment" >
+						<option value="1" {if $list['employment'] == '1'}selected{/if}>IT</option>
+						<option value="2" {if $list['employment'] == '2'}selected{/if}>管理类</option>
+						<option value="3" {if $list['employment'] == '3'}selected{/if}>营销类</option>
+						<option value="4" {if $list['employment'] == '4'}selected{/if}>工程类</option>
+						<option value="5" {if $list['employment'] == '5'}selected{/if}>金融</option>
 					</select>
 					</div>
 				</div>

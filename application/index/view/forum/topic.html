@@ -64,7 +64,7 @@ b {
 <div id="body">
 	<!--发布新帖及回复按钮 -->
 	<div class="bbs_post_reply_bar">
-	  <a href="{:url('forum/add')}" target="_blank"><button class="unit_post">发布新帖</button></a>
+	  <a href="{:url('forum/add')}"><button class="unit_post">发布新帖</button></a>
 	</div>
 	<!--//发布新帖及回复按钮 -->
 
@@ -79,7 +79,7 @@ b {
 	      <td valign="top" class="unit_left_bg" rowspan="2">
 	        <div class="left_user_face">
 	          <span class="blue"><i class="icon-user bigger-130"></i></span>&nbsp;&nbsp;
-	          <a href="http://zuaa.zju.edu.cn/user_home?id=24180" class="commentor" target="_blank">{$stu['username']}</a>
+	          <a href="{:url('stu/findActLeader',['userid'=>$stu['userid']])}" class="commentor">{$stu['username']}</a>
 	        </div>
 	        <div class="left_user_info">
 	          年级&nbsp;{$stu['enrollmentdate']}级<br>
@@ -131,7 +131,7 @@ b {
             <td valign="top" class="unit_left_bg" rowspan="2">
               <div class="left_user_face">
                 <span class="blue"><i class="icon-user bigger-130"></i></span>&nbsp;&nbsp;
-                <a href="http://zuaa.zju.edu.cn/user_home?id=32478" class="commentor" id="comment_author_143691" target="_blank">{$t['stu']['username']}</a><br>
+                <a href="{:url('stu/findActLeader',['userid'=>$t['stu']['userid']])}" class="commentor" id="comment_author_143691">{$t['stu']['username']}</a><br>
               </div>
               <div class="left_user_info">
               	年级&nbsp;{$t['stu']['enrollmentdate']}级<br>

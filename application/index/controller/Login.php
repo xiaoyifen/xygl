@@ -12,29 +12,6 @@ class Login extends Home
 		parent::__construct();
 	}
 
-    // 登录
-    public function index(){
-        if(request()->isPost()){
-            $post = $this->GET;
-            $post['studentid'] or $this->error('请填写学号');
-            $post['password'] or $this->error('请填写密码');
-            $user = model('stu')->where('studentid',$post['studentid'])->find();
-            if(!$user || $user['password'] != $post['password']){
-                $this->error('帐号或密码不正确');
-            }
-            $auth = encrypt($user['userid'].'|'.$user['password'], 'USER'.$_SERVER['HTTP_USER_AGENT']);
-            // var_dump($user['id'].'|'.$user['password'], 'USER'.$_SERVER['HTTP_USER_AGENT']);
-            // echo decrypt($auth,'USER'.$_SERVER['HTTP_USER_AGENT']);
-            // exit;
-            // $auth = $user['id'];
-            cookie('member_auth', $auth, 86400*365);
-            session('name', $auth);
-            $this->redirect('index/index');
-            exit;
-        }
-        // return $this->fetch();
-    }
-
     // 验证码检测
     public function check($code=''){
         if (!captcha_check($code)) {
@@ -59,7 +36,7 @@ class Login extends Home
                     return $flag;
                 }
             }elseif ($post['role'] == 1) {
-                $user = model('stu')->where('studentid',$post['studentid'])->find();
+                $user = model('stu')->where(['status'=>1,'studentid'=>$post['studentid']])->find();
                 $userid = $user['userid'];
                 if(!$user || $user['password'] != $post['password']){
                     $flag = 0;                   
@@ -89,6 +66,23 @@ class Login extends Home
         session('member_auth', null);
         cookie('member_info', null);
         $this->redirect('index/index');
+    }
+
+    // 注册
+    public function sign(){
+        if(request()->isPost()){
+            $post = $this->GET;
+            $post['status'] = 0;
+            $post['graduationdate'] = $post['enrollmentdate'] + 4;
+            $user = model('stu');
+            $result = $user->allowField(true)->save($post);
+            if(!$result){
+                $this->error($user->getError());
+            }
+            $this->success('注册成功，待审核...','index/index');
+            exit;
+        }
+        return $this->fetch();
     }
 
 }

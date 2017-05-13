@@ -1,0 +1,99 @@
+<!-- 审核界面 -->
+{layout name="layout" /}
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<link rel="stylesheet" href="__STATIC__/css/admin-form.css">
+<style type="text/css">
+.cen {
+  margin-top: 35px;
+}
+.table>tbody>tr>.border-white {
+  border-top: 1px solid white;
+}
+</style>
+<script type="text/javascript">
+(function($){ //定义匿名函数并设置形参为$
+$(function(){ //匿名函数内部的$均为jQuery
+  // 验证校友身份
+  $('#prove').on('click', function(e){
+    var Data = $('#id').val();
+    $.ajax({
+      data: { id:Data },
+      type: "POST",
+      url: "{:url('stu/prove')}?id="+Data,
+      cache: false,
+      contentType: false,
+      success: function(data) {
+        if (data.res) {
+          if (data.send != "") {
+            $('#stu').html( "<i class=\"icon-info-sign bigger-120 red\"></i>&nbsp;&nbsp;" + data.studentname + "确为本校校友，其学号为" + data.studentid + ",但邮箱错误，注册成功邮件未发出！");
+          }else{
+            $('#stu').html( "<i class=\"icon-info-sign bigger-120 red\"></i>&nbsp;&nbsp;" + data.studentname + "确为本校校友，其学号为" + data.studentid + ",且注册成功邮件已发出！");
+          }
+        }else{
+          if (data.send != "") {
+            $('#stu').html( "<i class=\"icon-info-sign bigger-120 red\"></i>&nbsp;&nbsp;很抱歉，暂时没有该校友的档案数据,且邮箱错误，邮件未发出！");
+          }else{
+            $('#stu').html( "<i class=\"icon-info-sign bigger-120 red\"></i>&nbsp;&nbsp;很抱歉，暂时没有该校友的档案数据,且拒绝注册邮件已发出！");
+          }          
+        }        
+      },
+      error: function() {
+        alert("验证身份失败！");
+      }
+    });
+  });
+});
+})(jQuery); 
+</script>
+
+<div class="panel-body" style="padding-bottom:0px;">
+  <div class="panel panel-default">
+    <div class="panel-heading">审核信息</div>
+    <div class="panel-body body">
+      <?php extract($info); ?>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="border-white">姓名：</td>
+            <td class="border-white">{$username}</td>
+            <td class="border-white">性别：</td>
+            <td class="border-white">{$sex}</td>
+          </tr>
+          <tr>
+            <td>籍贯：</td>
+            <td>{$hometown}</td>
+            <td>入学年份：</td>
+            <td>{$enrollmentdate}</td>
+          </tr>
+          <tr>
+            <td>就读院系：</td>
+            <td>{$department}</td>
+            <td>就读专业：</td>
+            <td>{$major}</td>
+          </tr>
+          <tr>
+            <td>邮箱：</td>
+            <td>{$email}</td>
+            <td>手机号码：</td>
+            <td>{$cellphone}</td>
+          </tr>
+          <tr>
+            <td>所在城市：</td>
+            <td>{$address}</td>
+            <td>所属行业：</td>
+            <td>{$employment}</td>
+          </tr>
+          <tr>
+            <td>单位名称：</td>
+            <td>{$workplace}</td>
+            <td>职务：</td>
+            <td>{$workpost}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-sm-5" id="stu"></div>
+      <div class="col-sm-offset-5 col-sm-2" style="margin-bottom: 30px;"><button class="btn btn-info" id="prove">验证校友身份</button></div>
+      <input type="hidden" name="id" id="id" value="{$userid}">
+    </div>
+  </div>
+</div>

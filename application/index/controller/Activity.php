@@ -12,6 +12,7 @@
   	//构造方法
   	function __construct(){
   		parent::__construct();
+  		$this->view->title = '校友活动';
 //  		$activity=new Activity;//实例化Activity模型
   		//$activity=model('activity');
   	}
@@ -20,18 +21,21 @@
   	 * 渲染活动主页面
   	 */
   	 public function event(){
+  	 	$this->check_login();
   	 	return $this->fetch();
   	 }
   	 /*
   	  * 活动报名页面
   	  */
   	 public function setup(){
+  	 	$this->check_login();
   	 	return $this->fetch('setupAct');
   	 }
   	 /*
   	  * 活动详情页面
   	  */
   	  public function actDetail(){
+  	  	$this->check_login();
   	 	return $this->fetch('event1');
   	 }
   	 /*
@@ -73,6 +77,9 @@
   	  * 渲染我要发起活动的方法
   	  */
   	  public function promotionAct(){
+  	  	$this->check_login();
+  	  	//判断用户是否登录
+  	  	$this->check_login_user();
   	 	return $this->fetch('setupAct');
   	 }
   	 /*
@@ -81,6 +88,7 @@
   	 * 2.将参数保存到数据库对应的活动表中，此时的审核状态为0表示未审核
   	 */
   	public function setupact(){
+  		$this->check_login();
   		if(IS_POST){
   			$actParam=$this->GET;
   			//$actParam=[];
@@ -90,7 +98,7 @@
 	  		//$actParam['plannerid']=Session::get('studentid');
 	  		//获取表单参数
 	  		//测试，plannerid直接给值
-	  		$actParam['userid']=1;
+//	  		$actParam['userid']=1;
 //	  		$actParam['type']=$request->post('type');
 //	  		$actParam['title']=$request->post('title');
 //	  		$actParam['activitytime']=$request->post('activitytime');
@@ -170,20 +178,41 @@
  	}
  		return false;
   	 }
+  	 /*
+  	  * 点开导航栏上的校友活动执行的方法
+  	  */
+  	  public function allAct(){
+  	  	$this->check_login();
+  	  	$activity=model('activity');
+  	  	$list=$activity->where('status',1)->order('activitytime','desc')->paginate(10);
+  	 	if($list){
+  		  	foreach($list as $k=>$v){
+			//调用updateAct方法计算当下活动的剩余时间
+  			$list[$k]['remainday']=$this->updateAct($v->activitytime,$v->activityendtime); 				
+  		}
+  		$this->assign('list',$list);
+  		return $this->fetch('event');
+  	  }
+  	  }
   	/*
   	 * 根据活动类别查询获得的方法，默认是全部活动
   	 */
   	public function findActByType(){
+  		$this->check_login();
   		//获取用户选择的活动类别
-  		$type['type']=$this->GET;
+  		$type=$this->GET;
+//  		var_dump($type);
+//  		exit;
   		//数据库中通过审核的活动，即status为1
   		$type['status']=1;
   		//活动时间不超过系统当前时间 
   		$sysTime=time();
   		$activity=model('activity');
+  		$query['type'] = $type['type'];
   		//$activity=new Activity();
   		if($type['type'] == '全部活动'){
-  			$list=$activity->where('status',$type['status'])->order('deadline',' desc')->paginate(2);
+  			
+  			$list=$activity->where('status',$type['status'])->order('activitytime',' desc')->paginate(10,false,['query'=>$query]);
   			if($list){
   		  		foreach($list as $k=>$v){
 				//调用updateAct方法计算当下活动的剩余时间
@@ -195,7 +224,7 @@
   			return $this->fetch('event');
   		}
   		}else{
-  			$list=$activity->where('status',$type['status'])->paginate(2);
+  			$list=$activity->where(['type'=>$type['type'],'status'=>$type['status']])->order('activitytime',' desc')->paginate(10,false,['query'=>$query]);
   			if($list){
   		  		foreach($list as $k=>$v){
 				//调用updateAct方法计算当下活动的剩余时间
@@ -213,6 +242,7 @@
   	 */
   	 //7天后
   	 public function findActBySeven(){
+  	 	$this->check_login();
   	 	$activity=model('activity');
   	 	//获取当前系统日期对应的7天后的时间
   	 	$time=strtotime('7 days');
@@ -229,8 +259,11 @@
   	 } 
   	 //今天
   	 public function findActBytoday(){
+  	 	$this->check_login();
   	 	$activity=model('activity');
   	 	$list=$activity->whereTime('activitytime','d')->where('status',1)->paginate(10);
+//  	 	var_dump($list);
+//  	 	exit;
   	 	if($list){
   	 		foreach($list as $k=>$v){
   				$list[$k]['remainday']=$this->updateAct($v->activitytime,$v->activityendtime);
@@ -247,6 +280,7 @@
   	  * 查询出在周末举行的活动
   	  */
   	 public function findActByWeeken(){
+  	 	$this->check_login();
   	 	$activity=model('activity');
   	 	//首先查询出所有活动的的时间
   	 	$list=$activity->where('weekday','in',['saturday','sunday'])->paginate(10);
@@ -266,16 +300,18 @@
   	  * 点击活动标题的链接时根据传递过来的活动ID查询获得详情
   	  */
   	  public function findActDetail($activityid){
-        $this->check_login();
+  	  		$this->check_login();
   	  		$param=$this->GET;
   	  		//获取活动详细信息
   	  		$activity=model('activity');
   	  		$list=$activity->with('stus')->where(['activityid'=>$param['activityid']])->find();
-//			var_dump($list);
+//			var_dump($list->stus->userid);
 //			exit;
 			//获取该活动已报名的人员名单
 			$registration=model('registration');
 			$registerlist=$registration->with('registeToStu')->where(['activityid'=>$param['activityid']])->select();
+//			var_dump(registe_to_stu['username']);
+//			exit;
 //			var_dump($registerlist);
 //			exit;
 //  	  		if(empty($registerlist)){
@@ -296,45 +332,31 @@
   		    	return $this->fetch('event1');
   	  }
   	  /*
-  	   * 查找活动发起人信息
-  	   */
-  	   public function findActLeader($userid){
-  	   	//获取URL传递的参数
-  	   	$leaderParam=$this->GET;
-//  	   	echo $leaderParam['userid'].'<br>';
-  	   	//实例化Stu模型
-  	   	$stu=model('stu');
-  	   	//查找
-  	   	$list=$stu->where(['userid'=>$leaderParam['userid']])->find();
-//  	   	echo $list;
-//  	   	exit;
-  	   	if($list){
-  	   		$this->assign('list',$list);
-  	   		return $this->fetch();
-  	   	}else{
-  	   		$this->error('系统没有该发起人信息','event');
-  	   	}
-  	   }
-  	  /*
  	 * 活动报名的方法
  	 */
  	 public function joinActivity(){
+ 	 	$this->check_login();
+ 	 	$this->check_login_user();
  	 	//判断用户是否登录
- 	 	if(IS_POST){
  	 		//获取参数
- 	 		//$joinParam=$this->GET;
- 	 		$joinParam['activityid']=20;
- 	 		$joinParam['applicantid']=1;
- 	 		//报名时间
- 	 		$joinParam['registrationtime']=time();
+ 	 		$joinParam=$this->GET;
+// 	 		$joinParam['activityid']=20;
+// 	 		$joinParam['applicantid']=1;
  	 		//实例化模型Registration
  	 		$registration=model('registration');
  	 		$activity=model('activity');
- 	 		$result=$registration->save($joinParam);
+ 	 		//报名时间
+ 	 		$registration->registrationtime=time();
+ 	 		//报名者ID
+ 	 		$registration->applicantid=$joinParam['userid'];
+ 	 		//报名的活动id
+ 	 		$registration->activityid=$joinParam['activityid'];
+ 	 		$result=$registration->save();
  	 		if($result !=0){
  	 			//查询出现已报名的人数
  	 			$list=$activity->where(['activityid'=>$joinParam['activityid']])->find();
  	 			$number=$list['registerNumber']+1;
+ 	 			$updateResult1=$registration->save();
  	 			//更新活动表activity,报名人数registerNumber字段加1
  	 			$updateResult=$activity->where(['activityid'=>$joinParam['activityid']])->update(['registerNumber'=>$number]);
  	 			//$updateResult=$registration->with('registeToAct')->save(['registerNumber'=>registerNumber+1]);
@@ -347,7 +369,6 @@
  	 			$this->error('很抱歉报名失败!');
  	 		}
  	 		
- 	 	}
  	 	
  	 }
  	 
@@ -355,6 +376,7 @@
  	 * 个人中心：查找本账户已报名的活动
  	 */
  	 public function hasJoinAct($applicantid){
+ 	 	$this->check_login();
  	 	//首先获取本账户的账号
  	 	$applicantid=$this->GET;
  	 	//var_dump($applicantid);
@@ -366,19 +388,20 @@
   	  	$activities=$registration->with(['registeToAct.stus'])->where(['applicantid'=>$applicantid['applicantid']])->select();
 		//var_dump($activities);
 // 	 	exit;
- 	 	if($activities){
- 	 		$this->assign('activities',$activities);
- 	 		return $this->fetch('signupAct');
- 	 	}
+ 	 	
+ 		$this->assign('activities',$activities);
+ 		return $this->fetch('signupAct');
+ 	 	
  	 }
  	 /*
  	  * 个人中心：查找已发起的活动
  	  */
  	  public function hasSetupAct(){
+ 	  	$this->check_login();
  	  	//首先获取本账户的账号
  	 	$param=$this->GET;
  	 	$activity=model('activity');
- 	 	$list=$activity->where('userid',$param['userid'])->paginate(20);
+ 	 	$list=$activity->where('userid',$param['userid'])->paginate(10);
 // 	 	var_dump($list);
 // 	 	exit;
  	 	if($list){
@@ -388,5 +411,20 @@
  	 		$this->error('很抱歉，您还没有发起活动');
  	 	}
  	  }
+
+    // 审核未通过原因
+  public function reason($id){
+      $map['articleid'] = $id;
+      $this->model = model('log');
+      $items = $this->model->where($map)->order('time desc')->paginate(10);
+      $this->view->location = '活动信息';
+      $this->view->locationNext = '审核未通过原因';
+      $this->view->items = $items;
+      return $this->fetch();
   }
+
+
+}
+
+  
 ?>
